@@ -1,0 +1,217 @@
+# 未決事項・確認事項スキーマ定義
+# プロジェクトごとにカスタマイズ可能
+
+schema:
+  version: "1.0"
+  name: "open_questions"
+  description: "未決事項・確認事項管理のスキーマ定義"
+  root_key: questions
+
+# フィールド定義
+fields:
+  id:
+    type: string
+    required: true
+    pattern: "^QST-[0-9]{3}$"
+    description: "質問/確認事項ID"
+    example: "QST-001"
+    auto_generate: true
+
+  created_at:
+    type: date
+    required: true
+    format: "YYYY-MM-DD"
+    auto_set: true
+    description: "作成日"
+
+  title:
+    type: string
+    required: true
+    max_length: 100
+    description: "質問タイトル"
+
+  content:
+    type: string
+    required: true
+    description: "質問・確認内容の詳細"
+
+  context:
+    type: string
+    required: false
+    description: "質問の背景・影響範囲"
+
+  category:
+    type: string
+    required: true
+    enum:
+      - "scope"       # スコープに関する確認
+      - "technical"   # 技術的な確認
+      - "process"     # プロセスに関する確認
+      - "resource"    # リソースに関する確認
+      - "security"    # セキュリティに関する確認
+      - "schedule"    # スケジュールに関する確認
+      - "other"       # その他
+    description: "質問カテゴリ"
+
+  priority:
+    type: string
+    required: true
+    enum:
+      - "High"
+      - "Medium"
+      - "Low"
+    description: "優先度（回答の緊急度）"
+
+  owner:
+    type: string
+    required: true
+    enum:
+      - "顧客"
+      - "自社"
+      - "未定"
+    description: "回答責任者"
+
+  due:
+    type: date
+    required: false
+    format: "YYYY-MM-DD"
+    description: "回答期限"
+
+  status:
+    type: string
+    required: true
+    enum:
+      - "open"      # 未回答
+      - "resolved"  # 回答済み
+      - "deferred"  # 保留
+    default: "open"
+    description: "質問状態"
+
+  resolution:
+    type: string
+    required: false
+    description: "回答内容（resolved時に記入）"
+
+  resolved_at:
+    type: date
+    required: false
+    format: "YYYY-MM-DD"
+    description: "回答日"
+
+  resolved_by:
+    type: string
+    required: false
+    description: "回答の参照元（ヒアリングファイルまたは決定ID）"
+
+  related:
+    type: object
+    required: false
+    properties:
+      requirements:
+        type: array
+        items:
+          type: string
+          pattern: "^REQ-[0-9]{3}$"
+        description: "関連要件ID"
+      decisions:
+        type: array
+        items:
+          type: string
+          pattern: "^DEC-[0-9]{3}$"
+        description: "関連決定事項ID"
+      wbs:
+        type: array
+        items:
+          type: string
+          pattern: "^P[0-9]-[0-9]{2}$"
+        description: "関連WBSタスクID"
+      issues:
+        type: array
+        items:
+          type: string
+          pattern: "^ISS-[0-9]{3}$"
+        description: "関連課題ID"
+
+  source:
+    type: object
+    required: true
+    properties:
+      type:
+        type: string
+        required: true
+        enum:
+          - "hearing"   # ヒアリング中に発生
+          - "review"    # レビュー中に発生
+          - "analysis"  # 分析中に発生
+          - "manual"    # 手動登録
+        description: "質問発生元の種別"
+      ref:
+        type: string
+        required: true
+        description: "参照元ファイル"
+
+# ID採番ルール
+id_generation:
+  format: "QST-{seq:03d}"
+  seq_scope: global
+
+# 状態遷移ルール
+state_transitions:
+  open:
+    allowed_next:
+      - "resolved"
+      - "deferred"
+  deferred:
+    allowed_next:
+      - "open"
+      - "resolved"
+  resolved:
+    allowed_next:
+      - "open"  # 再オープン（回答が不十分等）
+    required_fields:
+      - resolution
+      - resolved_at
+
+# バリデーションルール
+validation:
+  reference_integrity:
+    - field: related.requirements
+      target_file: requirements_master.md
+      target_pattern: "REQ-[0-9]{3}"
+      error_message: "関連要件{value}が存在しません"
+    - field: related.decisions
+      target_file: decisions.yaml
+      target_field: id
+      error_message: "関連決定事項{value}が存在しません"
+
+  business_rules:
+    - rule: "status == 'resolved' implies resolution is not empty"
+      error_message: "resolved状態にはresolutionの設定が必要です"
+    - rule: "status == 'resolved' implies resolved_at is not empty"
+      error_message: "resolved状態にはresolved_atの設定が必要です"
+
+# サンプルデータ
+example:
+  - id: "QST-001"
+    created_at: "2026-01-10"
+    title: "データ移行の範囲"
+    content: "過去3年分のデータを移行対象とするか、直近1年のみか"
+    context: "データ量によりスケジュールに影響、移行時間の見積もりに必要"
+    category: "scope"
+    priority: "High"
+    owner: "顧客"
+    due: "2026-01-20"
+    status: "open"
+    resolution: null
+    resolved_at: null
+    resolved_by: null
+    related:
+      requirements:
+        - "REQ-015"
+      decisions: []
+      wbs:
+        - "P3-02"
+      issues: []
+    source:
+      type: "hearing"
+      ref: "2026-01-10_kickoff.md"

@@ -1,16 +1,26 @@
 # WBS (Work Breakdown Structure)
+# スキーマ: schemas/wbs.schema.yaml
+# エージェントによる自動更新用
 
-<!-- 
-tasks:
-  - id: "P1-01"
-    phase: "提案"
-    title: "提案書ドラフト作成"
-    deliverable: "outputs/proposal_draft.md"
-    owner: "体制図に応じて決定"
-    status: "Todo / InProgress / Done / Blocked"
-    due: "2026-01-20"
-    depends_on: []
-    definition_of_done:
-      - "顧客課題/ToBe/スコープが明記されている"
-      - "decisions.md と矛盾しない"
- -->
+tasks: []
+
+# サンプル構造:
+# tasks:
+#   - id: "P1-01"                    # 必須: フェーズ+連番
+#     phase: "提案"                   # 必須: 提案/計画/設計/実装/移行/運用
+#     title: "提案書ドラフト作成"       # 必須: タスクタイトル
+#     deliverable: "outputs/proposal_draft.md"  # 任意: 成果物パス
+#     owner: "PMO"                    # 必須: 担当者
+#     status: "Todo"                  # 必須: Todo/InProgress/Done/Blocked
+#     due: "2026-01-20"               # 必須: 期限日 (YYYY-MM-DD)
+#     depends_on: []                  # 任意: 依存タスクID
+#     definition_of_done:             # 任意: 完了条件
+#       - "顧客課題/ToBe/スコープが明記されている"
+#       - "decisions.yamlと矛盾しない"
+#     related:                        # 任意: 関連ID
+#       requirements:
+#         - "REQ-001"
+#         - "REQ-002"
+#     source:                         # 任意: 作成元
+#       type: "hearing"               # hearing/decision/manual
+#       ref: "2026-01-10_kickoff.md"

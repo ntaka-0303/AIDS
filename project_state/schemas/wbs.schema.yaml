@@ -1,0 +1,155 @@
+# WBS (Work Breakdown Structure) スキーマ定義
+# プロジェクトごとにカスタマイズ可能
+
+schema:
+  version: "1.0"
+  name: "wbs"
+  description: "WBSタスク管理のスキーマ定義"
+  root_key: tasks
+
+# フィールド定義
+fields:
+  id:
+    type: string
+    required: true
+    pattern: "^P[0-9]-[0-9]{2}$"
+    description: "タスクID（フェーズ+連番）"
+    example: "P1-01"
+    auto_generate: true
+
+  phase:
+    type: string
+    required: true
+    enum:
+      - "提案"
+      - "計画"
+      - "設計"
+      - "実装"
+      - "移行"
+      - "運用"
+    description: "プロジェクトフェーズ"
+
+  title:
+    type: string
+    required: true
+    max_length: 100
+    description: "タスクタイトル"
+
+  deliverable:
+    type: string
+    required: false
+    pattern: "^outputs/.*$"
+    description: "成果物パス（outputs/配下）"
+    example: "outputs/proposal_draft.md"
+
+  owner:
+    type: string
+    required: true
+    description: "担当者"
+
+  status:
+    type: string
+    required: true
+    enum:
+      - "Todo"
+      - "InProgress"
+      - "Done"
+      - "Blocked"
+    default: "Todo"
+    description: "タスク状態"
+
+  due:
+    type: date
+    required: true
+    format: "YYYY-MM-DD"
+    description: "期限日"
+
+  depends_on:
+    type: array
+    required: false
+    items:
+      type: string
+      pattern: "^P[0-9]-[0-9]{2}$"
+    description: "依存タスクIDリスト"
+
+  definition_of_done:
+    type: array
+    required: false
+    items:
+      type: string
+    description: "完了条件リスト"
+
+  related:
+    type: object
+    required: false
+    properties:
+      requirements:
+        type: array
+        items:
+          type: string
+          pattern: "^REQ-[0-9]{3}$"
+        description: "関連要件IDリスト"
+
+# ID採番ルール
+id_generation:
+  format: "P{phase_num}-{seq:02d}"
+  phase_mapping:
+    提案: 1
+    計画: 2
+    設計: 3
+    実装: 4
+    移行: 5
+    運用: 6
+  seq_scope: per_phase
+
+# 状態遷移ルール
+state_transitions:
+  Todo:
+    allowed_next:
+      - "InProgress"
+      - "Blocked"
+  InProgress:
+    allowed_next:
+      - "Done"
+      - "Blocked"
+  Blocked:
+    allowed_next:
+      - "InProgress"
+      - "Todo"
+  Done:
+    allowed_next: []
+    final: true
+
+# バリデーションルール
+validation:
+  reference_integrity:
+    - field: depends_on
+      target_file: wbs.yaml
+      target_field: id
+      error_message: "依存先タスク{value}が存在しません"
+
+  date_consistency:
+    - rule: "depends_on.due <= this.due"
+      error_message: "依存先タスクの期限より前に期限が設定されています"
+
+  circular_reference:
+    field: depends_on
+    error_message: "循環依存が検出されました"
+
+# サンプルデータ
+example:
+  - id: "P1-01"
+    phase: "提案"
+    title: "提案書ドラフト作成"
+    deliverable: "outputs/proposal_draft.md"
+    owner: "PMO"
+    status: "Todo"
+    due: "2026-01-20"
+    depends_on: []
+    definition_of_done:
+      - "顧客課題/ToBe/スコープが明記されている"
+      - "decisions.yamlと矛盾しない"
+    related:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"

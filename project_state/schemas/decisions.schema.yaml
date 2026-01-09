@@ -1,0 +1,194 @@
+# 決定事項スキーマ定義
+# プロジェクトごとにカスタマイズ可能
+
+schema:
+  version: "1.0"
+  name: "decisions"
+  description: "決定事項管理のスキーマ定義"
+  root_key: decisions
+
+# フィールド定義
+fields:
+  id:
+    type: string
+    required: true
+    pattern: "^DEC-[0-9]{3}$"
+    description: "決定事項ID"
+    example: "DEC-001"
+    auto_generate: true
+
+  date:
+    type: date
+    required: true
+    format: "YYYY-MM-DD"
+    description: "決定日"
+
+  title:
+    type: string
+    required: true
+    max_length: 100
+    description: "決定事項タイトル"
+
+  content:
+    type: string
+    required: true
+    description: "決定内容の詳細"
+
+  rationale:
+    type: string
+    required: false
+    description: "決定理由・根拠"
+
+  category:
+    type: string
+    required: true
+    enum:
+      - "scope"       # スコープに関する決定
+      - "technical"   # 技術的な決定
+      - "process"     # プロセス・進め方の決定
+      - "resource"    # リソースに関する決定
+      - "schedule"    # スケジュールに関する決定
+      - "other"       # その他
+    description: "決定カテゴリ"
+
+  impact:
+    type: object
+    required: false
+    properties:
+      requirements:
+        type: array
+        items:
+          type: string
+          pattern: "^REQ-[0-9]{3}$"
+        description: "影響を受ける要件"
+      wbs:
+        type: array
+        items:
+          type: string
+          pattern: "^P[0-9]-[0-9]{2}$"
+        description: "影響を受けるWBSタスク"
+      risks:
+        type: array
+        items:
+          type: string
+          pattern: "^RSK-[0-9]{3}$"
+        description: "影響を受けるリスク"
+      documents:
+        type: array
+        items:
+          type: string
+        description: "影響を受けるドキュメント"
+
+  source:
+    type: object
+    required: true
+    properties:
+      type:
+        type: string
+        required: true
+        enum:
+          - "hearing"     # ヒアリングでの決定
+          - "review"      # レビューでの決定
+          - "escalation"  # エスカレーションによる決定
+          - "meeting"     # 会議での決定
+          - "email"       # メールでの決定
+        description: "決定元の種別"
+      ref:
+        type: string
+        required: true
+        description: "参照元ファイルまたは会議名"
+      attendees:
+        type: array
+        required: false
+        items:
+          type: string
+        description: "決定時の参加者"
+
+  status:
+    type: string
+    required: true
+    enum:
+      - "active"      # 有効
+      - "superseded"  # 後続の決定により上書き
+      - "revoked"     # 撤回
+    default: "active"
+    description: "決定状態"
+
+  superseded_by:
+    type: string
+    required: false
+    pattern: "^DEC-[0-9]{3}$"
+    description: "上書き元の決定ID（superseded時に設定）"
+
+  revoked_reason:
+    type: string
+    required: false
+    description: "撤回理由（revoked時に設定）"
+
+# ID採番ルール
+id_generation:
+  format: "DEC-{seq:03d}"
+  seq_scope: global
+
+# 状態遷移ルール
+state_transitions:
+  active:
+    allowed_next:
+      - "superseded"
+      - "revoked"
+  superseded:
+    allowed_next: []
+    final: true
+    required_fields:
+      - superseded_by
+  revoked:
+    allowed_next: []
+    final: true
+    required_fields:
+      - revoked_reason
+
+# バリデーションルール
+validation:
+  reference_integrity:
+    - field: impact.requirements
+      target_file: requirements_master.md
+      target_pattern: "REQ-[0-9]{3}"
+      error_message: "影響要件{value}が存在しません"
+    - field: impact.wbs
+      target_file: wbs.yaml
+      target_field: id
+      error_message: "影響WBSタスク{value}が存在しません"
+    - field: superseded_by
+      target_file: decisions.yaml
+      target_field: id
+      error_message: "上書き元決定{value}が存在しません"
+
+  business_rules:
+    - rule: "status == 'superseded' implies superseded_by is not empty"
+      error_message: "superseded状態にはsuperseded_byの設定が必要です"
+    - rule: "status == 'revoked' implies revoked_reason is not empty"
+      error_message: "revoked状態にはrevoked_reasonの設定が必要です"
+
+# サンプルデータ
+example:
+  - id: "DEC-001"
+    date: "2026-01-10"
+    title: "認証方式の決定"
+    content: "OAuth2.0 + OIDC を採用する"
+    rationale: "既存システムとの連携容易性、セキュリティ要件への適合"
+    category: "technical"
+    impact:
+      requirements:
+        - "REQ-005"
+      wbs: []
+      risks: []
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "2026-01-10_kickoff.md"
+      attendees:
+        - "顧客担当者A"
+        - "PMO"
+    status: "active"
+    superseded_by: null

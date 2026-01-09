@@ -1,0 +1,142 @@
+# Intake Skill - ヒアリングメモ抽出スキーマ
+# ヒアリングメモから抽出する情報の構造定義
+
+extraction_schema:
+  # 要件（機能要件・非機能要件）
+  requirements:
+    required_fields:
+      - id          # REQ-XXX形式
+      - type        # functional / non-functional
+      - summary     # 要件の概要（1-2文）
+    optional_fields:
+      - description # 詳細説明
+      - priority    # High / Medium / Low
+      - source      # 根拠となる発言・資料
+      - related_to  # 関連する他の要件ID
+    extraction_hints:
+      - 「〜したい」「〜が必要」「〜できること」等の表現
+      - 機能的な要求（画面、処理、連携等）
+      - 品質要求（性能、セキュリティ、可用性等）
+
+  # 決定事項 → decisions.yaml に出力
+  decisions:
+    required_fields:
+      - id          # DEC-XXX形式
+      - title       # 決定タイトル（簡潔に）
+      - content     # 決定内容の詳細
+      - date        # 決定日
+    optional_fields:
+      - rationale   # 決定の根拠・理由
+      - category    # scope / technical / process / resource
+      - alternatives # 検討した代替案
+      - impact      # 影響を受ける要件・タスク
+    extraction_hints:
+      - 「〜とする」「〜に決定」「〜で合意」等の表現
+      - スコープイン/アウトの判断
+      - 技術選定・方式の確定
+      - 体制・役割の決定
+
+  # 未決事項・確認事項 → open_questions.yaml に出力
+  questions:
+    required_fields:
+      - id          # QST-XXX形式
+      - title       # 質問タイトル（簡潔に）
+      - content     # 質問・確認事項の詳細
+    optional_fields:
+      - context     # 質問の背景
+      - category    # scope / technical / process / resource / security
+      - priority    # High / Medium / Low
+      - owner       # 回答責任者（顧客/自社/未定）
+      - due         # 回答期限
+      - related_to  # 関連する要件・決定ID
+    extraction_hints:
+      - 「要確認」「TBD」「後日決定」等の表現
+      - 質問形式の発言
+      - 「〜はどうするか」「〜は誰が」等
+      - 宿題として持ち帰った事項
+
+  # リスク
+  risks:
+    required_fields:
+      - id          # RSK-XXX形式
+      - summary     # リスク概要（1-2文）
+    optional_fields:
+      - description # 詳細説明
+      - impact      # 影響度（高/中/低）
+      - probability # 発生確率（高/中/低）
+      - early_signals # 早期兆候
+      - mitigation  # 予防策
+      - contingency # 発生時対応
+      - owner       # リスクオーナー
+    extraction_hints:
+      - 「〜の恐れ」「リスク」「懸念」等の表現
+      - 不確実性を伴う事項
+      - 外部依存・制約に関する言及
+      - スケジュール・リソースの懸念
+
+  # 課題
+  issues:
+    required_fields:
+      - id          # ISS-XXX形式
+      - summary     # 課題概要（1-2文）
+    optional_fields:
+      - description # 詳細説明
+      - priority    # High / Medium / Low
+      - impact      # 影響範囲
+      - owner       # 課題オーナー（顧客/自社）
+      - due         # 対応期限
+      - action      # 対応方針
+    extraction_hints:
+      - 顕在化した問題
+      - 「困っている」「対応が必要」等の表現
+      - ブロッカーとなっている事項
+      - 既に影響が出ている事項
+
+  # プロジェクト基本情報
+  charter:
+    fields:
+      - project_name    # プロジェクト名
+      - client_name     # 顧客名
+      - purpose         # プロジェクト目的
+      - scope           # スコープ概要
+      - out_of_scope    # スコープ外
+      - timeline        # スケジュール概要
+      - budget          # 予算概要
+      - team            # 体制（顧客側/自社側）
+      - success_criteria # 成功基準
+      - constraints     # 制約条件
+      - assumptions     # 前提条件
+    extraction_hints:
+      - プロジェクト概要に関する情報
+      - 体制図・役割に関する情報
+      - スケジュールのマイルストーン
+      - 予算・工数に関する情報
+
+# 抽出時の判断基準
+extraction_guidelines:
+  # 優先度判断
+  priority_criteria:
+    High: "業務に直接影響、代替手段なし、期限切迫"
+    Medium: "業務に影響あるが代替可能、期限に余裕あり"
+    Low: "影響限定的、nice-to-have"
+
+  # 影響度判断（リスク用）
+  impact_criteria:
+    高: "プロジェクト全体に影響、スケジュール/コスト大幅超過の可能性"
+    中: "一部工程に影響、リカバリー可能"
+    低: "影響限定的、軽微な調整で対応可能"
+
+  # 発生確率判断（リスク用）
+  probability_criteria:
+    高: "過去事例あり、現時点で兆候あり、外部依存度高"
+    中: "可能性あり、条件次第で発生"
+    低: "稀なケース、発生条件が限定的"
+
+# 曖昧な情報の扱い
+ambiguity_handling:
+  # 情報が曖昧な場合
+  unclear_info: "open_questionsに確認事項として追加"
+  # 矛盾する情報がある場合
+  conflicting_info: "両方を記録し、open_questionsで確認を促す"
+  # 推測が必要な場合
+  inference_required: "推測内容を明記し、確認を求める"

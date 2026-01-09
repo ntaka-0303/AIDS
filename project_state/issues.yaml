@@ -1,15 +1,30 @@
 # 課題管理
+# スキーマ: schemas/issues.schema.yaml
+# エージェントによる自動更新用
 
-<!--
-issues:
-  - id: "ISS-001"
-    title: "現行業務フローの例外処理が不明"
-    description: "◯◯の時の判断基準がヒアリングメモに無い"
-    priority: "High/Medium/Low"
-    owner: "体制図に応じて決定"
-    status: "Open / InProgress / Resolved / Deferred"
-    due: "2026-01-18"
-    related:
-      - "requirements:REQ-012"
-      - "wbs:P2-03"
--->
+issues: []
+
+# サンプル構造:
+# issues:
+#   - id: "ISS-001"                   # 必須: 課題ID
+#     title: "現行業務フローの例外処理が不明"  # 必須: タイトル
+#     description: "◯◯のケースにおける判断基準がヒアリングメモに記載されていない"  # 任意
+#     priority: "High"                # 必須: High/Medium/Low
+#     owner: "PMO"                    # 必須: 課題オーナー
+#     status: "Open"                  # 必須: Open/InProgress/Resolved/Deferred
+#     due: "2026-01-18"               # 任意: 対応期限
+#     created_at: "2026-01-10"        # 必須: 作成日 (自動設定)
+#     updated_at: "2026-01-10"        # 必須: 更新日 (自動更新)
+#     action: "次回ヒアリングで確認"    # 任意: 対応方針
+#     resolution: null                # 任意: 解決内容 (Resolved時に記入)
+#     related:                        # 任意: 関連ID
+#       requirements:
+#         - "REQ-012"
+#       wbs:
+#         - "P2-03"
+#       risks: []
+#       hearings:
+#         - "2026-01-10_kickoff.md"
+#     source:                         # 任意: 作成元
+#       type: "hearing"               # hearing/risk/review/manual
+#       ref: "2026-01-10_kickoff.md"

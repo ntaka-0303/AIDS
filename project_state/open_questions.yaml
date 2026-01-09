@@ -1,0 +1,31 @@
+# 未決事項・確認事項
+# スキーマ: schemas/open_questions.schema.yaml
+# エージェントによる自動更新用
+
+questions: []
+
+# サンプル構造:
+# questions:
+#   - id: "QST-001"                   # 必須: 質問ID
+#     created_at: "2026-01-10"        # 必須: 作成日 (自動設定)
+#     title: "データ移行の範囲"        # 必須: タイトル
+#     content: "過去3年分のデータを移行対象とするか、直近1年のみか"  # 必須: 詳細
+#     context: "データ量によりスケジュールに影響、移行時間の見積もりに必要"  # 任意: 背景
+#     category: "scope"               # 必須: scope/technical/process/resource/security/schedule/other
+#     priority: "High"                # 必須: High/Medium/Low
+#     owner: "顧客"                   # 必須: 顧客/自社/未定
+#     due: "2026-01-20"               # 任意: 回答期限
+#     status: "open"                  # 必須: open/resolved/deferred
+#     resolution: null                # 任意: 回答内容 (resolved時)
+#     resolved_at: null               # 任意: 回答日 (resolved時)
+#     resolved_by: null               # 任意: 回答の参照元
+#     related:                        # 任意: 関連ID
+#       requirements:
+#         - "REQ-015"
+#       decisions: []
+#       wbs:
+#         - "P3-02"
+#       issues: []
+#     source:                         # 必須: 発生元
+#       type: "hearing"               # hearing/review/analysis/manual
+#       ref: "2026-01-10_kickoff.md"

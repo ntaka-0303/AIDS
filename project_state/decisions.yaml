@@ -1,0 +1,30 @@
+# 決定事項ログ
+# スキーマ: schemas/decisions.schema.yaml
+# エージェントによる自動更新用
+
+decisions: []
+
+# サンプル構造:
+# decisions:
+#   - id: "DEC-001"                   # 必須: 決定事項ID
+#     date: "2026-01-10"              # 必須: 決定日
+#     title: "認証方式の決定"          # 必須: タイトル
+#     content: "OAuth2.0 + OIDC を採用する"  # 必須: 決定内容
+#     rationale: "既存システムとの連携容易性、セキュリティ要件への適合"  # 任意: 理由
+#     category: "technical"           # 必須: scope/technical/process/resource/schedule/other
+#     impact:                         # 任意: 影響範囲
+#       requirements:
+#         - "REQ-005"
+#       wbs: []
+#       risks: []
+#       documents:
+#         - "outputs/requirements_draft.md"
+#     source:                         # 必須: 決定元
+#       type: "hearing"               # hearing/review/escalation/meeting/email
+#       ref: "2026-01-10_kickoff.md"
+#       attendees:                    # 任意: 参加者
+#         - "顧客担当者A"
+#         - "PMO"
+#     status: "active"                # 必須: active/superseded/revoked
+#     superseded_by: null             # 任意: 上書き元ID (superseded時)
+#     revoked_reason: null            # 任意: 撤回理由 (revoked時)

@@ -1,0 +1,206 @@
+# 課題管理スキーマ定義
+# プロジェクトごとにカスタマイズ可能
+
+schema:
+  version: "1.0"
+  name: "issues"
+  description: "課題管理のスキーマ定義"
+  root_key: issues
+
+# フィールド定義
+fields:
+  id:
+    type: string
+    required: true
+    pattern: "^ISS-[0-9]{3}$"
+    description: "課題ID"
+    example: "ISS-001"
+    auto_generate: true
+
+  title:
+    type: string
+    required: true
+    max_length: 100
+    description: "課題タイトル"
+
+  description:
+    type: string
+    required: false
+    description: "課題の詳細説明"
+
+  priority:
+    type: string
+    required: true
+    enum:
+      - "High"
+      - "Medium"
+      - "Low"
+    description: "優先度"
+
+  owner:
+    type: string
+    required: true
+    description: "課題オーナー"
+
+  status:
+    type: string
+    required: true
+    enum:
+      - "Open"
+      - "InProgress"
+      - "Resolved"
+      - "Deferred"
+    default: "Open"
+    description: "課題状態"
+
+  due:
+    type: date
+    required: false
+    format: "YYYY-MM-DD"
+    description: "対応期限"
+
+  created_at:
+    type: date
+    required: true
+    format: "YYYY-MM-DD"
+    auto_set: true
+    description: "作成日（自動設定）"
+
+  updated_at:
+    type: date
+    required: true
+    format: "YYYY-MM-DD"
+    auto_update: true
+    description: "更新日（自動更新）"
+
+  action:
+    type: string
+    required: false
+    description: "対応方針"
+
+  resolution:
+    type: string
+    required: false
+    description: "解決内容（Resolved時に記入）"
+
+  related:
+    type: object
+    required: false
+    properties:
+      requirements:
+        type: array
+        items:
+          type: string
+          pattern: "^REQ-[0-9]{3}$"
+        description: "関連要件ID"
+      wbs:
+        type: array
+        items:
+          type: string
+          pattern: "^P[0-9]-[0-9]{2}$"
+        description: "関連WBSタスクID"
+      risks:
+        type: array
+        items:
+          type: string
+          pattern: "^RSK-[0-9]{3}$"
+        description: "関連リスクID（リスク顕在化の場合）"
+      hearings:
+        type: array
+        items:
+          type: string
+          pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}_.*\\.md$"
+        description: "関連ヒアリングファイル"
+
+  source:
+    type: object
+    required: false
+    properties:
+      type:
+        type: string
+        enum:
+          - "hearing"
+          - "risk"
+          - "review"
+          - "manual"
+        description: "課題発生元の種別"
+      ref:
+        type: string
+        description: "参照元ファイルまたはID"
+
+# ID採番ルール
+id_generation:
+  format: "ISS-{seq:03d}"
+  seq_scope: global
+
+# 状態遷移ルール
+state_transitions:
+  Open:
+    allowed_next:
+      - "InProgress"
+      - "Deferred"
+      - "Resolved"
+  InProgress:
+    allowed_next:
+      - "Resolved"
+      - "Deferred"
+      - "Open"  # 差し戻し
+  Deferred:
+    allowed_next:
+      - "Open"
+      - "Resolved"
+  Resolved:
+    allowed_next:
+      - "Open"  # 再オープン
+    final: false
+    required_fields:
+      - resolution
+
+# バリデーションルール
+validation:
+  reference_integrity:
+    - field: related.requirements
+      target_file: requirements_master.md
+      target_pattern: "REQ-[0-9]{3}"
+      error_message: "関連要件{value}が存在しません"
+    - field: related.wbs
+      target_file: wbs.yaml
+      target_field: id
+      error_message: "関連WBSタスク{value}が存在しません"
+    - field: related.risks
+      target_file: risks.yaml
+      target_field: id
+      error_message: "関連リスク{value}が存在しません"
+
+  date_consistency:
+    - rule: "due >= created_at"
+      error_message: "期限が作成日より前に設定されています"
+
+  business_rules:
+    - rule: "status == 'Resolved' implies resolution is not empty"
+      error_message: "解決済み課題にはresolutionの記入が必要です"
+
+# サンプルデータ
+example:
+  - id: "ISS-001"
+    title: "現行業務フローの例外処理が不明"
+    description: "◯◯のケースにおける判断基準がヒアリングメモに記載されていない"
+    priority: "High"
+    owner: "PMO"
+    status: "Open"
+    due: "2026-01-18"
+    created_at: "2026-01-10"
+    updated_at: "2026-01-10"
+    action: "次回ヒアリングで確認"
+    resolution: null
+    related:
+      requirements:
+        - "REQ-012"
+      wbs:
+        - "P2-03"
+      risks: []
+      hearings:
+        - "2026-01-10_kickoff.md"
+    source:
+      type: "hearing"
+      ref: "2026-01-10_kickoff.md"

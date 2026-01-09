@@ -1,0 +1,34 @@
+# 変更履歴（起点→反映先の追跡）
+# スキーマ: schemas/change_log.schema.yaml
+# エージェントによる自動更新用
+
+entries: []
+
+# サンプル構造:
+# entries:
+#   - id: "CHG-001"                   # 必須: 変更ログID
+#     date: "2026-01-10"              # 必須: 変更日 (自動設定)
+#     source:                         # 必須: 変更の起点
+#       type: "hearing"               # hearing/decision/issue/review/manual
+#       ref: "2026-01-10_kickoff.md"
+#     changes:                        # 必須: 変更内容リスト
+#       - target: "project_state/requirements_master.md"
+#         action: "added"             # added/modified/removed/replaced
+#         items:
+#           - "REQ-001"
+#           - "REQ-002"
+#           - "REQ-003"
+#         details: "キックオフで確認した初期要件を追加"  # 任意
+#       - target: "project_state/decisions.yaml"
+#         action: "added"
+#         items:
+#           - "DEC-001"
+#         details: "認証方式の決定を記録"
+#       - target: "project_state/open_questions.yaml"
+#         action: "added"
+#         items:
+#           - "QST-001"
+#           - "QST-002"
+#         details: "未確認事項を登録"
+#     summary: "キックオフヒアリングから要件3件、決定1件、質問2件を追加"  # 必須
+#     actor: "agent"                  # 任意: agent/human

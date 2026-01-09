@@ -1,0 +1,368 @@
+# WBS Management Skill - YAMLスキーマ定義
+
+# ========================================
+# wbs.yaml スキーマ
+# ========================================
+wbs_schema:
+  root: tasks
+  item_schema:
+    id:
+      type: string
+      required: true
+      pattern: "^P[0-9]-[0-9]{2}$"
+      description: "フェーズ+連番（例: P1-01, P2-05）"
+      auto_generate: true
+
+    phase:
+      type: string
+      required: true
+      enum: ["提案", "計画", "設計", "実装", "移行", "運用"]
+      description: "プロジェクトフェーズ"
+
+    title:
+      type: string
+      required: true
+      max_length: 100
+      description: "タスクタイトル"
+
+    deliverable:
+      type: string
+      required: false
+      pattern: "^outputs/.*$"
+      description: "成果物パス（outputs/配下）"
+
+    owner:
+      type: string
+      required: true
+      description: "担当者"
+
+    status:
+      type: string
+      required: true
+      enum: ["Todo", "InProgress", "Done", "Blocked"]
+      default: "Todo"
+      description: "タスク状態"
+
+    due:
+      type: date
+      required: true
+      format: "YYYY-MM-DD"
+      description: "期限日"
+
+    depends_on:
+      type: array
+      required: false
+      items:
+        type: string
+        pattern: "^P[0-9]-[0-9]{2}$"
+      description: "依存タスクIDリスト"
+
+    definition_of_done:
+      type: array
+      required: false
+      items:
+        type: string
+      description: "完了条件リスト"
+
+    related:
+      type: object
+      required: false
+      properties:
+        requirements:
+          type: array
+          items:
+            type: string
+            pattern: "^REQ-[0-9]{3}$"
+
+  # ID採番ルール
+  id_generation:
+    format: "P{phase_num}-{seq:02d}"
+    phase_mapping:
+      提案: 1
+      計画: 2
+      設計: 3
+      実装: 4
+      移行: 5
+      運用: 6
+    seq_scope: per_phase  # フェーズ内で連番
+
+# ========================================
+# issues.yaml スキーマ
+# ========================================
+issues_schema:
+  root: issues
+  item_schema:
+    id:
+      type: string
+      required: true
+      pattern: "^ISS-[0-9]{3}$"
+      description: "課題ID（例: ISS-001）"
+      auto_generate: true
+
+    title:
+      type: string
+      required: true
+      max_length: 100
+      description: "課題タイトル"
+
+    description:
+      type: string
+      required: false
+      description: "課題の詳細説明"
+
+    priority:
+      type: string
+      required: true
+      enum: ["High", "Medium", "Low"]
+      description: "優先度"
+
+    owner:
+      type: string
+      required: true
+      description: "課題オーナー"
+
+    status:
+      type: string
+      required: true
+      enum: ["Open", "InProgress", "Resolved", "Deferred"]
+      default: "Open"
+      description: "課題状態"
+
+    due:
+      type: date
+      required: false
+      format: "YYYY-MM-DD"
+      description: "対応期限"
+
+    created_at:
+      type: date
+      required: true
+      format: "YYYY-MM-DD"
+      auto_set: true
+      description: "作成日（自動設定）"
+
+    updated_at:
+      type: date
+      required: true
+      format: "YYYY-MM-DD"
+      auto_update: true
+      description: "更新日（自動更新）"
+
+    action:
+      type: string
+      required: false
+      description: "対応方針"
+
+    resolution:
+      type: string
+      required: false
+      description: "解決内容（Resolved時に記入）"
+
+    related:
+      type: object
+      required: false
+      properties:
+        requirements:
+          type: array
+          items:
+            type: string
+            pattern: "^REQ-[0-9]{3}$"
+        wbs:
+          type: array
+          items:
+            type: string
+            pattern: "^P[0-9]-[0-9]{2}$"
+        risks:
+          type: array
+          items:
+            type: string
+            pattern: "^RSK-[0-9]{3}$"
+        hearings:
+          type: array
+          items:
+            type: string
+            pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}_.*\\.md$"
+
+  # ID採番ルール
+  id_generation:
+    format: "ISS-{seq:03d}"
+    seq_scope: global  # 全体で連番
+
+# ========================================
+# risks.yaml スキーマ
+# ========================================
+risks_schema:
+  root: risks
+  item_schema:
+    id:
+      type: string
+      required: true
+      pattern: "^RSK-[0-9]{3}$"
+      description: "リスクID（例: RSK-001）"
+      auto_generate: true
+
+    title:
+      type: string
+      required: true
+      max_length: 100
+      description: "リスクタイトル"
+
+    description:
+      type: string
+      required: false
+      description: "リスクの詳細説明"
+
+    status:
+      type: string
+      required: true
+      enum: ["Open", "Monitoring", "Mitigated", "Realized", "Closed"]
+      default: "Open"
+      description: "リスク状態"
+
+    owner:
+      type: string
+      required: true
+      description: "リスクオーナー"
+
+    impact:
+      type: string
+      required: true
+      enum: ["高", "中", "低"]
+      description: "影響度"
+
+    probability:
+      type: string
+      required: true
+      enum: ["高", "中", "低"]
+      description: "発生確率"
+
+    score:
+      type: integer
+      required: true
+      min: 1
+      max: 9
+      auto_calculate: true
+      formula: "impact_value * probability_value"
+      description: "リスクスコア（自動計算）"
+
+    early_signals:
+      type: array
+      required: false
+      items:
+        type: string
+      description: "早期兆候リスト"
+
+    mitigation_plan:
+      type: array
+      required: false
+      items:
+        type: string
+      description: "予防策リスト"
+
+    contingency_plan:
+      type: array
+      required: false
+      items:
+        type: string
+      description: "発生時対応リスト"
+
+    due:
+      type: date
+      required: false
+      format: "YYYY-MM-DD"
+      description: "対応期限"
+
+    last_reviewed:
+      type: date
+      required: false
+      format: "YYYY-MM-DD"
+      auto_update: true
+      description: "最終レビュー日（自動更新）"
+
+    related:
+      type: object
+      required: false
+      properties:
+        wbs:
+          type: array
+          items:
+            type: string
+            pattern: "^P[0-9]-[0-9]{2}$"
+        issues:
+          type: array
+          items:
+            type: string
+            pattern: "^ISS-[0-9]{3}$"
+        decisions:
+          type: array
+          items:
+            type: string
+            pattern: "^DEC-[0-9]{3}$"
+        hearings:
+          type: array
+          items:
+            type: string
+            pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}_.*\\.md$"
+
+    notes:
+      type: string
+      required: false
+      description: "備考"
+
+  # ID採番ルール
+  id_generation:
+    format: "RSK-{seq:03d}"
+    seq_scope: global  # 全体で連番
+
+  # スコア計算
+  score_calculation:
+    impact_values:
+      高: 3
+      中: 2
+      低: 1
+    probability_values:
+      高: 3
+      中: 2
+      低: 1
+    formula: impact * probability
+
+# ========================================
+# 共通バリデーションルール
+# ========================================
+validation_rules:
+  # 参照整合性
+  reference_integrity:
+    - source: "wbs.depends_on"
+      target: "wbs.id"
+      error: "依存先タスクが存在しません"
+
+    - source: "issues.related.wbs"
+      target: "wbs.id"
+      error: "関連WBSタスクが存在しません"
+
+    - source: "issues.related.risks"
+      target: "risks.id"
+      error: "関連リスクが存在しません"
+
+    - source: "risks.related.wbs"
+      target: "wbs.id"
+      error: "関連WBSタスクが存在しません"
+
+    - source: "risks.related.issues"
+      target: "issues.id"
+      error: "関連課題が存在しません"
+
+  # 循環参照チェック
+  circular_reference:
+    target: "wbs.depends_on"
+    error: "循環依存が検出されました"
+
+  # 日付整合性
+  date_consistency:
+    - rule: "due >= created_at"
+      target: ["issues", "wbs"]
+      error: "期限が作成日より前です"
+
+    - rule: "depends_on.due <= dependent.due"
+      target: "wbs"
+      error: "依存先の期限より前に期限が設定されています"

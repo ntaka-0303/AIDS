@@ -1,34 +1,39 @@
 # リスク管理
+# スキーマ: schemas/risks.schema.yaml
+# エージェントによる自動更新用
 
-<!--
-risks:
-  - id: "RSK-001"
-    title: "顧客レビュー遅延により後続タスクが詰まる"
-    description: "成果物レビューに必要な関係者の確保が難しく、承認が後ろ倒しになる可能性。"
-    status: "Open / Monitoring / Mitigated / Realized / Closed"
-    owner: "体制図に応じて決定"
-    impact: "高/中/低"
-    probability: "高/中/低"
-    early_signals:
-      - "レビュー依頼から3営業日以上反応なし"
-      - "会議日程が確保できない"
-    mitigation_plan:
-      - "レビュー観点を事前共有し、レビュー時間を短縮"
-      - "代替レビュー担当者の設定"
-    contingency_plan:
-      - "優先度Highの論点のみ先行承認し分割リリース"
-      - "WBSを再計画し、クリティカルパスを短縮"
-    due: "YYYY-MM-DD" 
-    last_reviewed: "YYYY-MM-DD"
-    related:
-      wbs:
-        - "P1-03"
-        - "P2-01"
-      issues:
-        - "ISS-012"
-      decisions:
-        - "DEC-005"
-      hearings:
-        - "2026-01-16_req-detail.md"
-    notes: "顧客側の繁忙期（決算期）と重なる場合、確率を4へ引き上げ検討。"
--->
+risks: []
+
+# サンプル構造:
+# risks:
+#   - id: "RSK-001"                   # 必須: リスクID
+#     title: "顧客レビュー遅延により後続タスクが詰まる"  # 必須: タイトル
+#     description: "成果物レビューに必要な関係者の確保が難しく、承認が後ろ倒しになる可能性。"  # 任意
+#     status: "Open"                  # 必須: Open/Monitoring/Mitigated/Realized/Closed
+#     owner: "PMO"                    # 必須: リスクオーナー
+#     impact: "高"                    # 必須: 高/中/低
+#     probability: "中"               # 必須: 高/中/低
+#     score: 6                        # 必須: 自動計算 (impact * probability)
+#     early_signals:                  # 任意: 早期兆候
+#       - "レビュー依頼から3営業日以上反応なし"
+#       - "会議日程が確保できない"
+#     mitigation_plan:                # 任意: 予防策
+#       - "レビュー観点を事前共有し、レビュー時間を短縮"
+#       - "代替レビュー担当者の設定"
+#     contingency_plan:               # 任意: 発生時対応策
+#       - "優先度Highの論点のみ先行承認し分割リリース"
+#       - "WBSを再計画し、クリティカルパスを短縮"
+#     due: "2026-01-25"               # 任意: 対応期限
+#     last_reviewed: "2026-01-10"     # 任意: 最終レビュー日 (自動更新)
+#     related:                        # 任意: 関連ID
+#       wbs:
+#         - "P1-03"
+#         - "P2-01"
+#       issues: []
+#       decisions: []
+#       hearings:
+#         - "2026-01-10_kickoff.md"
+#     notes: "顧客側の繁忙期と重なる場合、確率を高へ引き上げ検討。"  # 任意
+#     source:                         # 任意: 作成元
+#       type: "hearing"
+#       ref: "2026-01-10_kickoff.md"

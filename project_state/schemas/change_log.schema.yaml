@@ -1,0 +1,154 @@
+# 変更履歴スキーマ定義
+# プロジェクトごとにカスタマイズ可能
+
+schema:
+  version: "1.0"
+  name: "change_log"
+  description: "変更履歴（起点→反映先の追跡）のスキーマ定義"
+  root_key: entries
+
+# フィールド定義
+fields:
+  id:
+    type: string
+    required: true
+    pattern: "^CHG-[0-9]{3}$"
+    description: "変更ログID"
+    example: "CHG-001"
+    auto_generate: true
+
+  date:
+    type: date
+    required: true
+    format: "YYYY-MM-DD"
+    auto_set: true
+    description: "変更日"
+
+  source:
+    type: object
+    required: true
+    properties:
+      type:
+        type: string
+        required: true
+        enum:
+          - "hearing"   # ヒアリングによる変更
+          - "decision"  # 決定事項による変更
+          - "issue"     # 課題対応による変更
+          - "review"    # レビュー指摘による変更
+          - "manual"    # 手動による変更
+        description: "変更起点の種別"
+      ref:
+        type: string
+        required: true
+        description: "参照元ファイルまたはID"
+    description: "変更の起点情報"
+
+  changes:
+    type: array
+    required: true
+    items:
+      type: object
+      properties:
+        target:
+          type: string
+          required: true
+          description: "変更対象ファイルパス"
+          example: "project_state/requirements_master.md"
+        action:
+          type: string
+          required: true
+          enum:
+            - "added"     # 新規追加
+            - "modified"  # 更新
+            - "removed"   # 削除
+            - "replaced"  # 置換
+          description: "変更アクション"
+        items:
+          type: array
+          required: false
+          items:
+            type: string
+          description: "変更されたアイテムID（あれば）"
+        details:
+          type: string
+          required: false
+          description: "変更の詳細説明"
+    description: "変更内容リスト"
+
+  summary:
+    type: string
+    required: true
+    description: "変更サマリ（人間が読む用）"
+
+  actor:
+    type: string
+    required: false
+    enum:
+      - "agent"   # エージェントによる自動更新
+      - "human"   # 人間による手動更新
+    default: "agent"
+    description: "変更実行者"
+
+# ID採番ルール
+id_generation:
+  format: "CHG-{seq:03d}"
+  seq_scope: global
+
+# バリデーションルール
+validation:
+  reference_integrity:
+    - field: source.ref
+      conditional: "source.type == 'decision'"
+      target_file: decisions.yaml
+      target_field: id
+      error_message: "参照決定事項{value}が存在しません"
+    - field: source.ref
+      conditional: "source.type == 'issue'"
+      target_file: issues.yaml
+      target_field: id
+      error_message: "参照課題{value}が存在しません"
+
+  file_existence:
+    - field: changes[].target
+      check: "file_exists"
+      warning_message: "変更対象ファイル{value}が存在しません"
+
+# 自動記録ルール
+auto_record:
+  triggers:
+    - event: "intake_skill_execution"
+      source_type: "hearing"
+    - event: "wbs_management_skill_execution"
+      source_type: "manual"
+    - event: "docgen_skill_execution"
+      source_type: "manual"
+
+# サンプルデータ
+example:
+  - id: "CHG-001"
+    date: "2026-01-10"
+    source:
+      type: "hearing"
+      ref: "2026-01-10_kickoff.md"
+    changes:
+      - target: "project_state/requirements_master.md"
+        action: "added"
+        items:
+          - "REQ-001"
+          - "REQ-002"
+          - "REQ-003"
+        details: "キックオフで確認した初期要件を追加"
+      - target: "project_state/decisions.yaml"
+        action: "added"
+        items:
+          - "DEC-001"
+        details: "認証方式の決定を記録"
+      - target: "project_state/open_questions.yaml"
+        action: "added"
+        items:
+          - "QST-001"
+          - "QST-002"
+        details: "未確認事項を登録"
+    summary: "キックオフヒアリングから要件3件、決定1件、質問2件を追加"
+    actor: "agent"

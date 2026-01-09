@@ -1,0 +1,164 @@
+# QualityGate Skill - 抜け漏れチェックルール（Completeness）
+
+rules:
+  # ========================================
+  # 1. 必須セクションチェック
+  # ========================================
+  required_sections:
+    description: "テンプレートで定義された必須セクションの存在と内容を検証"
+    severity_default: "Critical"
+
+    proposal_draft:
+      sections:
+        - name: "表紙"
+          required_fields: ["顧客名", "プロジェクト名", "提出日"]
+          severity: "Critical"
+        - name: "エグゼクティブサマリー"
+          min_length: 100  # 最低文字数
+          severity: "Critical"
+        - name: "課題認識"
+          min_items: 1  # 最低項目数
+          severity: "Critical"
+        - name: "解決アプローチ"
+          severity: "Critical"
+        - name: "主要ユースケース"
+          min_items: 1
+          severity: "Warning"
+        - name: "導入ステップ"
+          severity: "Warning"
+        - name: "プロジェクト体制"
+          severity: "Warning"
+        - name: "リスクと対策"
+          severity: "Warning"
+
+    project_plan_draft:
+      sections:
+        - name: "プロジェクトゴール"
+          required_fields: ["目的", "成功基準"]
+          severity: "Critical"
+        - name: "スコープ定義"
+          required_subsections: ["スコープ内", "スコープ外"]
+          severity: "Critical"
+        - name: "プロジェクト体制"
+          severity: "Critical"
+        - name: "フェーズ構成"
+          min_items: 1
+          severity: "Critical"
+        - name: "マスタースケジュール"
+          severity: "Warning"
+        - name: "リスクと対策"
+          severity: "Warning"
+
+    requirements_draft:
+      sections:
+        - name: "背景・目的"
+          severity: "Critical"
+        - name: "機能要件"
+          min_items: 1
+          severity: "Critical"
+        - name: "非機能要件"
+          min_items: 1
+          severity: "Warning"
+        - name: "制約条件"
+          severity: "Warning"
+
+    weekly_report_draft:
+      sections:
+        - name: "進捗状況"
+          required_subsections: ["概況", "タスク消化状況"]
+          severity: "Critical"
+        - name: "課題状況"
+          severity: "Warning"
+
+  # ========================================
+  # 2. 空・未入力チェック
+  # ========================================
+  empty_content:
+    description: "空のセクション、TODO、プレースホルダーの検出"
+    severity_default: "Warning"
+
+    patterns:
+      - pattern: "^\\s*$"  # 空行のみ
+        message: "セクション内容が空です"
+        severity: "Critical"
+      - pattern: "\\[TODO\\]"
+        message: "TODOマークが残っています"
+        severity: "Warning"
+      - pattern: "\\[要入力.*\\]"
+        message: "要入力項目が残っています"
+        severity: "Critical"
+      - pattern: "\\[TBD\\]"
+        message: "TBD項目が残っています"
+        severity: "Warning"
+      - pattern: "\\[参照エラー\\]"
+        message: "参照エラーが残っています"
+        severity: "Critical"
+
+  # ========================================
+  # 3. open_questions反映チェック
+  # ========================================
+  open_questions_reflection:
+    description: "未解決のopen_questionsが成果物に適切に反映されているか"
+    severity_default: "Warning"
+
+    rules:
+      - check: "未解決のQST-XXXが関連セクションで言及されているか"
+        action: "QST-XXXの内容を確認し、関連セクションに「確認中」等の記載を追加"
+        severity: "Warning"
+
+      - check: "High優先度の未解決質問が放置されていないか"
+        action: "重要度の高い質問は成果物に明示的に記載"
+        severity: "Critical"
+
+    mapping:
+      # QSTのカテゴリと関連する成果物セクション
+      scope: ["スコープ定義", "エグゼクティブサマリー"]
+      requirements: ["機能要件", "非機能要件", "業務要件"]
+      technical: ["環境構成", "インターフェース要件"]
+      schedule: ["マスタースケジュール", "導入ステップ"]
+      security: ["セキュリティ・ガバナンス", "非機能要件"]
+
+  # ========================================
+  # 4. 要件→WBS落とし込みチェック
+  # ========================================
+  requirements_wbs_coverage:
+    description: "要件がWBSタスクに適切に落とし込まれているか"
+    severity_default: "Warning"
+
+    rules:
+      - check: "各REQ-XXXに対応するWBSタスクが存在するか"
+        method: "requirements_master.mdの各要件IDがwbs.yamlのrelatedに含まれるか確認"
+        severity: "Warning"
+        exception: "priority=Lowの要件は後続フェーズで対応可"
+
+      - check: "High優先度の要件が全てWBSに含まれているか"
+        severity: "Critical"
+
+      - check: "WBSタスクのrelated.requirementsが実在するか"
+        method: "wbs.yamlの各タスクのrelated.requirementsがrequirements_master.mdに存在するか"
+        severity: "Warning"
+
+  # ========================================
+  # 5. ID欠番・重複チェック
+  # ========================================
+  id_integrity:
+    description: "ID採番の整合性確認"
+    severity_default: "Info"
+
+    rules:
+      - check: "連番の欠番検出"
+        targets: ["REQ-", "DEC-", "QST-", "RSK-", "ISS-", "P1-", "P2-"]
+        severity: "Info"
+        message: "欠番があります（削除による欠番は許容）"
+
+      - check: "ID重複検出"
+        severity: "Critical"
+        message: "同一IDが複数存在します"
+
+# チェック実行順序
+execution_order:
+  1: required_sections
+  2: empty_content
+  3: open_questions_reflection
+  4: requirements_wbs_coverage
+  5: id_integrity

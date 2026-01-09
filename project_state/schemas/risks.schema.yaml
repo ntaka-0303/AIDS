@@ -1,0 +1,264 @@
+# リスク管理スキーマ定義
+# プロジェクトごとにカスタマイズ可能
+
+schema:
+  version: "1.0"
+  name: "risks"
+  description: "リスク管理のスキーマ定義"
+  root_key: risks
+
+# フィールド定義
+fields:
+  id:
+    type: string
+    required: true
+    pattern: "^RSK-[0-9]{3}$"
+    description: "リスクID"
+    example: "RSK-001"
+    auto_generate: true
+
+  title:
+    type: string
+    required: true
+    max_length: 100
+    description: "リスクタイトル"
+
+  description:
+    type: string
+    required: false
+    description: "リスクの詳細説明"
+
+  status:
+    type: string
+    required: true
+    enum:
+      - "Open"
+      - "Monitoring"
+      - "Mitigated"
+      - "Realized"
+      - "Closed"
+    default: "Open"
+    description: "リスク状態"
+
+  owner:
+    type: string
+    required: true
+    description: "リスクオーナー"
+
+  impact:
+    type: string
+    required: true
+    enum:
+      - "高"
+      - "中"
+      - "低"
+    description: "影響度"
+
+  probability:
+    type: string
+    required: true
+    enum:
+      - "高"
+      - "中"
+      - "低"
+    description: "発生確率"
+
+  score:
+    type: integer
+    required: true
+    min: 1
+    max: 9
+    auto_calculate: true
+    formula: "impact_value * probability_value"
+    description: "リスクスコア（自動計算）"
+
+  early_signals:
+    type: array
+    required: false
+    items:
+      type: string
+    description: "早期兆候リスト"
+
+  mitigation_plan:
+    type: array
+    required: false
+    items:
+      type: string
+    description: "予防策（リスク低減策）リスト"
+
+  contingency_plan:
+    type: array
+    required: false
+    items:
+      type: string
+    description: "発生時対応策リスト"
+
+  due:
+    type: date
+    required: false
+    format: "YYYY-MM-DD"
+    description: "対応期限"
+
+  last_reviewed:
+    type: date
+    required: false
+    format: "YYYY-MM-DD"
+    auto_update: true
+    description: "最終レビュー日"
+
+  related:
+    type: object
+    required: false
+    properties:
+      wbs:
+        type: array
+        items:
+          type: string
+          pattern: "^P[0-9]-[0-9]{2}$"
+        description: "関連WBSタスクID"
+      issues:
+        type: array
+        items:
+          type: string
+          pattern: "^ISS-[0-9]{3}$"
+        description: "関連課題ID"
+      decisions:
+        type: array
+        items:
+          type: string
+          pattern: "^DEC-[0-9]{3}$"
+        description: "関連決定事項ID"
+      hearings:
+        type: array
+        items:
+          type: string
+          pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}_.*\\.md$"
+        description: "関連ヒアリングファイル"
+
+  notes:
+    type: string
+    required: false
+    description: "備考"
+
+# ID採番ルール
+id_generation:
+  format: "RSK-{seq:03d}"
+  seq_scope: global
+
+# 状態遷移ルール
+state_transitions:
+  Open:
+    allowed_next:
+      - "Monitoring"
+      - "Mitigated"
+      - "Realized"
+      - "Closed"
+  Monitoring:
+    allowed_next:
+      - "Mitigated"
+      - "Realized"
+      - "Closed"
+  Mitigated:
+    allowed_next:
+      - "Closed"
+      - "Realized"  # 再顕在化
+  Realized:
+    allowed_next:
+      - "Closed"
+    actions:
+      - type: "create_issue"
+        description: "顕在化したリスクは課題として登録必須"
+  Closed:
+    allowed_next: []
+    final: true
+
+# スコア計算
+score_calculation:
+  impact_values:
+    高: 3
+    中: 2
+    低: 1
+  probability_values:
+    高: 3
+    中: 2
+    低: 1
+  formula: "impact * probability"
+  score_matrix:
+    - impact: "高"
+      probability: "高"
+      score: 9
+    - impact: "高"
+      probability: "中"
+      score: 6
+    - impact: "高"
+      probability: "低"
+      score: 3
+    - impact: "中"
+      probability: "高"
+      score: 6
+    - impact: "中"
+      probability: "中"
+      score: 4
+    - impact: "中"
+      probability: "低"
+      score: 2
+    - impact: "低"
+      probability: "高"
+      score: 3
+    - impact: "低"
+      probability: "中"
+      score: 2
+    - impact: "低"
+      probability: "低"
+      score: 1
+
+# バリデーションルール
+validation:
+  reference_integrity:
+    - field: related.wbs
+      target_file: wbs.yaml
+      target_field: id
+      error_message: "関連WBSタスク{value}が存在しません"
+    - field: related.issues
+      target_file: issues.yaml
+      target_field: id
+      error_message: "関連課題{value}が存在しません"
+    - field: related.decisions
+      target_file: decisions.yaml
+      target_field: id
+      error_message: "関連決定事項{value}が存在しません"
+
+  business_rules:
+    - rule: "status == 'Realized' implies related.issues is not empty"
+      error_message: "顕在化したリスクには対応課題の登録が必要です"
+
+# サンプルデータ
+example:
+  - id: "RSK-001"
+    title: "顧客レビュー遅延により後続タスクが詰まる"
+    description: "成果物レビューに必要な関係者の確保が難しく、承認が後ろ倒しになる可能性。"
+    status: "Open"
+    owner: "PMO"
+    impact: "高"
+    probability: "中"
+    score: 6
+    early_signals:
+      - "レビュー依頼から3営業日以上反応なし"
+      - "会議日程が確保できない"
+    mitigation_plan:
+      - "レビュー観点を事前共有し、レビュー時間を短縮"
+      - "代替レビュー担当者の設定"
+    contingency_plan:
+      - "優先度Highの論点のみ先行承認し分割リリース"
+      - "WBSを再計画し、クリティカルパスを短縮"
+    due: "2026-01-25"
+    last_reviewed: "2026-01-10"
+    related:
+      wbs:
+        - "P1-03"
+        - "P2-01"
+      issues: []
+      decisions: []
+      hearings:
+        - "2026-01-10_kickoff.md"
+    notes: "顧客側の繁忙期（決算期）と重なる場合、確率を高へ引き上げ検討。"
