@@ -1,0 +1,34 @@
+# リスク管理
+
+<!--
+risks:
+  - id: "RSK-001"
+    title: "顧客レビュー遅延により後続タスクが詰まる"
+    description: "成果物レビューに必要な関係者の確保が難しく、承認が後ろ倒しになる可能性。"
+    status: "Open / Monitoring / Mitigated / Realized / Closed"
+    owner: "体制図に応じて決定"
+    impact: "高/中/低"
+    probability: "高/中/低"
+    early_signals:
+      - "レビュー依頼から3営業日以上反応なし"
+      - "会議日程が確保できない"
+    mitigation_plan:
+      - "レビュー観点を事前共有し、レビュー時間を短縮"
+      - "代替レビュー担当者の設定"
+    contingency_plan:
+      - "優先度Highの論点のみ先行承認し分割リリース"
+      - "WBSを再計画し、クリティカルパスを短縮"
+    due: "YYYY-MM-DD" 
+    last_reviewed: "YYYY-MM-DD"
+    related:
+      wbs:
+        - "P1-03"
+        - "P2-01"
+      issues:
+        - "ISS-012"
+      decisions:
+        - "DEC-005"
+      hearings:
+        - "2026-01-16_req-detail.md"
+    notes: "顧客側の繁忙期（決算期）と重なる場合、確率を4へ引き上げ検討。"
+-->

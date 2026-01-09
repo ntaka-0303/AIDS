@@ -1,0 +1,16 @@
+# WBS (Work Breakdown Structure)
+
+<!-- 
+tasks:
+  - id: "P1-01"
+    phase: "提案"
+    title: "提案書ドラフト作成"
+    deliverable: "outputs/proposal_draft.md"
+    owner: "体制図に応じて決定"
+    status: "Todo / InProgress / Done / Blocked"
+    due: "2026-01-20"
+    depends_on: []
+    definition_of_done:
+      - "顧客課題/ToBe/スコープが明記されている"
+      - "decisions.md と矛盾しない"
+ -->

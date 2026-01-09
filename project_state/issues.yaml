@@ -1,0 +1,15 @@
+# 課題管理
+
+<!--
+issues:
+  - id: "ISS-001"
+    title: "現行業務フローの例外処理が不明"
+    description: "◯◯の時の判断基準がヒアリングメモに無い"
+    priority: "High/Medium/Low"
+    owner: "体制図に応じて決定"
+    status: "Open / InProgress / Resolved / Deferred"
+    due: "2026-01-18"
+    related:
+      - "requirements:REQ-012"
+      - "wbs:P2-03"
+-->
