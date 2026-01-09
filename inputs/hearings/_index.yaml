@@ -1,0 +1,14 @@
+# ヒアリングメモの一覧
+
+<!--
+hearings:
+  - id: "HEAR-001"
+    title: "ナレッジの取り扱いについて"
+    date: "2024-05-10"
+    participants:
+      - "山田太郎"
+      - "佐藤花子"
+    summary: "ナレッジ共有の重要性と管理方法について議論"
+    add_date: "2024-05-11"
+    processed: "Yes/No"
+-->
