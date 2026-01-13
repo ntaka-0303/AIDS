@@ -11,8 +11,27 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 # DocGen Skill - ドキュメント生成
 
 ## 概要
-`templates/`のテンプレートと`project_state/`の最新状態から、
-`outputs/*_draft.md`を生成または更新する。
+`templates/`のテンプレートと`project_state/`の最新状態、
+および上位成果物から`outputs/*_draft.md`を生成または更新する。
+
+## 成果物の依存関係
+
+成果物は以下の階層構造を持ち、下位成果物は上位成果物の内容を参照・整合させる：
+
+```
+提案書（proposal）        ← 最上位：テンプレート + project_state
+    ↓
+プロジェクト計画書（project_plan） ← 提案書を参照
+    ↓
+要件定義書（requirements）     ← 提案書 + 計画書を参照
+```
+
+※ 週次報告書は WeeklyReport Skill で生成
+
+**依存関係の意味：**
+- 下位成果物は上位成果物と矛盾しない内容とする
+- 上位成果物で定義された用語・方針を踏襲する
+- 上位成果物の該当セクションを参照し、詳細化・具体化する
 
 ## 実行トリガー
 - 「提案書を生成」「docgen proposal」
@@ -23,21 +42,78 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 
 ## 対応ドキュメント
 
-| テンプレート | 出力先 | 主要データソース |
-|------------|--------|----------------|
-| templates/proposal.md | outputs/proposal_draft.md | charter, requirements, decisions, risks |
-| templates/project_plan.md | outputs/project_plan_draft.md | charter, wbs.yaml, risks.yaml, decisions |
-| templates/requirements.md | outputs/requirements_draft.md | requirements_master, decisions, open_questions |
-| templates/weekly_report.md | outputs/weekly_report_draft.md | wbs.yaml, issues.yaml, risks.yaml |
+| テンプレート | 出力先 | 主要データソース | 上位成果物 |
+|------------|--------|----------------|-----------|
+| templates/proposal.md | outputs/proposal_draft.md | charter, requirements, decisions, risks | なし（最上位） |
+| templates/project_plan.md | outputs/project_plan_draft.md | charter, wbs.yaml, risks.yaml, decisions | proposal_draft.md |
+| templates/requirements.md | outputs/requirements_draft.md | requirements_master, decisions, open_questions | proposal_draft.md, project_plan_draft.md |
 
 詳細なマッピングは `references/template-mapping.md` を参照。
+
+## 成果物別の品質重視ポイント
+
+各成果物は目的と読者が異なるため、重視すべき品質特性も異なる。
+生成時はこれらのポイントを意識して品質を担保する。
+
+### 提案書（proposal）- 訴求力・説得力重視
+
+**目的**: 顧客に価値を訴求し、受注を獲得する
+**主要読者**: 顧客の意思決定者（経営層、事業部門責任者）
+
+| 品質特性 | 説明 | チェックポイント |
+|---------|------|----------------|
+| **顧客中心** | 顧客の課題・ニーズに焦点を当てる | 「弊社」より「貴社」の視点で書かれているか |
+| **訴求力** | 解決策の価値が明確に伝わる | 課題→解決策→価値のストーリーが論理的か |
+| **具体性** | ROI・効果が定量的に示されている | 数値、事例、実績が含まれているか |
+| **差別化** | 競合との違いが明確 | 自社の強み・独自性が表現されているか |
+| **読みやすさ** | エグゼクティブサマリーで要点が伝わる | 忙しい経営層が3分で概要を把握できるか |
+
+**注意**: 正確性より訴求力を優先。ただし虚偽・誇張は厳禁。
+
+### プロジェクト計画書（project_plan）- 整合性・実現可能性重視
+
+**目的**: プロジェクトの実行計画を合意し、実行の基盤とする
+**主要読者**: PM、チームメンバー、顧客PM、ステアリングコミッティ
+
+| 品質特性 | 説明 | チェックポイント |
+|---------|------|----------------|
+| **整合性** | 提案書・契約・要件との整合 | 提案書のスコープ・体制・スケジュールと矛盾がないか |
+| **実現可能性** | スケジュール・リソース・スコープのバランス | 無理のない計画になっているか |
+| **明確性** | 役割・成果物・マイルストーンが明確 | 誰が何をいつまでにが明記されているか |
+| **追跡可能性** | タスクと成果物の関連が追跡可能 | WBSと成果物の紐付けが明確か |
+| **リスク対応** | リスクと対策が具体的 | 主要リスクに対する対策が定義されているか |
+
+**注意**: 提案書で約束した内容との整合性が最重要。
+
+### 要件定義書（requirements）- 網羅性・検証可能性重視
+
+**目的**: システムが満たすべき要件を網羅的に定義する
+**主要読者**: 開発チーム、テストチーム、顧客業務担当者
+
+| 品質特性 | 説明 | チェックポイント |
+|---------|------|----------------|
+| **網羅性** | 機能・非機能要件の抜け漏れがない | 提案書のユースケースが全て要件化されているか |
+| **非曖昧性** | 解釈の余地がない明確な記述 | 「適切に」「迅速に」等の曖昧語がないか |
+| **検証可能性** | 各要件がテスト可能な形式 | 合格基準が明確に定義されているか |
+| **追跡可能性** | 要件の出典が追跡可能 | 各要件がどのヒアリング・決定から導出されたか |
+| **一貫性** | 要件間・上位成果物との矛盾がない | 相互に矛盾する要件がないか |
+| **優先度** | 各要件の優先度が明確 | Must/Should/Could/Won't が定義されているか |
+
+**注意**: IEEE 830基準を参考。TBD（未定）は完全性を損なうため最小化する。
 
 ## 実行ステップ
 
 ### Step 1: データ収集
 1. 対象テンプレートを読み込む
 2. 必要な`project_state/`ファイルを全て読み込む
-3. 既存ドラフトがあれば読み込む（差分更新用）
+3. **上位成果物を読み込む（存在する場合）**
+   - project_plan生成時: `outputs/proposal_draft.md`
+   - requirements生成時: `outputs/proposal_draft.md`, `outputs/project_plan_draft.md`
+4. 既存ドラフトがあれば読み込む（差分更新用）
+
+**上位成果物が存在しない場合:**
+- 警告を出力し、`project_state/`のみで生成を続行
+- 生成後のメタデータに「上位成果物なし」を記録
 
 ### Step 2: セクション別データマッピング
 テンプレートの各セクションに対応するデータソースから情報を抽出し、
@@ -72,9 +148,15 @@ source_state:
   - project_state/project_charter.md (updated: YYYY-MM-DD)
   - project_state/requirements_master.md (updated: YYYY-MM-DD)
   - project_state/risks.yaml (updated: YYYY-MM-DD)
+parent_artifacts:
+  - outputs/proposal_draft.md (updated: YYYY-MM-DD)
+  - outputs/project_plan_draft.md (updated: YYYY-MM-DD)
 template: templates/proposal.md
 -->
 ```
+
+**注意:** `parent_artifacts`は上位成果物が存在する場合のみ記載。
+存在しない場合は`parent_artifacts: none`と記載。
 
 ### Step 5: 更新記録
 - `logs/runlog.md`: 生成/更新ログを追記
@@ -86,7 +168,7 @@ template: templates/proposal.md
 | `--full` | 全セクション再生成（手動編集を上書き） |
 | `--section <name>` | 特定セクションのみ更新 |
 | `--dry-run` | 変更内容のプレビューのみ |
-| `--all` | 全4種類のドキュメントを生成 |
+| `--all` | 全3種類のドキュメントを生成（提案書→計画書→要件定義書の順） |
 
 ## 手動編集の保護
 
