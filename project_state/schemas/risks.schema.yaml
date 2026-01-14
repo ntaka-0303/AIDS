@@ -2,9 +2,35 @@
 # プロジェクトごとにカスタマイズ可能
 
 schema:
-  version: "1.0"
+  version: "1.1"
   name: "risks"
-  description: "リスク管理のスキーマ定義"
+  description: |
+    リスク管理のスキーマ定義。
+
+    【リスクの定義】
+    将来発生する可能性がある問題・懸念事項。
+    発生した場合にプロジェクトに悪影響を与える不確実な事象を管理する。
+
+    【リスクに含まれるもの】
+    - スケジュール遅延リスク（レビュー遅延、承認遅延など）
+    - リソースリスク（担当者離脱、スキル不足など）
+    - 技術リスク（技術的困難、新技術の不確実性など）
+    - 外部環境リスク（顧客都合、市場変動など）
+    - 品質リスク（要件変更、品質基準未達など）
+
+    【リスクに含まれないもの（誤分類注意）】
+    - 既に発生している問題・障害
+      → issues.yaml（課題）として登録
+      ※リスクが顕在化した場合は、status: Realizedに変更し課題を作成
+    - 未決定・確認が必要な事項
+      → open_questions.yaml（質問）
+    - クライアントの業務上の課題・問題点
+      → project_charter.md（背景）またはrequirements_master.md
+
+    【重要ルール】
+    - リスクが顕在化（Realized）した場合は、必ず対応する課題（ISS-XXX）を作成
+    - スコアはimpact×probabilityで自動計算
+    - 定期的なレビュー（last_reviewed）の更新を推奨
   root_key: risks
 
 # フィールド定義
@@ -99,17 +125,36 @@ fields:
     format: "YYYY-MM-DD"
     description: "対応期限"
 
+  created_at:
+    type: date
+    required: true
+    format: "YYYY-MM-DD"
+    auto_set: true
+    description: "作成日（自動設定）"
+
+  updated_at:
+    type: date
+    required: true
+    format: "YYYY-MM-DD"
+    auto_update: true
+    description: "更新日（自動更新）"
+
   last_reviewed:
     type: date
     required: false
     format: "YYYY-MM-DD"
-    auto_update: true
     description: "最終レビュー日"
 
   related:
     type: object
     required: false
     properties:
+      requirements:
+        type: array
+        items:
+          type: string
+          pattern: "^REQ-[0-9]{3}$"
+        description: "関連要件ID"
       wbs:
         type: array
         items:
@@ -121,19 +166,42 @@ fields:
         items:
           type: string
           pattern: "^ISS-[0-9]{3}$"
-        description: "関連課題ID"
+        description: "関連課題ID（顕在化時に作成した課題）"
       decisions:
         type: array
         items:
           type: string
           pattern: "^DEC-[0-9]{3}$"
         description: "関連決定事項ID"
+      questions:
+        type: array
+        items:
+          type: string
+          pattern: "^QST-[0-9]{3}$"
+        description: "関連未決事項ID"
       hearings:
         type: array
         items:
           type: string
           pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}_.*\\.md$"
         description: "関連ヒアリングファイル"
+
+  source:
+    type: object
+    required: false
+    properties:
+      type:
+        type: string
+        enum:
+          - "hearing"     # ヒアリングで特定されたリスク
+          - "analysis"    # 分析・検討で特定されたリスク
+          - "review"      # レビュー時に特定されたリスク
+          - "experience"  # 過去の経験から特定されたリスク
+          - "manual"      # 手動登録
+        description: "リスク発生元の種別"
+      ref:
+        type: string
+        description: "参照元ファイルまたは会議名"
 
   notes:
     type: string
@@ -215,6 +283,10 @@ score_calculation:
 # バリデーションルール
 validation:
   reference_integrity:
+    - field: related.requirements
+      target_file: requirements_master.md
+      target_pattern: "REQ-[0-9]{3}"
+      error_message: "関連要件{value}が存在しません"
     - field: related.wbs
       target_file: wbs.yaml
       target_field: id
@@ -227,17 +299,27 @@ validation:
       target_file: decisions.yaml
       target_field: id
       error_message: "関連決定事項{value}が存在しません"
+    - field: related.questions
+      target_file: open_questions.yaml
+      target_field: id
+      error_message: "関連未決事項{value}が存在しません"
+
+  date_consistency:
+    - rule: "due >= created_at"
+      error_message: "期限が作成日より前に設定されています"
 
   business_rules:
     - rule: "status == 'Realized' implies related.issues is not empty"
       error_message: "顕在化したリスクには対応課題の登録が必要です"
+    - rule: "impact and probability are required for score calculation"
+      error_message: "スコア計算にはimpactとprobabilityの設定が必要です"
 
 # サンプルデータ
 example:
   - id: "RSK-001"
     title: "顧客レビュー遅延により後続タスクが詰まる"
     description: "成果物レビューに必要な関係者の確保が難しく、承認が後ろ倒しになる可能性。"
-    status: "Open"
+    status: "Monitoring"
     owner: "PMO"
     impact: "高"
     probability: "中"
@@ -252,13 +334,55 @@ example:
       - "優先度Highの論点のみ先行承認し分割リリース"
       - "WBSを再計画し、クリティカルパスを短縮"
     due: "2026-01-25"
-    last_reviewed: "2026-01-10"
+    created_at: "2026-01-10"
+    updated_at: "2026-01-14"
+    last_reviewed: "2026-01-14"
     related:
+      requirements: []
       wbs:
-        - "P1-03"
+        - "P1-02"
         - "P2-01"
-      issues: []
+      issues:
+        - "ISS-002"
       decisions: []
+      questions: []
       hearings:
         - "2026-01-10_kickoff.md"
-    notes: "顧客側の繁忙期（決算期）と重なる場合、確率を高へ引き上げ検討。"
+    source:
+      type: "hearing"
+      ref: "2026-01-10_kickoff.md"
+    notes: "顧客側の繁忙期（決算期）と重なる場合、確率を高へ引き上げ検討。ISS-002として一部顕在化。"
+  - id: "RSK-002"
+    title: "技術検証環境構築の遅延"
+    description: "インフラ担当者のアサインが遅れており、技術検証が予定通り開始できないリスク。"
+    status: "Realized"
+    owner: "PMO"
+    impact: "中"
+    probability: "高"
+    score: 6
+    early_signals:
+      - "インフラ担当者のアサイン調整が長引いている"
+      - "環境構築に必要な情報が揃わない"
+    mitigation_plan:
+      - "早期にインフラチームへ依頼を出す"
+      - "クラウド環境の一時利用を検討"
+    contingency_plan:
+      - "ローカル環境での代替検証を実施"
+      - "スケジュール調整を顧客と協議"
+    due: "2026-01-20"
+    created_at: "2026-01-10"
+    updated_at: "2026-01-14"
+    last_reviewed: "2026-01-14"
+    related:
+      requirements: []
+      wbs:
+        - "P1-05"
+      issues:
+        - "ISS-001"
+      decisions: []
+      questions: []
+      hearings: []
+    source:
+      type: "analysis"
+      ref: "プロジェクト計画策定時のリスク分析"
+    notes: "ISS-001として課題化済み。インフラ担当者のアサイン待ち。"

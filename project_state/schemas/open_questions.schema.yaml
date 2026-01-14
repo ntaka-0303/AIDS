@@ -2,9 +2,30 @@
 # プロジェクトごとにカスタマイズ可能
 
 schema:
-  version: "1.0"
+  version: "1.1"
   name: "open_questions"
-  description: "未決事項・確認事項管理のスキーマ定義"
+  description: |
+    未決事項・確認事項を管理するスキーマ。
+
+    【Questionの定義】
+    ヒアリングや検討の場で決定に至らなかった事項。
+    回答・意思決定が必要な未解決の質問や確認事項を管理する。
+
+    【Questionに含まれるもの】
+    - ヒアリング時に結論が出なかった事項
+    - 追加確認が必要な事項（「持ち帰って検討」など）
+    - 選択肢が複数あり、どちらにするか未決定の事項
+    - 情報不足で判断できなかった事項
+
+    【Questionに含まれないもの（誤分類注意）】
+    - 既に回答・決定された事項
+      → decisions.yaml に登録（status: active）
+    - ヒアリング時に合意された方針
+      → decisions.yaml に登録
+
+    【重要ルール】
+    - Intakeで新規登録するQuestionは必ず status: "open" で作成
+    - resolved状態での新規登録は禁止（それは決定事項）
   root_key: questions
 
 # フィールド定義

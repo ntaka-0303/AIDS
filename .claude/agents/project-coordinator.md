@@ -32,12 +32,8 @@ tools: Read, Write, Edit, Glob, Grep
 
 2. WBS Management Skill 実行
    └─ 新規要件からタスク生成提案
-   └─ 新規リスク/課題の反映
 
-3. DocGen Skill 実行
-   └─ 変更があった成果物を差分更新
-
-4. QualityGate Skill 実行
+3. QualityGate Skill 実行
    └─ 全成果物の整合性チェック
    └─ reviews/に結果出力
 ```
@@ -55,17 +51,6 @@ tools: Read, Write, Edit, Glob, Grep
 
 3. QualityGate Skill 実行
    └─ 週報の整合性確認
-```
-
-### フロー3: ドキュメント再生成
-**トリガー**: 「ドキュメントを全て再生成」
-
-```
-1. DocGen Skill 実行 --all
-   └─ 全4種類のドキュメントを再生成
-
-2. QualityGate Skill 実行
-   └─ 全成果物の品質チェック
 ```
 
 ## 実行ルール

@@ -2,9 +2,38 @@
 # プロジェクトごとにカスタマイズ可能
 
 schema:
-  version: "1.0"
+  version: "1.1"
   name: "change_log"
-  description: "変更履歴（起点→反映先の追跡）のスキーマ定義"
+  description: |
+    変更履歴（起点→反映先の追跡）のスキーマ定義。
+
+    【変更履歴の定義】
+    プロジェクト状態ファイル（project_state/）への変更を追跡するログ。
+    何がきっかけで、どのファイルのどの項目が変更されたかを記録する。
+
+    【変更履歴の目的】
+    - トレーサビリティの確保（ヒアリング→要件→成果物の追跡）
+    - 監査対応（いつ、誰が、何を変更したか）
+    - 影響分析（ある決定がどのファイルに影響したか）
+    - ロールバック支援（変更前の状態の把握）
+
+    【変更履歴に記録されるもの】
+    - ヒアリングによる情報追加・更新
+    - 決定事項による各種ファイルの変更
+    - 課題対応による変更
+    - レビュー指摘による修正
+    - 手動による変更
+
+    【記録のタイミング】
+    - Intakeスキル実行時（ヒアリング取り込み）
+    - ProjectMgmtスキル実行時（状態更新）
+    - DocGenスキル実行時（ドキュメント生成）
+    - 手動でproject_stateを更新した場合
+
+    【重要ルール】
+    - 変更履歴は原則として自動生成（Skill実行時）
+    - 手動変更時もエントリを追加することを推奨
+    - 変更履歴自体の削除・改ざんは禁止
   root_key: entries
 
 # フィールド定義
@@ -90,6 +119,41 @@ fields:
     default: "agent"
     description: "変更実行者"
 
+  skill:
+    type: string
+    required: false
+    enum:
+      - "intake"           # Intakeスキル
+      - "project_mgmt"     # ProjectMgmtスキル
+      - "docgen"           # DocGenスキル
+      - "quality_gate"     # QualityGateスキル
+      - "weekly_report"    # WeeklyReportスキル
+      - "manual"           # 手動更新
+    description: "実行したスキル"
+
+  related:
+    type: object
+    required: false
+    properties:
+      decisions:
+        type: array
+        items:
+          type: string
+          pattern: "^DEC-[0-9]{3}$"
+        description: "この変更に関連する決定事項"
+      issues:
+        type: array
+        items:
+          type: string
+          pattern: "^ISS-[0-9]{3}$"
+        description: "この変更に関連する課題"
+      questions:
+        type: array
+        items:
+          type: string
+          pattern: "^QST-[0-9]{3}$"
+        description: "この変更に関連する質問"
+
 # ID採番ルール
 id_generation:
   format: "CHG-{seq:03d}"
@@ -108,11 +172,29 @@ validation:
       target_file: issues.yaml
       target_field: id
       error_message: "参照課題{value}が存在しません"
+    - field: related.decisions
+      target_file: decisions.yaml
+      target_field: id
+      error_message: "関連決定事項{value}が存在しません"
+    - field: related.issues
+      target_file: issues.yaml
+      target_field: id
+      error_message: "関連課題{value}が存在しません"
+    - field: related.questions
+      target_file: open_questions.yaml
+      target_field: id
+      error_message: "関連質問{value}が存在しません"
 
   file_existence:
     - field: changes[].target
       check: "file_exists"
       warning_message: "変更対象ファイル{value}が存在しません"
+
+  business_rules:
+    - rule: "summary is required"
+      error_message: "変更履歴にはsummaryの設定が必要です"
+    - rule: "changes is not empty"
+      error_message: "変更履歴にはchangesの設定が必要です"
 
 # 自動記録ルール
 auto_record:
@@ -152,3 +234,37 @@ example:
         details: "未確認事項を登録"
     summary: "キックオフヒアリングから要件3件、決定1件、質問2件を追加"
     actor: "agent"
+    skill: "intake"
+    related:
+      decisions:
+        - "DEC-001"
+      issues: []
+      questions:
+        - "QST-001"
+        - "QST-002"
+  - id: "CHG-002"
+    date: "2026-01-14"
+    source:
+      type: "manual"
+      ref: "週次進捗会議"
+    changes:
+      - target: "project_state/issues.yaml"
+        action: "added"
+        items:
+          - "ISS-001"
+          - "ISS-002"
+        details: "進捗会議で発生した課題を登録"
+      - target: "project_state/wbs.yaml"
+        action: "modified"
+        items:
+          - "P1-02"
+        details: "P1-02をBlocked状態に変更"
+    summary: "週次会議から課題2件を追加、WBSタスク1件の状態を更新"
+    actor: "agent"
+    skill: "project_mgmt"
+    related:
+      decisions: []
+      issues:
+        - "ISS-001"
+        - "ISS-002"
+      questions: []

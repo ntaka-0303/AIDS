@@ -48,8 +48,6 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 | templates/project_plan.md | outputs/project_plan_draft.md | charter, wbs.yaml, risks.yaml, decisions | proposal_draft.md |
 | templates/requirements.md | outputs/requirements_draft.md | requirements_master, decisions, open_questions | proposal_draft.md, project_plan_draft.md |
 
-詳細なマッピングは `references/template-mapping.md` を参照。
-
 ## 成果物別の品質重視ポイント
 
 各成果物は目的と読者が異なるため、重視すべき品質特性も異なる。
@@ -119,12 +117,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 テンプレートの各セクションに対応するデータソースから情報を抽出し、
 プレースホルダーを実データで置換する。
 
-**マッピング例（proposal_draft.md）:**
-- 表紙 ← project_charter.md（顧客名、プロジェクト名、日付）
-- 課題認識 ← requirements_master.md（現状課題、非機能要件）
-- ユースケース ← requirements_master.md（機能要件）
-- リスク ← risks.yaml
-- 体制 ← project_charter.md
+詳細なマッピングは `references/template-mapping.md` を参照。
 
 ### Step 3: 生成/更新処理
 

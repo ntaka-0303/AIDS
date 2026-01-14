@@ -26,16 +26,15 @@
 
 | セクション | データソース | 抽出内容 |
 |-----------|------------|---------|
-| 表紙 | project_charter.md | 顧客名、プロジェクト名、提出日 |
-| 1. アジェンダ | - | テンプレート固定 |
-| 2. 会社紹介 | - | テンプレート固定（必要に応じて手動編集） |
-| 3. エグゼクティブサマリー | project_charter.md, requirements_master.md | 目的、主要課題、提案概要 |
+| 1. 表紙 | project_charter.md | 顧客名、プロジェクト名、提出日 |
+| 2. アジェンダ | - | テンプレート固定 |
+| 3. 本提案の概要（エグゼクティブサマリー） | project_charter.md, requirements_master.md | 目的、主要課題、提案概要 |
 | 4. 課題認識 | requirements_master.md | 現状課題、業務上の課題 |
 | 5. 解決アプローチ | decisions.yaml, requirements_master.md | 解決方針、採用技術 |
-| 6. AIWorkforceプラットフォーム概要 | - | テンプレート固定（製品説明） |
-| 7. 提供価値（ROI） | project_charter.md | 期待効果、削減工数 |
+| 6. AIWorkforce（AIエージェントプラットフォーム）の概要 | - | テンプレート固定（製品説明） |
+| 7. 提供価値（ROI・工数削減） | project_charter.md | 期待効果、削減工数 |
 | 8. 主要ユースケース | requirements_master.md | 機能要件から主要ユースケースを抽出 |
-| 9. 導入ステップ | project_charter.md, wbs.yaml | スケジュール概要、フェーズ構成 |
+| 9. 導入ステップとスケジュール | project_charter.md, wbs.yaml | スケジュール概要、フェーズ構成 |
 | 10. プロジェクト体制 | project_charter.md | 体制図、役割分担 |
 | 11. リスクと対策 | risks.yaml | 主要リスクと対策 |
 
@@ -85,18 +84,18 @@ status=Open のもののみ表示
 
 | セクション | データソース | 抽出内容 |
 |-----------|------------|---------|
-| 表紙 | project_charter.md | プロジェクト名、作成日、バージョン |
-| 1. 本計画書の目的 | - | テンプレート固定 |
-| 2. プロジェクトゴール | project_charter.md, **proposal_draft.md** | 目的、成功基準、KPI（提案書と整合） |
-| 3. スコープ定義 | project_charter.md, decisions.yaml, **proposal_draft.md** | スコープ内/外、スコープ変更決定（提案書の内容を詳細化） |
-| 4. プロジェクト体制 | project_charter.md, **proposal_draft.md** | 体制図、連絡先、RACI（提案書の体制を詳細化） |
-| 5. フェーズ構成 | wbs.yaml, **proposal_draft.md** | フェーズ一覧、各フェーズの目的（提案書の導入ステップと整合） |
-| 6. マスタースケジュール | wbs.yaml, **proposal_draft.md** | WBSからガントチャート形式で生成（提案書のスケジュール概要を詳細化） |
+| 1. 表紙 | project_charter.md | プロジェクト名、作成日、バージョン |
+| 2. 本計画書の目的・位置づけ | project_charter.md, **proposal_draft.md** | 目的、適用範囲、背景（提案書と整合） |
+| 3. プロジェクトのゴール・KGI/KPI | project_charter.md, **proposal_draft.md** | 目的、成功基準、KPI（提案書と整合） |
+| 4. 対象範囲・スコープ定義 | project_charter.md, decisions.yaml, **proposal_draft.md** | スコープ内/外、スコープ変更決定（提案書の内容を詳細化） |
+| 5. プロジェクト体制 | project_charter.md, **proposal_draft.md** | 体制図、連絡先、RACI（提案書の体制を詳細化） |
+| 6. フェーズ構成とスケジュール | wbs.yaml, **proposal_draft.md** | フェーズ一覧、マスタースケジュール（提案書の導入ステップと整合） |
 | 7. フェーズ別タスク・成果物 | wbs.yaml | タスク詳細、成果物一覧 |
-| 8. 環境構成 | requirements_master.md | 非機能要件から環境要件を抽出 |
-| 9. コミュニケーション計画 | project_charter.md | 会議体、報告ルール |
-| 10. リスクと対策 | risks.yaml, **proposal_draft.md** | リスク一覧と対策（提案書のリスクを詳細化） |
-| 11. 変更管理 | - | テンプレート固定 |
+| 8. 環境構成・技術要件 | requirements_master.md | 非機能要件から環境要件を抽出 |
+| 9. ナレッジ・データ準備計画 | requirements_master.md | 対象ナレッジ、データ整備、登録フロー |
+| 10. セキュリティ・ガバナンス計画 | requirements_master.md | アクセス制御、ログ・監査、AIリスク管理 |
+| 11. コミュニケーション・変更管理 | project_charter.md | 会議体、報告ルール、変更管理プロセス |
+| 12. リスクと対策 | risks.yaml, **proposal_draft.md** | リスク一覧と対策（提案書のリスクを詳細化） |
 
 ### データ抽出ルール
 
@@ -164,18 +163,21 @@ status=Open のもののみ表示
 
 | セクション | データソース | 抽出内容 |
 |-----------|------------|---------|
-| 表紙 | project_charter.md | プロジェクト名、版数、日付 |
-| 1. ドキュメント概要 | - | テンプレート固定 |
-| 2. 背景・目的 | project_charter.md, **proposal_draft.md** | 目的、背景（提案書の課題認識・エグゼクティブサマリーと整合） |
-| 3. 用語定義 | requirements_master.md, **proposal_draft.md** | 用語一覧（提案書で使用された用語を含む） |
-| 4. 全体像 | project_charter.md, requirements_master.md, **proposal_draft.md**, **project_plan_draft.md** | システム概要、業務フロー（提案書のユースケース、計画書のスコープと整合） |
-| 5. 業務要件 | requirements_master.md, **proposal_draft.md** | 業務シナリオ、ユースケース（提案書の主要ユースケースを詳細化） |
-| 6. 機能要件 | requirements_master.md, **proposal_draft.md** | type=functionalの要件一覧（提案書のユースケースから導出） |
-| 7. 非機能要件 | requirements_master.md, **project_plan_draft.md** | type=non-functionalの要件一覧（計画書の環境構成と整合） |
-| 8. インターフェース要件 | requirements_master.md | 連携要件を抽出 |
-| 9. データ要件 | requirements_master.md | データ関連要件を抽出 |
-| 10. 制約条件 | project_charter.md, decisions.yaml, **proposal_draft.md**, **project_plan_draft.md** | 制約、前提条件（提案書・計画書の前提を含む） |
-| 11. リスク・課題 | risks.yaml, issues.yaml, **proposal_draft.md**, **project_plan_draft.md** | オープンなリスク・課題（上位成果物のリスクを含む） |
+| 1. 表紙 | project_charter.md | プロジェクト名、版数、日付 |
+| 2. ドキュメント概要 | - | テンプレート固定（目的、対象読者、位置づけ） |
+| 3. 背景・目的 | project_charter.md, **proposal_draft.md** | 目的、背景（提案書の課題認識・エグゼクティブサマリーと整合） |
+| 4. 用語定義・略語一覧 | requirements_master.md, **proposal_draft.md** | 用語一覧（提案書で使用された用語を含む） |
+| 5. 全体像（システム／業務アーキテクチャ） | project_charter.md, requirements_master.md, **proposal_draft.md**, **project_plan_draft.md** | システム概要、業務フロー（提案書のユースケース、計画書のスコープと整合） |
+| 6. 業務要件 | requirements_master.md, **proposal_draft.md** | 業務シナリオ、ユースケース（提案書の主要ユースケースを詳細化） |
+| 7. 機能要件 | requirements_master.md, **proposal_draft.md** | type=functionalの要件一覧（提案書のユースケースから導出） |
+| 8. 非機能要件 | requirements_master.md, **project_plan_draft.md** | type=non-functionalの要件一覧（計画書の環境構成と整合） |
+| 9. インターフェース要件 | requirements_master.md | 連携要件を抽出 |
+| 10. データ要件 | requirements_master.md | データ関連要件を抽出 |
+| 11. 制約条件・前提条件 | project_charter.md, decisions.yaml, **proposal_draft.md**, **project_plan_draft.md** | 制約、前提条件（提案書・計画書の前提を含む） |
+| 12. 移行・展開要件 | requirements_master.md, wbs.yaml | 既存データ移行、段階的展開方針 |
+| 13. テスト観点・受入条件 | requirements_master.md | テスト観点、受入条件 |
+| 14. リスク・課題 | risks.yaml, issues.yaml, **proposal_draft.md**, **project_plan_draft.md** | オープンなリスク・課題（上位成果物のリスクを含む） |
+| 15. 付録 | - | 参考資料一覧、変更履歴 |
 
 ### データ抽出ルール
 

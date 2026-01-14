@@ -2,9 +2,30 @@
 # プロジェクトごとにカスタマイズ可能
 
 schema:
-  version: "1.0"
+  version: "1.1"
   name: "issues"
-  description: "課題管理のスキーマ定義"
+  description: |
+    プロジェクト推進上の課題を管理するスキーマ。
+
+    【課題の定義】
+    プロジェクトを推進する上で顕在化した問題・障害。
+    体制、リソース、技術、コミュニケーション、環境など、
+    プロジェクト遂行を妨げる事象を管理する。
+
+    【課題に含まれるもの】
+    - 体制・リソースの問題（担当者不在、スキル不足など）
+    - 技術的障壁（環境構築失敗、ツール不具合など）
+    - コミュニケーション問題（情報共有不足、認識齟齬など）
+    - 進捗上の問題（遅延、ブロッカーなど）
+    - 品質問題（レビュー指摘、テスト不合格など）
+
+    【課題に含まれないもの（誤分類注意）】
+    - クライアントの業務上の課題・問題点
+      → project_charter.md（背景）またはrequirements_master.md（要件の背景）
+    - システム仕様の不明点
+      → open_questions.yaml（質問）
+    - 将来発生しうる懸念
+      → risks.yaml（リスク）
   root_key: issues
 
 # フィールド定義
@@ -181,26 +202,47 @@ validation:
       error_message: "解決済み課題にはresolutionの記入が必要です"
 
 # サンプルデータ
+# ※課題はプロジェクト推進上の問題であり、業務上の課題ではない点に注意
 example:
   - id: "ISS-001"
-    title: "現行業務フローの例外処理が不明"
-    description: "◯◯のケースにおける判断基準がヒアリングメモに記載されていない"
+    title: "技術検証環境の構築担当者が未アサイン"
+    description: "インフラ担当者の参画が遅れており、検証環境の構築が開始できない状態"
     priority: "High"
     owner: "PMO"
     status: "Open"
     due: "2026-01-18"
     created_at: "2026-01-10"
     updated_at: "2026-01-10"
-    action: "次回ヒアリングで確認"
+    action: "インフラチームリーダーに担当者アサインを依頼"
     resolution: null
     related:
-      requirements:
-        - "REQ-012"
+      requirements: []
       wbs:
-        - "P2-03"
-      risks: []
-      hearings:
-        - "2026-01-10_kickoff.md"
+        - "P1-05"
+      risks:
+        - "RSK-002"
+      hearings: []
     source:
-      type: "hearing"
-      ref: "2026-01-10_kickoff.md"
+      type: "manual"
+      ref: "週次進捗会議"
+  - id: "ISS-002"
+    title: "顧客側レビュー担当者との日程調整が難航"
+    description: "提案書レビューの日程が2週間以上確保できず、承認プロセスが停滞"
+    priority: "Medium"
+    owner: "PMO"
+    status: "InProgress"
+    due: "2026-01-25"
+    created_at: "2026-01-12"
+    updated_at: "2026-01-14"
+    action: "代替レビュー担当者の選定を顧客PMに打診中"
+    resolution: null
+    related:
+      requirements: []
+      wbs:
+        - "P1-03"
+      risks:
+        - "RSK-001"
+      hearings: []
+    source:
+      type: "risk"
+      ref: "RSK-001"

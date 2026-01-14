@@ -2,9 +2,35 @@
 # プロジェクトごとにカスタマイズ可能
 
 schema:
-  version: "1.0"
+  version: "1.1"
   name: "decisions"
-  description: "決定事項管理のスキーマ定義"
+  description: |
+    決定事項管理のスキーマ定義。
+
+    【決定事項の定義】
+    プロジェクトにおいて合意・承認された方針や判断。
+    ヒアリング、会議、レビューなどで確定した事項を記録し追跡する。
+
+    【決定事項に含まれるもの】
+    - 技術的決定（アーキテクチャ、使用技術、ツール選定など）
+    - スコープ決定（対象範囲、除外事項、フェーズ分けなど）
+    - プロセス決定（進め方、承認フロー、報告頻度など）
+    - リソース決定（体制、担当、役割分担など）
+    - スケジュール決定（マイルストーン、期限など）
+
+    【決定事項に含まれないもの（誤分類注意）】
+    - まだ決定されていない・保留中の事項
+      → open_questions.yaml（質問）
+    - 決定後に発生した問題・障害
+      → issues.yaml（課題）
+    - 決定のきっかけとなった情報
+      → ヒアリングメモまたはsourceフィールドで参照
+
+    【重要ルール】
+    - 決定事項は常にsource（決定の出典）を記録する
+    - 後続の決定で上書きされた場合はstatus: supersededに変更
+    - 撤回された場合はstatus: revokedに変更し理由を記録
+    - open_questionsが解決された場合、関連する決定事項を作成
   root_key: decisions
 
 # フィールド定義
@@ -51,9 +77,24 @@ fields:
       - "other"       # その他
     description: "決定カテゴリ"
 
+  created_at:
+    type: date
+    required: true
+    format: "YYYY-MM-DD"
+    auto_set: true
+    description: "作成日（自動設定）"
+
+  updated_at:
+    type: date
+    required: true
+    format: "YYYY-MM-DD"
+    auto_update: true
+    description: "更新日（自動更新）"
+
   impact:
     type: object
     required: false
+    description: "この決定によって影響を受ける項目"
     properties:
       requirements:
         type: array
@@ -73,6 +114,18 @@ fields:
           type: string
           pattern: "^RSK-[0-9]{3}$"
         description: "影響を受けるリスク"
+      issues:
+        type: array
+        items:
+          type: string
+          pattern: "^ISS-[0-9]{3}$"
+        description: "影響を受ける課題"
+      questions:
+        type: array
+        items:
+          type: string
+          pattern: "^QST-[0-9]{3}$"
+        description: "この決定により解決される質問"
       documents:
         type: array
         items:
@@ -158,16 +211,34 @@ validation:
       target_file: wbs.yaml
       target_field: id
       error_message: "影響WBSタスク{value}が存在しません"
+    - field: impact.risks
+      target_file: risks.yaml
+      target_field: id
+      error_message: "影響リスク{value}が存在しません"
+    - field: impact.issues
+      target_file: issues.yaml
+      target_field: id
+      error_message: "影響課題{value}が存在しません"
+    - field: impact.questions
+      target_file: open_questions.yaml
+      target_field: id
+      error_message: "関連質問{value}が存在しません"
     - field: superseded_by
       target_file: decisions.yaml
       target_field: id
       error_message: "上書き元決定{value}が存在しません"
+
+  date_consistency:
+    - rule: "date <= updated_at"
+      error_message: "決定日が更新日より後に設定されています"
 
   business_rules:
     - rule: "status == 'superseded' implies superseded_by is not empty"
       error_message: "superseded状態にはsuperseded_byの設定が必要です"
     - rule: "status == 'revoked' implies revoked_reason is not empty"
       error_message: "revoked状態にはrevoked_reasonの設定が必要です"
+    - rule: "source is required"
+      error_message: "決定事項にはsourceの設定が必要です"
 
 # サンプルデータ
 example:
@@ -177,11 +248,15 @@ example:
     content: "OAuth2.0 + OIDC を採用する"
     rationale: "既存システムとの連携容易性、セキュリティ要件への適合"
     category: "technical"
+    created_at: "2026-01-10"
+    updated_at: "2026-01-10"
     impact:
       requirements:
         - "REQ-005"
       wbs: []
       risks: []
+      issues: []
+      questions: []
       documents:
         - "outputs/requirements_draft.md"
     source:
@@ -192,3 +267,31 @@ example:
         - "PMO"
     status: "active"
     superseded_by: null
+    revoked_reason: null
+  - id: "DEC-002"
+    date: "2026-01-10"
+    title: "プロジェクト進行方式の決定"
+    content: "アジャイル開発手法（スクラム）を採用し、2週間スプリントで進行する"
+    rationale: "顧客要望の変化に柔軟に対応するため、短いフィードバックサイクルを確保"
+    category: "process"
+    created_at: "2026-01-10"
+    updated_at: "2026-01-10"
+    impact:
+      requirements: []
+      wbs:
+        - "P2-01"
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "outputs/project_plan_draft.md"
+    source:
+      type: "hearing"
+      ref: "2026-01-10_kickoff.md"
+      attendees:
+        - "顧客担当者A"
+        - "PMO"
+        - "開発リーダー"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null

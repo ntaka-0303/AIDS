@@ -1,30 +1,35 @@
 # 課題管理
 # スキーマ: schemas/issues.schema.yaml
 # エージェントによる自動更新用
+#
+# ⚠️ 重要: 課題の定義
+# ここで管理する「課題」は【プロジェクト推進上の問題】のみ。
+# クライアントの業務上の課題・問題点は以下に記載:
+#   - project_charter.md（背景・業務課題セクション）
+#   - requirements_master.md（要件の背景として）
 
 issues: []
 
 # サンプル構造:
 # issues:
-#   - id: "ISS-001"                   # 必須: 課題ID
-#     title: "現行業務フローの例外処理が不明"  # 必須: タイトル
-#     description: "◯◯のケースにおける判断基準がヒアリングメモに記載されていない"  # 任意
-#     priority: "High"                # 必須: High/Medium/Low
-#     owner: "PMO"                    # 必須: 課題オーナー
-#     status: "Open"                  # 必須: Open/InProgress/Resolved/Deferred
-#     due: "2026-01-18"               # 任意: 対応期限
-#     created_at: "2026-01-10"        # 必須: 作成日 (自動設定)
-#     updated_at: "2026-01-10"        # 必須: 更新日 (自動更新)
-#     action: "次回ヒアリングで確認"    # 任意: 対応方針
-#     resolution: null                # 任意: 解決内容 (Resolved時に記入)
-#     related:                        # 任意: 関連ID
-#       requirements:
-#         - "REQ-012"
+#   - id: "ISS-001"                           # 必須: 課題ID
+#     title: "技術検証環境の構築担当者が未アサイン"  # 必須: タイトル（プロジェクト推進上の問題）
+#     description: "インフラ担当者の参画が遅れており、検証環境の構築が開始できない"
+#     priority: "High"                        # 必須: High/Medium/Low
+#     owner: "PMO"                            # 必須: 課題オーナー
+#     status: "Open"                          # 必須: Open/InProgress/Resolved/Deferred
+#     due: "2026-01-18"                       # 任意: 対応期限
+#     created_at: "2026-01-10"                # 必須: 作成日 (自動設定)
+#     updated_at: "2026-01-10"                # 必須: 更新日 (自動更新)
+#     action: "インフラチームリーダーに担当者アサインを依頼"
+#     resolution: null                        # 任意: 解決内容 (Resolved時に記入)
+#     related:                                # 任意: 関連ID
+#       requirements: []
 #       wbs:
-#         - "P2-03"
-#       risks: []
-#       hearings:
-#         - "2026-01-10_kickoff.md"
-#     source:                         # 任意: 作成元
-#       type: "hearing"               # hearing/risk/review/manual
-#       ref: "2026-01-10_kickoff.md"
+#         - "P1-05"
+#       risks:
+#         - "RSK-002"
+#       hearings: []
+#     source:                                 # 任意: 作成元
+#       type: "manual"                        # hearing/risk/review/manual
+#       ref: "週次進捗会議"
