@@ -50,10 +50,10 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 |---------|------|---------|---------|
 | `project_charter.md` | Markdown | - | 基本情報をマージ（上書きではなく補完） |
 | `requirements_master.md` | Markdown | - | 新規要件を追記、既存要件は更新 |
-| `open_questions.yaml` | YAML | `schemas/open_questions.schema.yaml` | 新規追加、解決済みはstatus: resolved |
+| `open_questions.yaml` | YAML | `schemas/open_questions.schema.yaml` | **新規追加のみ**（状態更新はProject Mgmtで） |
 | `decisions.yaml` | YAML | `schemas/decisions.schema.yaml` | 新規決定を配列に追加 |
-| `risks.yaml` | YAML | `schemas/risks.schema.yaml` | 新規リスク追加、既存は状態更新 |
-| `issues.yaml` | YAML | `schemas/issues.schema.yaml` | 新規課題追加、既存は状態更新 |
+| `risks.yaml` | YAML | `schemas/risks.schema.yaml` | **新規リスクの初期登録のみ**（状態更新はProject Mgmtで） |
+| `issues.yaml` | YAML | `schemas/issues.schema.yaml` | **新規課題の初期登録のみ**（状態更新はProject Mgmtで） |
 | `change_log.yaml` | YAML | `schemas/change_log.schema.yaml` | 変更エントリを配列に追加 |
 
 **ID採番ルールは各スキーマファイルの`id_generation`セクションを参照。**
@@ -168,3 +168,14 @@ changes_made:
 2. **重複チェック**: 既存のIDと重複しないよう確認
 3. **参照保持**: 抽出した情報には元のヒアリングファイルへの参照を保持
 4. **YAML配列追加**: 既存のYAML配列に新規エントリを追加する形式で更新
+
+## 他スキルとの責務分担
+
+| 対象 | Intakeの責務 | Project Mgmtの責務 |
+|------|-------------|-------------------|
+| **issues.yaml** | ヒアリング起点の初期登録 | 手動追加、状態更新、解決 |
+| **risks.yaml** | ヒアリング起点の初期登録 | 手動追加、状態更新、顕在化対応 |
+| **open_questions.yaml** | ヒアリング起点の初期登録 | 状態更新（resolved/deferred） |
+
+**重要**: Intakeは「ヒアリングからの情報抽出・初期登録」に専念し、
+日常の進捗管理（状態更新）はProject Management Skillで行う。

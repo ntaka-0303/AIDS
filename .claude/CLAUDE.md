@@ -49,12 +49,14 @@ logs/                # 実行ログ
 「weekly report」
 ```
 
-### WBS/課題/リスク管理
+### プロジェクト管理（ProjectManagement）
 ```
 「タスクを追加」
-「課題を登録」
-「リスクを追加」
+「課題を登録」「課題を解決」
+「リスクを追加」「リスクを更新」
+「質問を解決」
 「WBSを更新」
+「project management」
 ```
 
 ### 運用フロー一括実行
@@ -62,6 +64,37 @@ logs/                # 実行ログ
 「ヒアリング後の全体更新を実行」  # Intake → WBS → DocGen → QualityGate
 「週次サイクルを回して」          # WBS更新 → WeeklyReport → QualityGate
 ```
+
+## スキル責務分担
+
+### project_stateファイル別の責務
+
+| ファイル | 初期作成 | 更新（追加） | 更新（状態変更） |
+|---------|----------|-------------|-----------------|
+| `project_charter.md` | Intake | Intake | - |
+| `requirements_master.md` | Intake | Intake | - |
+| `decisions.yaml` | Intake | Intake | - |
+| `open_questions.yaml` | Intake | Intake | **ProjectMgmt** |
+| `wbs.yaml` | **ProjectMgmt** | ProjectMgmt | ProjectMgmt |
+| `issues.yaml` | Intake | 両方 | **ProjectMgmt** |
+| `risks.yaml` | Intake | 両方 | **ProjectMgmt** |
+| `change_log.yaml` | 自動 | 両方 | - |
+
+### スキル別の役割
+
+| スキル | 役割 |
+|--------|------|
+| **Intake** | ヒアリングメモからの情報抽出・初期登録 |
+| **ProjectMgmt** | 日常の進捗管理・状態更新・手動追加 |
+| **DocGen** | テンプレート＋project_stateからドキュメント生成 |
+| **QualityGate** | 成果物とproject_stateの整合性・完全性チェック |
+| **WeeklyReport** | WBS/課題/リスクから週次報告書生成 |
+
+### プロジェクトフェーズ別フロー
+
+1. **プロジェクト開始**: Intake → ProjectMgmt（WBS作成）→ DocGen → QualityGate
+2. **実行フェーズ（日常）**: ProjectMgmt（状態更新）、継続ヒアリング時はIntake
+3. **週次サイクル**: ProjectMgmt → WeeklyReport → QualityGate
 
 ## ID採番規則
 
