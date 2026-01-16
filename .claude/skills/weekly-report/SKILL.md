@@ -70,8 +70,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep
   At Risk: 0% < 遅延率 <= 20%
   Off Track: 遅延率 > 20%
   ```
-- **ハイライト**: 当週status=Doneになったタスク（上位5件）
-- **意思決定・確認依頼**: High優先度の未解決Issue、回答期限が近い未決事項
+- **ハイライト**: 当週status=Doneになったタスク（プロジェクト上重要な上位5件）
 
 1.2 タスク消化サマリ
 - 当週完了: count(status=Done AND updated_at in period)
@@ -81,6 +80,8 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 1.3 遅延タスク
 - 遅延タスク = due < today AND status != Done
 - 遅延原因: 関連Issueがあればその内容、なければ「要確認」
+- 影響: 遅延の影響する後続タスクと影響内容（着手できないのか、着手はできるが完了できないのかなど）
+- リカバリー策: 具体的なリカバリー策
 
 **課題状況（Section 2）:**
 
@@ -89,6 +90,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 - 新規 = created_at が期間内
 - 解決 = status=Resolved AND updated_at が期間内
 - 継続 = status IN (Open, InProgress) AND created_at < 期間開始
+- 意思決定・支援依頼: 顧客内での意思決定・調整、当社と顧客との合意が必要な具体的な事項
 
 **未決事項（Section 3）:**
 
@@ -100,6 +102,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 3.2 今週中に意思決定が必要な未決事項
 - 抽出条件: status=open AND due <= period_end
 - 関連するWBSタスクへの影響を記載
+- 顧客内での意思決定・調整、当社と顧客との合意が必要な具体的な事項
 
 **リスク状況（Section 4）:**
 
