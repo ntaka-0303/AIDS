@@ -1,0 +1,20 @@
+source: "inputs/hearings/情報検索_市況整理のヒアリング結果.md"
+processed_at: "2026-01-15 23:50"
+extracted:
+  requirements:
+    - id: "REQ-001"
+      type: "update"
+      summary: "情報検索機能の定量的データを追記（週10-15件、30-60分/件、情報サイロ化、時間負荷・心理負荷が最大）"
+    - id: "REQ-002"
+      type: "update"
+      summary: "市況整理機能の定量的データを追記（週3-5件、20-40分/件、若手の苦手ポイント、調査部の懸念事項）"
+  decisions: []
+  questions: []
+  risks: []
+  issues: []
+changes_made:
+  - file: "project_state/requirements_master.md"
+    action: "updated"
+    items:
+      - "REQ-001"
+      - "REQ-002"

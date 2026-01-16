@@ -2,38 +2,39 @@
 # スキーマ: schemas/risks.schema.yaml
 # エージェントによる自動更新用
 
-risks: []
-
-# サンプル構造:
-# risks:
-#   - id: "RSK-001"                   # 必須: リスクID
-#     title: "顧客レビュー遅延により後続タスクが詰まる"  # 必須: タイトル
-#     description: "成果物レビューに必要な関係者の確保が難しく、承認が後ろ倒しになる可能性。"  # 任意
-#     status: "Open"                  # 必須: Open/Monitoring/Mitigated/Realized/Closed
-#     owner: "PMO"                    # 必須: リスクオーナー
-#     impact: "高"                    # 必須: 高/中/低
-#     probability: "中"               # 必須: 高/中/低
-#     score: 6                        # 必須: 自動計算 (impact * probability)
-#     early_signals:                  # 任意: 早期兆候
-#       - "レビュー依頼から3営業日以上反応なし"
-#       - "会議日程が確保できない"
-#     mitigation_plan:                # 任意: 予防策
-#       - "レビュー観点を事前共有し、レビュー時間を短縮"
-#       - "代替レビュー担当者の設定"
-#     contingency_plan:               # 任意: 発生時対応策
-#       - "優先度Highの論点のみ先行承認し分割リリース"
-#       - "WBSを再計画し、クリティカルパスを短縮"
-#     due: "2026-01-25"               # 任意: 対応期限
-#     last_reviewed: "2026-01-10"     # 任意: 最終レビュー日 (自動更新)
-#     related:                        # 任意: 関連ID
-#       wbs:
-#         - "P1-03"
-#         - "P2-01"
-#       issues: []
-#       decisions: []
-#       hearings:
-#         - "2026-01-10_kickoff.md"
-#     notes: "顧客側の繁忙期と重なる場合、確率を高へ引き上げ検討。"  # 任意
-#     source:                         # 任意: 作成元
-#       type: "hearing"
-#       ref: "2026-01-10_kickoff.md"
+risks:
+  - id: "RSK-001"
+    title: "現場の抵抗によるPoC不活性化"
+    description: "一気に全業務をAI化しようとすると現場の抵抗が大きくなり、PoCが形骸化する可能性がある"
+    status: "Open"
+    owner: "LayerX"
+    impact: "高"
+    probability: "中"
+    score: 6
+    early_signals:
+      - "現場からのフィードバックが得られない"
+      - "PoC参加者の参加率低下"
+      - "「使いにくい」「業務に合わない」という声が増加"
+    mitigation_plan:
+      - "現場が改善を実感しやすい領域に絞ってPoCを実施"
+      - "現場の抵抗が少ないテーマを優先選定"
+      - "現場が「使ってみたい」と思うテーマを中心に進める"
+      - "段階的導入で成功体験を積み重ねる"
+    contingency_plan:
+      - "PoC対象領域の再選定"
+      - "現場ヒアリングの追加実施"
+      - "スコープの縮小"
+    due: null
+    last_reviewed: "2026-01-14"
+    related:
+      wbs: []
+      issues: []
+      decisions:
+        - "DEC-004"
+        - "DEC-005"
+      hearings:
+        - "初回ヒアリング内容.md"
+    notes: "クライアントより「現場の抵抗が少ない」が特に重要と指摘あり"
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"

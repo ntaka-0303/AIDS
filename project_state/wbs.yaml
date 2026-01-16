@@ -2,25 +2,699 @@
 # スキーマ: schemas/wbs.schema.yaml
 # エージェントによる自動更新用
 
-tasks: []
+tasks:
+  # Phase 1: 提案フェーズ
+  - id: "P1-01"
+    phase: "提案"
+    title: "KPI粗案の作成"
+    deliverable: null
+    owner: "LayerX"
+    status: "Done"
+    due: "2026-01-21"
+    updated_at: "2026-01-14"
+    depends_on: []
+    definition_of_done:
+      - "検索時間、市況理解、提案書作成時間等のKPI候補が整理されている"
+      - "測定方法の案が含まれている"
+    related:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+      decisions:
+        - "DEC-010"
+      questions:
+        - "QST-005"
+    source:
+      type: "hearing"
+      ref: "PoC候補整理結果へのコメント.md"
 
-# サンプル構造:
-# tasks:
-#   - id: "P1-01"                    # 必須: フェーズ+連番
-#     phase: "提案"                   # 必須: 提案/計画/設計/実装/移行/運用
-#     title: "提案書ドラフト作成"       # 必須: タスクタイトル
-#     deliverable: "outputs/proposal_draft.md"  # 任意: 成果物パス
-#     owner: "PMO"                    # 必須: 担当者
-#     status: "Todo"                  # 必須: Todo/InProgress/Done/Blocked
-#     due: "2026-01-20"               # 必須: 期限日 (YYYY-MM-DD)
-#     depends_on: []                  # 任意: 依存タスクID
-#     definition_of_done:             # 任意: 完了条件
-#       - "顧客課題/ToBe/スコープが明記されている"
-#       - "decisions.yamlと矛盾しない"
-#     related:                        # 任意: 関連ID
-#       requirements:
-#         - "REQ-001"
-#         - "REQ-002"
-#     source:                         # 任意: 作成元
-#       type: "hearing"               # hearing/decision/manual
-#       ref: "2026-01-10_kickoff.md"
+  - id: "P1-02"
+    phase: "提案"
+    title: "提案書ドラフト作成"
+    deliverable: "outputs/proposal_draft.md"
+    owner: "LayerX"
+    status: "Done"
+    due: "2026-01-24"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P1-01"
+    definition_of_done:
+      - "顧客課題/ToBe/スコープが明記されている"
+      - "decisions.yamlと矛盾しない"
+      - "Phase1対象領域が明確"
+    related:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+      decisions:
+        - "DEC-006"
+        - "DEC-007"
+        - "DEC-008"
+        - "DEC-009"
+    source:
+      type: "decision"
+      ref: "DEC-006"
+
+  - id: "P1-03"
+    phase: "提案"
+    title: "現場ヒアリング（データソース優先順位）"
+    deliverable: null
+    owner: "顧客"
+    status: "Done"
+    due: "2026-01-28"
+    updated_at: "2026-01-14"
+    depends_on: []
+    definition_of_done:
+      - "情報検索で接続すべきデータソースの優先順位が確定"
+      - "調査部レポート、商品資料、FAQの詳細が把握できている"
+    related:
+      requirements:
+        - "REQ-001"
+      decisions:
+        - "DEC-007"
+    source:
+      type: "decision"
+      ref: "DEC-007"
+
+  - id: "P1-04"
+    phase: "提案"
+    title: "市況サマリレビュー体制の調整"
+    deliverable: null
+    owner: "顧客"
+    status: "Done"
+    due: "2026-01-28"
+    updated_at: "2026-01-14"
+    depends_on: []
+    definition_of_done:
+      - "DX推進部と調査部でレビュー体制が合意されている"
+      - "レビューフローが明確化"
+    related:
+      requirements:
+        - "REQ-002"
+      decisions:
+        - "DEC-008"
+    source:
+      type: "decision"
+      ref: "DEC-008"
+
+  - id: "P1-05"
+    phase: "提案"
+    title: "既存テンプレート一覧の収集"
+    deliverable: null
+    owner: "顧客"
+    status: "Done"
+    due: "2026-01-28"
+    updated_at: "2026-01-14"
+    depends_on: []
+    definition_of_done:
+      - "Phase1で対応する既存テンプレートが特定されている"
+      - "テンプレートのサンプルが提供されている"
+    related:
+      requirements:
+        - "REQ-003"
+      decisions:
+        - "DEC-009"
+    source:
+      type: "decision"
+      ref: "DEC-009"
+
+  # Phase 2: 計画フェーズ
+  - id: "P2-01"
+    phase: "計画"
+    title: "KPI・評価指標の確定"
+    deliverable: null
+    owner: "LayerX"
+    status: "Done"
+    due: "2026-01-31"
+    updated_at: "2026-01-22"
+    depends_on:
+      - "P1-01"
+    definition_of_done:
+      - "検索時間、市況理解、提案書作成時間等のKPIが具体的に定義されている"
+      - "各KPIの測定方法が明確化されている"
+      - "ベースライン測定計画が含まれている"
+    related:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+      decisions:
+        - "DEC-010"
+        - "DEC-012"
+      questions:
+        - "QST-005"
+    source:
+      type: "manual"
+      ref: "計画フェーズタスク整理"
+
+  - id: "P2-02"
+    phase: "計画"
+    title: "データソース詳細仕様の確認"
+    deliverable: null
+    owner: "顧客"
+    status: "Done"
+    due: "2026-01-31"
+    updated_at: "2026-01-22"
+    depends_on:
+      - "P1-03"
+    definition_of_done:
+      - "調査部レポート、商品資料、FAQの詳細仕様が把握されている"
+      - "データフォーマット、更新頻度、アクセス方法が明確化"
+      - "サンプルデータが入手できている"
+    related:
+      requirements:
+        - "REQ-001"
+      decisions:
+        - "DEC-007"
+        - "DEC-015"
+      questions:
+        - "QST-001"
+    source:
+      type: "manual"
+      ref: "計画フェーズタスク整理"
+
+  - id: "P2-03"
+    phase: "計画"
+    title: "市況レポートのサンプル取得とフォーマット確認"
+    deliverable: null
+    owner: "顧客"
+    status: "Done"
+    due: "2026-01-31"
+    updated_at: "2026-01-22"
+    depends_on: []
+    definition_of_done:
+      - "市況レポートのサンプルが提供されている"
+      - "データフォーマット、粒度、更新頻度が確認されている"
+      - "調査部レビュー担当者が確定している"
+    related:
+      requirements:
+        - "REQ-002"
+      decisions:
+        - "DEC-008"
+        - "DEC-013"
+      questions:
+        - "QST-002"
+    source:
+      type: "manual"
+      ref: "計画フェーズタスク整理"
+
+  - id: "P2-04"
+    phase: "計画"
+    title: "既存テンプレートの詳細仕様確認"
+    deliverable: null
+    owner: "顧客"
+    status: "Done"
+    due: "2026-01-31"
+    updated_at: "2026-01-22"
+    depends_on:
+      - "P1-05"
+    definition_of_done:
+      - "Phase1対象テンプレートの構造が分析されている"
+      - "AI適用範囲（自動生成可能な箇所）が明確化"
+      - "テンプレート生成の入力情報が特定されている"
+    related:
+      requirements:
+        - "REQ-003"
+      decisions:
+        - "DEC-009"
+        - "DEC-016"
+    source:
+      type: "manual"
+      ref: "計画フェーズタスク整理"
+
+  - id: "P2-05"
+    phase: "計画"
+    title: "PoC参加メンバーの選定と体制確定"
+    deliverable: null
+    owner: "顧客"
+    status: "Done"
+    due: "2026-01-31"
+    updated_at: "2026-01-22"
+    depends_on: []
+    definition_of_done:
+      - "PoC参加メンバーが選定されている"
+      - "役割分担（利用者、フィードバック提供者、レビュー担当等）が明確化"
+      - "各メンバーの稼働想定が確認されている"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-005"
+        - "DEC-014"
+      questions:
+        - "QST-003"
+    source:
+      type: "manual"
+      ref: "計画フェーズタスク整理"
+
+  - id: "P2-06"
+    phase: "計画"
+    title: "レビューフローの詳細化"
+    deliverable: null
+    owner: "顧客"
+    status: "Done"
+    due: "2026-01-31"
+    updated_at: "2026-01-22"
+    depends_on:
+      - "P1-04"
+      - "P2-05"
+    definition_of_done:
+      - "市況サマリのレビューフローが詳細化されている"
+      - "レビュー観点、承認基準が明確化"
+      - "レビュー所要時間の想定が確認されている"
+    related:
+      requirements:
+        - "REQ-002"
+      decisions:
+        - "DEC-008"
+        - "DEC-017"
+    source:
+      type: "manual"
+      ref: "計画フェーズタスク整理"
+
+  - id: "P2-07"
+    phase: "計画"
+    title: "データ連携方式の技術設計"
+    deliverable: null
+    owner: "LayerX"
+    status: "Done"
+    due: "2026-01-31"
+    updated_at: "2026-01-22"
+    depends_on:
+      - "P2-02"
+      - "P2-03"
+    definition_of_done:
+      - "セキュア領域へのデータアップロード方式が設計されている"
+      - "ファイル形式対応の技術仕様が明確化"
+      - "データ更新の運用フローが定義されている"
+    related:
+      requirements:
+        - "REQ-007"
+      decisions:
+        - "DEC-011"
+        - "DEC-018"
+      questions:
+        - "QST-004"
+    source:
+      type: "manual"
+      ref: "計画フェーズタスク整理"
+
+  - id: "P2-8"
+    phase: "計画"
+    title: "プロジェクト計画書の作成"
+    deliverable: "outputs/project_plan_draft.md"
+    owner: "LayerX"
+    status: "Todo"
+    due: "2026-02-14"
+    depends_on:
+      - "P2-08"
+      - "P2-09"
+      - "P2-10"
+    definition_of_done:
+      - "スケジュール詳細（WBS、マイルストーン）が明確化"
+      - "リソース計画、体制図が含まれている"
+      - "リスク対応計画が含まれている"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-004"
+        - "DEC-010"
+    source:
+      type: "manual"
+      ref: "計画フェーズタスク整理"
+
+  - id: "P2-9"
+    phase: "計画"
+    title: "要件定義書ドラフトの更新"
+    deliverable: "outputs/requirements_draft.md"
+    owner: "LayerX"
+    status: "Todo"
+    due: "2026-02-14"
+    depends_on:
+      - "P2-08"
+    definition_of_done:
+      - "計画フェーズでの詳細化内容が反映されている"
+      - "機能要件、非機能要件が明確化"
+      - "decisions.yamlと整合している"
+    related:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+        - "REQ-007"
+      decisions: []
+    source:
+      type: "manual"
+      ref: "計画フェーズタスク整理"
+
+  # Phase 3: 設計フェーズ（PoC準備）
+  - id: "P3-01"
+    phase: "設計"
+    title: "要件定義書の最終化"
+    deliverable: "outputs/requirements_draft.md"
+    owner: "LayerX"
+    status: "Todo"
+    due: "2026-02-03"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P2-9"
+      - "P2-01"
+      - "P2-02"
+      - "P2-03"
+      - "P2-04"
+    definition_of_done:
+      - "要件定義書が最終版として完成している"
+      - "KPI・データ仕様・体制等の詳細情報が反映されている"
+      - "提案書・計画書との整合性が確保されている"
+      - "クライアントレビュー可能な状態になっている"
+    related:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+        - "REQ-007"
+      decisions:
+        - "DEC-012"
+        - "DEC-015"
+        - "DEC-016"
+    source:
+      type: "manual"
+      ref: "設計フェーズタスク追加"
+
+  - id: "P3-02"
+    phase: "設計"
+    title: "要件定義書のクライアントレビュー"
+    deliverable: null
+    owner: "顧客"
+    status: "Todo"
+    due: "2026-02-07"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P3-01"
+    definition_of_done:
+      - "クライアント側のレビューが完了している"
+      - "指摘事項が解決されている"
+      - "要件定義書が承認されている"
+    related:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+        - "REQ-007"
+      decisions: []
+    source:
+      type: "manual"
+      ref: "設計フェーズタスク追加"
+
+  - id: "P3-03"
+    phase: "設計"
+    title: "環境構築（AI Workforce セットアップ）"
+    deliverable: null
+    owner: "LayerX"
+    status: "Todo"
+    due: "2026-02-07"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P2-07"
+      - "P3-02"
+    definition_of_done:
+      - "AI Workforce本番環境がセットアップされている"
+      - "認証（Azure AD連携）が設定されている"
+      - "権限設定が完了している"
+    related:
+      requirements:
+        - "REQ-007"
+      decisions:
+        - "DEC-018"
+    source:
+      type: "project_plan"
+      ref: "outputs/project_plan_draft.md"
+
+  - id: "P3-04"
+    phase: "設計"
+    title: "データアップロード（調査部レポート・商品資料・FAQ）"
+    deliverable: null
+    owner: "顧客"
+    status: "Todo"
+    due: "2026-02-07"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P2-02"
+      - "P3-03"
+    definition_of_done:
+      - "調査部レポート約50件がアップロード完了"
+      - "商品資料30商品分がアップロード完了"
+      - "FAQ約200件がアップロード完了"
+    related:
+      requirements:
+        - "REQ-001"
+      decisions:
+        - "DEC-015"
+        - "DEC-018"
+    source:
+      type: "project_plan"
+      ref: "outputs/project_plan_draft.md"
+
+  - id: "P3-05"
+    phase: "設計"
+    title: "初期ナレッジ登録・インデックス作成"
+    deliverable: null
+    owner: "LayerX"
+    status: "Todo"
+    due: "2026-02-07"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P3-04"
+    definition_of_done:
+      - "アップロードデータの自動インデックス作成完了"
+      - "検索機能が稼働している"
+      - "検索精度の初期確認完了"
+    related:
+      requirements:
+        - "REQ-001"
+      decisions:
+        - "DEC-015"
+    source:
+      type: "project_plan"
+      ref: "outputs/project_plan_draft.md"
+
+  - id: "P3-06"
+    phase: "設計"
+    title: "PoC参加者トレーニング"
+    deliverable: null
+    owner: "LayerX"
+    status: "Todo"
+    due: "2026-02-10"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P3-05"
+    definition_of_done:
+      - "利用マニュアルが作成されている"
+      - "PoC参加者5名へのトレーニング完了"
+      - "基本操作の習得確認完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-014"
+    source:
+      type: "project_plan"
+      ref: "outputs/project_plan_draft.md"
+
+  - id: "P3-07"
+    phase: "設計"
+    title: "ベースライン測定"
+    deliverable: null
+    owner: "PoC参加者"
+    status: "Todo"
+    due: "2026-02-14"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P2-01"
+    definition_of_done:
+      - "検索時間のベースライン測定完了"
+      - "提案書作成時間のベースライン測定完了"
+      - "現状の業務プロセスの記録完了"
+    related:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+      decisions:
+        - "DEC-012"
+    source:
+      type: "project_plan"
+      ref: "outputs/project_plan_draft.md"
+
+  # Phase 4: 実装フェーズ（PoC実施・評価）
+  - id: "P4-01"
+    phase: "実装"
+    title: "検索機能の検証・フィードバック収集"
+    deliverable: null
+    owner: "PoC参加者"
+    status: "Todo"
+    due: "2026-04-30"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P3-06"
+      - "P3-07"
+    definition_of_done:
+      - "週次利用ログが収集されている"
+      - "週次フィードバックが収集されている"
+      - "利用率80%以上を達成している"
+    related:
+      requirements:
+        - "REQ-001"
+      decisions:
+        - "DEC-012"
+    source:
+      type: "project_plan"
+      ref: "outputs/project_plan_draft.md"
+
+  - id: "P4-02"
+    phase: "実装"
+    title: "市況サマリ生成・レビューフロー検証"
+    deliverable: null
+    owner: "PoC参加者"
+    status: "Todo"
+    due: "2026-04-30"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P3-06"
+      - "P3-07"
+    definition_of_done:
+      - "市況サマリの生成実績が蓄積されている"
+      - "レビュー記録が蓄積されている"
+      - "レビューフローが確立されている"
+    related:
+      requirements:
+        - "REQ-002"
+      decisions:
+        - "DEC-013"
+        - "DEC-017"
+    source:
+      type: "project_plan"
+      ref: "outputs/project_plan_draft.md"
+
+  - id: "P4-03"
+    phase: "実装"
+    title: "テンプレート生成・品質評価"
+    deliverable: null
+    owner: "PoC参加者"
+    status: "Todo"
+    due: "2026-04-30"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P3-06"
+      - "P3-07"
+    definition_of_done:
+      - "提案資料ドラフトの生成実績が蓄積されている"
+      - "品質評価（レビュー指摘数）が記録されている"
+      - "中村・高橋による品質チェック完了"
+    related:
+      requirements:
+        - "REQ-003"
+      decisions:
+        - "DEC-016"
+    source:
+      type: "project_plan"
+      ref: "outputs/project_plan_draft.md"
+
+  - id: "P4-04"
+    phase: "実装"
+    title: "KPI達成状況分析"
+    deliverable: null
+    owner: "LayerX"
+    status: "Todo"
+    due: "2026-04-30"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P4-01"
+      - "P4-02"
+      - "P4-03"
+    definition_of_done:
+      - "5つのKPIすべての測定完了"
+      - "ベースラインとの比較分析完了"
+      - "KPIレポートが作成されている"
+    related:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+      decisions:
+        - "DEC-012"
+    source:
+      type: "project_plan"
+      ref: "outputs/project_plan_draft.md"
+
+  - id: "P4-05"
+    phase: "実装"
+    title: "現場評価アンケート分析"
+    deliverable: null
+    owner: "LayerX"
+    status: "Todo"
+    due: "2026-04-30"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P4-01"
+      - "P4-02"
+      - "P4-03"
+    definition_of_done:
+      - "週次アンケート結果の集計完了"
+      - "満足度スコアの推移分析完了"
+      - "満足度レポートが作成されている"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-012"
+    source:
+      type: "project_plan"
+      ref: "outputs/project_plan_draft.md"
+
+  - id: "P4-06"
+    phase: "実装"
+    title: "PoC総合評価レポート作成"
+    deliverable: null
+    owner: "LayerX"
+    status: "Todo"
+    due: "2026-04-30"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P4-04"
+      - "P4-05"
+    definition_of_done:
+      - "PoC総合評価レポートが作成されている"
+      - "成功要因・課題が整理されている"
+      - "Phase2移行の推奨事項が含まれている"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-010"
+    source:
+      type: "project_plan"
+      ref: "outputs/project_plan_draft.md"
+
+  - id: "P4-07"
+    phase: "実装"
+    title: "Phase2対象領域の提案"
+    deliverable: null
+    owner: "LayerX"
+    status: "Todo"
+    due: "2026-04-30"
+    updated_at: "2026-01-14"
+    depends_on:
+      - "P4-06"
+    definition_of_done:
+      - "Phase2提案書が作成されている"
+      - "対象領域の優先順位が明確化されている"
+      - "Phase1の学びが反映されている"
+    related:
+      requirements:
+        - "REQ-004"
+        - "REQ-005"
+        - "REQ-006"
+      decisions:
+        - "DEC-010"
+    source:
+      type: "project_plan"
+      ref: "outputs/project_plan_draft.md"

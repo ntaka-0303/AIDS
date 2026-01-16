@@ -2,29 +2,113 @@
 # スキーマ: schemas/issues.schema.yaml
 # エージェントによる自動更新用
 
-issues: []
+issues:
+  - id: "ISS-001"
+    title: "情報検索が複数システム横断で非効率"
+    description: "市況、商品、規程、過去提案、FAQなど10以上のシステムを横断して検索しており、1案件あたり30〜60分の検索時間を要している"
+    priority: "High"
+    owner: "LayerX"
+    status: "Open"
+    due: null
+    created_at: "2026-01-14"
+    updated_at: "2026-01-14"
+    action: "PoC対象領域（情報検索機能）として優先対応"
+    resolution: null
+    related:
+      requirements:
+        - "REQ-001"
+      wbs: []
+      risks: []
+      hearings:
+        - "初回ヒアリング内容.md"
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
 
-# サンプル構造:
-# issues:
-#   - id: "ISS-001"                   # 必須: 課題ID
-#     title: "現行業務フローの例外処理が不明"  # 必須: タイトル
-#     description: "◯◯のケースにおける判断基準がヒアリングメモに記載されていない"  # 任意
-#     priority: "High"                # 必須: High/Medium/Low
-#     owner: "PMO"                    # 必須: 課題オーナー
-#     status: "Open"                  # 必須: Open/InProgress/Resolved/Deferred
-#     due: "2026-01-18"               # 任意: 対応期限
-#     created_at: "2026-01-10"        # 必須: 作成日 (自動設定)
-#     updated_at: "2026-01-10"        # 必須: 更新日 (自動更新)
-#     action: "次回ヒアリングで確認"    # 任意: 対応方針
-#     resolution: null                # 任意: 解決内容 (Resolved時に記入)
-#     related:                        # 任意: 関連ID
-#       requirements:
-#         - "REQ-012"
-#       wbs:
-#         - "P2-03"
-#       risks: []
-#       hearings:
-#         - "2026-01-10_kickoff.md"
-#     source:                         # 任意: 作成元
-#       type: "hearing"               # hearing/risk/review/manual
-#       ref: "2026-01-10_kickoff.md"
+  - id: "ISS-002"
+    title: "過去提案が支店ローカルに埋もれている"
+    description: "過去の提案資料が支店ごとにローカル保存されており、ナレッジとして活用できていない"
+    priority: "High"
+    owner: "顧客"
+    status: "Open"
+    due: null
+    created_at: "2026-01-14"
+    updated_at: "2026-01-14"
+    action: "データソース一覧確認時に併せて対応方針を検討"
+    resolution: null
+    related:
+      requirements:
+        - "REQ-001"
+      wbs: []
+      risks: []
+      hearings:
+        - "初回ヒアリング内容.md"
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
+
+  - id: "ISS-003"
+    title: "市況レポートの量が多く若手が要点を掴めない"
+    description: "市況レポートが多すぎて若手が要点を掴めず、市況情報から顧客向け説明への落とし込みが困難"
+    priority: "Medium"
+    owner: "LayerX"
+    status: "Open"
+    due: null
+    created_at: "2026-01-14"
+    updated_at: "2026-01-14"
+    action: "PoC対象領域（市況整理機能）として対応"
+    resolution: null
+    related:
+      requirements:
+        - "REQ-002"
+      wbs: []
+      risks: []
+      hearings:
+        - "初回ヒアリング内容.md"
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
+
+  - id: "ISS-004"
+    title: "資料作成が毎回スクラッチで時間がかかる"
+    description: "提案資料を毎回スクラッチで作成しており、1〜2時間/提案の作成時間を要している。最新情報の反映漏れも発生。"
+    priority: "Medium"
+    owner: "LayerX"
+    status: "Open"
+    due: null
+    created_at: "2026-01-14"
+    updated_at: "2026-01-14"
+    action: "PoC対象領域（資料作成支援機能）として検討"
+    resolution: null
+    related:
+      requirements:
+        - "REQ-003"
+      wbs: []
+      risks: []
+      hearings:
+        - "初回ヒアリング内容.md"
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
+
+  - id: "ISS-005"
+    title: "レビュー基準が属人化"
+    description: "上長レビューにおいて誤記・説明不足・論点弱さが頻発し、レビュー基準が属人化している"
+    priority: "Low"
+    owner: "LayerX"
+    status: "Open"
+    due: null
+    created_at: "2026-01-14"
+    updated_at: "2026-01-14"
+    action: "2nd Phaseで対応予定"
+    resolution: null
+    related:
+      requirements:
+        - "REQ-006"
+      wbs: []
+      risks: []
+      hearings:
+        - "初回ヒアリング内容.md"
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"

@@ -1,0 +1,126 @@
+# Hearing Digest
+# 計画フェーズ詳細確認ヒアリング
+
+source: "inputs/hearings/2026-01-22_計画フェーズ詳細確認.md"
+processed_at: "2026-01-14"
+hearing_id: "HEAR-003"
+date: "2026-01-22"
+
+extracted:
+  decisions:
+    - id: "DEC-012"
+      title: "KPI・評価指標の確定"
+      summary: "PoCの評価指標として5つのKPIを設定（検索時間40分→20分、市況理解度平均4.0以上、作成時間1時間→30分、利用率80%以上、品質スコア20%削減）"
+      rationale: "定量的な成果報告が経営陣に必要。測定負荷を抑えるためシンプルな指標に絞る"
+      category: "scope"
+
+    - id: "DEC-013"
+      title: "市況レポートの提供範囲と仕様"
+      summary: "市況レポートは直近3ヶ月分（約12レポート）をPoC用に提供。PDF形式、週次発行、標準セクション構成あり。調査部 田中課長がレビュー担当"
+      rationale: "PoC用のデータ範囲を限定し、管理負荷を抑えつつ十分な検証が可能"
+      category: "scope"
+
+    - id: "DEC-014"
+      title: "PoC参加メンバーの選定"
+      summary: "現場から5名を選定（若手2名、中堅2名、ベテラン1名）。週次ミーティング全員参加、Slack+週次アンケートでフィードバック収集"
+      rationale: "経験年数のバランスを考慮し、多様なフィードバックが得られる体制を構築"
+      category: "resource"
+
+    - id: "DEC-015"
+      title: "データソース詳細仕様の確定"
+      summary: "3つのデータソースの詳細仕様を確定（調査部レポート、商品資料、FAQ）"
+      rationale: "データソースごとの特性を把握し、適切な取り込み方式を設計"
+      category: "technical"
+
+    - id: "DEC-016"
+      title: "既存テンプレート詳細仕様の確定"
+      summary: "Phase1対象テンプレートは2種類（商品提案テンプレート、ソリューション提案テンプレート）"
+      rationale: "既存レイアウトを活用し、現場の抵抗を抑え、Phase1の成功確率を高める"
+      category: "scope"
+
+    - id: "DEC-017"
+      title: "レビューフローの詳細化"
+      summary: "市況サマリのレビューフローを4段階で実施（AI生成→1次レビュー→2次レビュー→承認・公開）。レビュー期限は生成から48時間以内"
+      rationale: "AI品質を人的レビューで担保しつつ、営業の利用タイミングに間に合わせる"
+      category: "process"
+
+    - id: "DEC-018"
+      title: "データ連携・セキュリティ技術仕様"
+      summary: "データアップロードはWebインターフェース経由。対応形式：PDF/PowerPoint/Excel/Word/CSV。TLS暗号化、アクセスログ記録、ウイルススキャン自動実行"
+      rationale: "セキュリティを確保しつつ、現場が簡単に利用できる方式を採用"
+      category: "technical"
+
+  questions_resolved:
+    - id: "QST-002"
+      title: "市況レポートの提供可否"
+      resolution: "市況レポートはPoC用に提供可能。直近3ヶ月分をPDF形式で提供。調査部 田中課長がレビュー担当"
+
+    - id: "QST-003"
+      title: "現場メンバーのPoC参加候補"
+      resolution: "現場から5名を選定完了。週次ミーティング全員参加、Slack+週次アンケートでフィードバック収集"
+
+    - id: "QST-005"
+      title: "KPI（PoC評価指標）の具体化"
+      resolution: "5つのKPIを確定（検索時間、市況理解度、作成時間、利用率、品質スコア）。測定方法と2週間のベースライン測定計画も合意"
+
+  requirements_updated:
+    - id: "REQ-001"
+      updates: "KPI（40分→20分）、データ詳細仕様（調査部レポート、商品資料、FAQ）、データアクセス方法を追記"
+
+    - id: "REQ-002"
+      updates: "KPI（市況理解度平均4.0以上）、データ仕様（直近3ヶ月、PDF、週次）、レビュー体制詳細を追記"
+
+    - id: "REQ-003"
+      updates: "KPI（作成時間1時間→30分、品質スコア20%削減）、Phase1対象テンプレート2種の詳細仕様、AI適用範囲を追記"
+
+    - id: "REQ-007"
+      updates: "技術仕様詳細（アップロード方法、対応フォーマット、セキュリティ機能、データ更新フロー）を追記"
+
+  charter_updates:
+    - section: "体制"
+      update: "PoC参加メンバー5名（鈴木、田村、佐藤、中村、高橋）を追加。調査部 田中課長をレビュー担当として追加"
+    - section: "主要マイルストーン"
+      update: "計画フェーズ詳細確認完了（2026-01-22）、テンプレートサンプル提供（1/24）、計画書レビュー（2/7）、ベースライン測定（2/3-2/14）を追加"
+
+changes_made:
+  - file: "project_state/decisions.yaml"
+    action: "added"
+    items: ["DEC-012", "DEC-013", "DEC-014", "DEC-015", "DEC-016", "DEC-017", "DEC-018"]
+  - file: "project_state/open_questions.yaml"
+    action: "updated"
+    items: ["QST-002", "QST-003", "QST-005"]
+  - file: "project_state/requirements_master.md"
+    action: "updated"
+    items: ["REQ-001", "REQ-002", "REQ-003", "REQ-007"]
+  - file: "project_state/project_charter.md"
+    action: "updated"
+    items: []
+  - file: "project_state/change_log.yaml"
+    action: "added"
+    items: ["CHG-005"]
+
+key_points:
+  - "KPI・評価指標が具体的に確定し、測定方法も合意"
+  - "PoC参加メンバー5名の体制が確定（若手2名、中堅2名、ベテラン1名）"
+  - "3つのデータソース（調査部レポート、商品資料、FAQ）の詳細仕様が確定"
+  - "市況レポートの提供範囲とレビュー体制が確定"
+  - "既存テンプレート2種のAI適用範囲が明確化"
+  - "データ連携・セキュリティの技術仕様が詳細化"
+  - "未決事項3件（QST-002, QST-003, QST-005）すべてが解決"
+
+next_actions:
+  layerx:
+    - "KPI測定方法の詳細設計（1/28までに提示）"
+    - "データ連携方式の技術設計書作成（1/31まで）"
+    - "プロジェクト計画書ドラフト作成（2/7まで）"
+    - "要件定義書の更新（2/7まで）"
+  client:
+    - "テンプレートサンプルの提供（1/24まで - 山口）"
+    - "データソースの初期提供準備（1/31まで - DX推進部）"
+    - "PoC参加メンバーへのキックオフ実施（2/3 - 山口）"
+    - "ベースライン測定の協力（2/3-2/14 - PoC参加メンバー）"
+
+next_meeting:
+  date: "2026-02-07"
+  time: "14:00-15:30"
+  agenda: "計画書レビュー、PoC開始前の最終確認"

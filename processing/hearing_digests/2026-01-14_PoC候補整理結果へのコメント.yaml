@@ -1,0 +1,104 @@
+# ヒアリング構造化データ
+# 出典: inputs/hearings/PoC候補整理結果へのコメント.md
+
+metadata:
+  hearing_id: "HEAR-002"
+  date: "2026-01-14"
+  title: "PoC候補整理結果に対する質疑応答"
+  participants:
+    - name: "佐伯"
+      role: "営業企画部長"
+    - name: "杉本"
+      role: "DX推進部長"
+    - name: "山根"
+      role: "情報システム部 副部長"
+    - name: "高松"
+      role: "LayerX担当"
+  purpose: "PoC設計の前提条件を合意する"
+
+topics:
+  - topic: "PoC対象領域の優先度"
+    discussion:
+      - speaker: "高松"
+        content: "情報検索が最重要・必ず対象に含める。市況整理は若手支援・標準化。資料作成はテンプレートベースで必要に応じて含める。"
+    outcome: "全員賛同"
+
+  - topic: "情報検索の対象データ範囲"
+    question: "調査部レポート、商品資料、過去提案書、FAQ、規程類のどこから手をつけるか？"
+    discussion:
+      - speaker: "高松"
+        content: "現場の利用頻度をヒアリングして優先順位付け。最初は調査部レポート、商品資料、FAQが現実的。過去提案書は支店分散でPhase1は含めない。"
+      - speaker: "杉本"
+        content: "PoC中に検索ログが取れると、より正確な優先順位付けが可能になる。"
+    outcome: "方針合意（DEC-007）"
+
+  - topic: "市況サマリのレビュー体制"
+    question: "品質・表現の正確性を保つためのレビュー体制をどこまでPoCに含めるか？"
+    discussion:
+      - speaker: "高松"
+        content: "PoC期間中は調査部レビュー必須。PoCの中で生成品質を改善。"
+      - speaker: "杉本"
+        content: "DX部で調査部との調整を支援する。"
+    outcome: "方針合意（DEC-008）"
+
+  - topic: "資料作成PoCのスコープ"
+    question: "テキスト生成だけか、PPTアウトプットも含むか、テンプレート対応は？"
+    discussion:
+      - speaker: "高松"
+        content: "Phase1は既存テンプレートのみ対応。テンプレートがない領域はテキスト生成のみ。レイアウト変更や新テンプレートはPhase2以降。"
+      - speaker: "佐伯"
+        content: "既存テンプレに限定で問題ない。"
+    outcome: "方針合意（DEC-009）"
+
+  - topic: "Phase2への移行条件"
+    question: "Phase1の成果で判断するのか、最初から並行検討するのか？"
+    discussion:
+      - speaker: "高松"
+        content: "Phase1の成果（効果・利用率・現場評価）を見てPhase2で着手する領域を再評価。商品選定、上長レビュー、顧客ヒアリングはPoC初期に含めない。"
+      - speaker: "佐伯"
+        content: "Phase2への展開は結果を見て判断する方針で同意。"
+    outcome: "方針合意（DEC-010）"
+
+  - topic: "KPI（PoC評価指標）"
+    question: "検索時間、市況理解、提案書作成時間、人的負荷のどれで評価するか？"
+    discussion:
+      - speaker: "高松"
+        content: "KPIの具体化はPoC詳細設計の中で整理。次回までに粗案を提示する。"
+    outcome: "宿題（QST-005）"
+
+  - topic: "セキュリティ方針"
+    discussion:
+      - speaker: "山根"
+        content: "データアップロードはAI Workforceのセキュア領域に限定。ファイル形式混在はAI側で吸収可能で問題なし。個人情報はPoCで扱わない方針に強く賛同（監査リスク回避）。"
+    outcome: "方針合意（DEC-011）"
+
+extracted_items:
+  decisions:
+    - id: "DEC-007"
+      title: "情報検索の対象データ優先順位方針"
+    - id: "DEC-008"
+      title: "市況サマリのレビュー体制"
+    - id: "DEC-009"
+      title: "資料作成PoCのスコープ限定"
+    - id: "DEC-010"
+      title: "Phase移行の判断方針"
+    - id: "DEC-011"
+      title: "個人情報のPoC除外方針"
+
+  questions_resolved:
+    - id: "QST-001"
+      resolution: "現場ヒアリングで優先順位付けする方針で合意"
+    - id: "QST-004"
+      resolution: "セキュア領域限定、個人情報除外で合意"
+
+  questions_added:
+    - id: "QST-005"
+      title: "KPI（PoC評価指標）の具体化"
+      owner: "LayerX"
+      due: "次回打ち合わせまで"
+
+summary: |
+  LayerXが作成したPoC候補整理に対してクライアント側から質問・確認があり、
+  5つの重要な方針（データ範囲、レビュー体制、スコープ、Phase移行、セキュリティ）で合意。
+  全員がPoC方針に賛同し、PoC準備フェーズへ進むことで合意した。
+  KPIの具体化は次回までの宿題。

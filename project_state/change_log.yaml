@@ -2,33 +2,317 @@
 # スキーマ: schemas/change_log.schema.yaml
 # エージェントによる自動更新用
 
-entries: []
+entries:
+  - id: "CHG-001"
+    date: "2026-01-14"
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
+    changes:
+      - target: "project_state/project_charter.md"
+        action: "added"
+        items: []
+        details: "プロジェクト基本情報（名称、目的、スコープ、体制、評価軸）を初期登録"
+      - target: "project_state/requirements_master.md"
+        action: "added"
+        items:
+          - "REQ-001"
+          - "REQ-002"
+          - "REQ-003"
+          - "REQ-004"
+          - "REQ-005"
+          - "REQ-006"
+          - "REQ-007"
+        details: "PoC対象要件（Phase 1）3件、2nd Phase候補3件、非機能要件1件を登録"
+      - target: "project_state/decisions.yaml"
+        action: "added"
+        items:
+          - "DEC-001"
+          - "DEC-002"
+          - "DEC-003"
+          - "DEC-004"
+          - "DEC-005"
+          - "DEC-006"
+        details: "ヒアリングでの決定事項6件を登録"
+      - target: "project_state/open_questions.yaml"
+        action: "added"
+        items:
+          - "QST-001"
+          - "QST-002"
+          - "QST-003"
+          - "QST-004"
+        details: "未決事項・宿題4件を登録"
+      - target: "project_state/issues.yaml"
+        action: "added"
+        items:
+          - "ISS-001"
+          - "ISS-002"
+          - "ISS-003"
+          - "ISS-004"
+          - "ISS-005"
+        details: "業務課題5件を登録"
+      - target: "project_state/risks.yaml"
+        action: "added"
+        items:
+          - "RSK-001"
+        details: "現場抵抗リスク1件を登録"
+    summary: "初回ヒアリングから要件7件、決定事項6件、質問4件、課題5件、リスク1件を追加"
+    actor: "agent"
 
-# サンプル構造:
-# entries:
-#   - id: "CHG-001"                   # 必須: 変更ログID
-#     date: "2026-01-10"              # 必須: 変更日 (自動設定)
-#     source:                         # 必須: 変更の起点
-#       type: "hearing"               # hearing/decision/issue/review/manual
-#       ref: "2026-01-10_kickoff.md"
-#     changes:                        # 必須: 変更内容リスト
-#       - target: "project_state/requirements_master.md"
-#         action: "added"             # added/modified/removed/replaced
-#         items:
-#           - "REQ-001"
-#           - "REQ-002"
-#           - "REQ-003"
-#         details: "キックオフで確認した初期要件を追加"  # 任意
-#       - target: "project_state/decisions.yaml"
-#         action: "added"
-#         items:
-#           - "DEC-001"
-#         details: "認証方式の決定を記録"
-#       - target: "project_state/open_questions.yaml"
-#         action: "added"
-#         items:
-#           - "QST-001"
-#           - "QST-002"
-#         details: "未確認事項を登録"
-#     summary: "キックオフヒアリングから要件3件、決定1件、質問2件を追加"  # 必須
-#     actor: "agent"                  # 任意: agent/human
+  - id: "CHG-002"
+    date: "2026-01-14"
+    source:
+      type: "hearing"
+      ref: "PoC候補整理結果へのコメント.md"
+    changes:
+      - target: "project_state/decisions.yaml"
+        action: "added"
+        items:
+          - "DEC-007"
+          - "DEC-008"
+          - "DEC-009"
+          - "DEC-010"
+          - "DEC-011"
+        details: "PoC詳細方針に関する決定事項5件を追加（データ優先順位、レビュー体制、スコープ限定、Phase移行方針、セキュリティ方針）"
+      - target: "project_state/open_questions.yaml"
+        action: "updated"
+        items:
+          - "QST-001"
+          - "QST-004"
+        details: "2件の質問を解決済みに更新（データソース方針、セキュリティ制約）"
+      - target: "project_state/open_questions.yaml"
+        action: "added"
+        items:
+          - "QST-005"
+        details: "KPI具体化に関する新規質問を追加"
+      - target: "project_state/requirements_master.md"
+        action: "updated"
+        items:
+          - "REQ-001"
+          - "REQ-002"
+          - "REQ-003"
+          - "REQ-007"
+        details: "各要件にPoC実施方針の詳細を追記"
+      - target: "project_state/project_charter.md"
+        action: "updated"
+        items: []
+        details: "マイルストーンと備考を更新（PoC方針合意を記録）"
+    summary: "PoC候補整理結果への質疑応答から決定事項5件追加、質問2件解決、質問1件追加、要件4件更新"
+    actor: "agent"
+
+  - id: "CHG-003"
+    date: "2026-01-14"
+    source:
+      type: "manual"
+      ref: "提案フェーズ完了（受注決定）"
+    changes:
+      - target: "project_state/wbs.yaml"
+        action: "updated"
+        items:
+          - "P1-01"
+          - "P1-02"
+          - "P1-03"
+          - "P1-04"
+          - "P1-05"
+        details: "提案フェーズのタスク5件をすべてDoneに更新（受注決定に伴う完了処理）"
+    summary: "提案書の受注決定により、提案フェーズのタスク5件を完了状態に更新"
+    actor: "agent"
+
+  - id: "CHG-004"
+    date: "2026-01-14"
+    source:
+      type: "manual"
+      ref: "計画フェーズタスク整理"
+    changes:
+      - target: "project_state/wbs.yaml"
+        action: "added"
+        items:
+          - "P2-01"
+          - "P2-02"
+          - "P2-03"
+          - "P2-04"
+          - "P2-05"
+          - "P2-06"
+          - "P2-07"
+          - "P2-08"
+          - "P2-09"
+          - "P2-10"
+          - "P2-11"
+          - "P2-12"
+        details: "計画フェーズのタスク12件を追加（KPI確定、データソース確認、PoC詳細設計、実施計画等）"
+    summary: "計画フェーズのタスク12件をWBSに追加（2026-01-31〜2026-02-14期限設定）"
+    actor: "agent"
+
+  - id: "CHG-005"
+    date: "2026-01-22"
+    source:
+      type: "hearing"
+      ref: "2026-01-22_計画フェーズ詳細確認.md"
+    changes:
+      - target: "project_state/decisions.yaml"
+        action: "added"
+        items:
+          - "DEC-012"
+          - "DEC-013"
+          - "DEC-014"
+          - "DEC-015"
+          - "DEC-016"
+          - "DEC-017"
+          - "DEC-018"
+        details: "計画フェーズ詳細確認に関する決定事項7件を追加（KPI確定、市況レポート仕様、PoC参加メンバー、データソース仕様、テンプレート仕様、レビューフロー、データ連携技術仕様）"
+      - target: "project_state/open_questions.yaml"
+        action: "updated"
+        items:
+          - "QST-002"
+          - "QST-003"
+          - "QST-005"
+        details: "3件の質問を解決済みに更新（市況レポート提供、PoC参加メンバー選定、KPI具体化）"
+      - target: "project_state/requirements_master.md"
+        action: "updated"
+        items:
+          - "REQ-001"
+          - "REQ-002"
+          - "REQ-003"
+          - "REQ-007"
+        details: "各要件にKPI、データ仕様、レビュー体制、技術仕様等の詳細情報を追記"
+      - target: "project_state/project_charter.md"
+        action: "updated"
+        items: []
+        details: "PoC参加メンバー5名の体制情報、レビュー担当者、マイルストーンを更新"
+    summary: "計画フェーズ詳細確認ヒアリングから決定事項7件追加、質問3件解決、要件4件更新"
+    actor: "agent"
+
+  - id: "CHG-006"
+    date: "2026-01-22"
+    source:
+      type: "hearing"
+      ref: "2026-01-22_計画フェーズ詳細確認.md"
+    changes:
+      - target: "project_state/wbs.yaml"
+        action: "updated"
+        items:
+          - "P2-01"
+          - "P2-02"
+          - "P2-03"
+          - "P2-04"
+          - "P2-05"
+          - "P2-06"
+          - "P2-07"
+        details: "計画フェーズのタスク7件をDoneに更新（KPI確定、データソース仕様確認、市況レポート確認、テンプレート仕様確認、PoC参加メンバー選定、レビューフロー詳細化、データ連携技術設計）"
+    summary: "HEAR-003の結果を反映し、計画フェーズの初期調査・確認タスク7件を完了状態に更新"
+    actor: "agent"
+
+  - id: "CHG-007"
+    date: "2026-01-14"
+    source:
+      type: "document"
+      ref: "outputs/project_plan_draft.md"
+    changes:
+      - target: "project_state/wbs.yaml"
+        action: "added"
+        items:
+          - "P3-01"
+          - "P3-02"
+          - "P3-03"
+          - "P3-04"
+          - "P3-05"
+          - "P4-01"
+          - "P4-02"
+          - "P4-03"
+          - "P4-04"
+          - "P4-05"
+          - "P4-06"
+          - "P4-07"
+        details: "Phase1（PoC設計・実行）のタスク12件を追加。P3（設計）：PoC準備5件、P4（実装）：PoC実施・評価7件"
+    summary: "プロジェクト計画書に基づき、Phase1（PoC設計・実行）のタスク12件をWBSに追加（2026年2月〜4月期限設定）"
+    actor: "agent"
+
+  - id: "CHG-008"
+    date: "2026-01-14"
+    source:
+      type: "manual"
+      ref: "要件定義書レビュープロセス追加"
+    changes:
+      - target: "project_state/wbs.yaml"
+        action: "added"
+        items:
+          - "P3-01"
+          - "P3-02"
+        details: "設計フェーズに要件定義書の最終化（P3-01）とクライアントレビュー（P3-02）を追加。元P3-01〜P3-05をP3-03〜P3-07に繰り下げ"
+      - target: "project_state/wbs.yaml"
+        action: "updated"
+        items:
+          - "P3-03"
+          - "P3-04"
+          - "P3-05"
+          - "P3-06"
+          - "P3-07"
+          - "P4-01"
+          - "P4-02"
+          - "P4-03"
+        details: "タスクIDを繰り下げ、依存関係を更新（環境構築はレビュー完了後に開始、P4タスクはP3-06/P3-07に依存）"
+    summary: "設計フェーズに要件定義書の最終化とクライアントレビューのタスクを追加し、タスクIDと依存関係を調整"
+    actor: "agent"
+
+  - id: "CHG-009"
+    date: "2026-01-14"
+    source:
+      type: "requirement_analysis"
+      ref: "要件定義書テンプレート照合"
+    changes:
+      - target: "project_state/open_questions.yaml"
+        action: "added"
+        items:
+          - "QST-006"
+          - "QST-007"
+          - "QST-008"
+          - "QST-009"
+        details: "要件定義書作成に必要な未決事項4件を追加（稼働時間帯・サポート体制、対応ブラウザ・デバイス、PoC受入条件、外部システム連携要否）"
+    summary: "要件定義書テンプレートとproject_stateを照合し、不足している情報を未決事項として追加"
+    actor: "agent"
+
+  - id: "CHG-010"
+    date: "2026-01-15"
+    source:
+      type: "hearing"
+      ref: "情報検索_市況整理のヒアリング結果.md"
+    changes:
+      - target: "project_state/requirements_master.md"
+        action: "updated"
+        items:
+          - "REQ-001"
+          - "REQ-002"
+        details: "情報検索・市況整理機能の定量的データ（頻度、所要時間、ペインポイント、若手の苦手ポイント、調査部の懸念事項）を追記"
+    summary: "情報検索・市況整理の詳細ヒアリングから既存要件2件に定量的データを追記"
+    actor: "agent"
+
+  - id: "CHG-011"
+    date: "2026-01-15"
+    source:
+      type: "hearing"
+      ref: "2026-01-15_技術要件とPoC受入条件の詳細確認.md"
+    changes:
+      - target: "project_state/decisions.yaml"
+        action: "added"
+        items:
+          - "DEC-019"
+          - "DEC-020"
+          - "DEC-021"
+          - "DEC-022"
+          - "DEC-023"
+        details: "技術要件・受入条件に関する決定事項5件を追加（稼働時間帯・メンテナンス、サポート体制・SLA、ブラウザ・デバイス要件、PoC受入条件、外部連携方針）"
+      - target: "project_state/open_questions.yaml"
+        action: "updated"
+        items:
+          - "QST-006"
+          - "QST-007"
+          - "QST-008"
+          - "QST-009"
+        details: "4件の質問を解決済みに更新（稼働時間帯・サポート体制、ブラウザ・デバイス要件、PoC受入条件、外部連携要否）"
+      - target: "project_state/requirements_master.md"
+        action: "updated"
+        items:
+          - "REQ-007"
+        details: "非機能要件に可用性・運用保守、インターフェース要件、受入条件の詳細情報を追記"
+    summary: "技術要件・PoC受入条件の詳細確認ヒアリングから決定事項5件追加、質問4件解決、要件1件更新"
+    actor: "agent"

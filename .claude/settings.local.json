@@ -3,7 +3,12 @@
     "allow": [
       "Bash(tree:*)",
       "WebSearch",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Skill(intake)",
+      "Skill(project-management)",
+      "Skill(docgen)",
+      "Skill(weekly-report)",
+      "Skill(quality-gate)"
     ]
   }
 }

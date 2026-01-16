@@ -2,30 +2,233 @@
 # スキーマ: schemas/open_questions.schema.yaml
 # エージェントによる自動更新用
 
-questions: []
+questions:
+  - id: "QST-001"
+    created_at: "2026-01-14"
+    title: "情報検索に関するデータソース一覧"
+    content: "PoC対象となる情報検索機能で接続すべきデータソースの一覧を確認する必要がある"
+    context: "情報検索機能の設計・データ連携要件の定義に必要"
+    category: "technical"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "現場ヒアリングで優先順位付けする方針で合意。最初の対象は調査部レポート、商品資料、FAQが現実的。過去提案書は支店分散のためPhase1には含めない。"
+    resolved_at: "2026-01-14"
+    resolved_by: "HEAR-002"
+    related:
+      requirements:
+        - "REQ-001"
+      decisions:
+        - "DEC-007"
+      wbs: []
+      issues: []
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
 
-# サンプル構造:
-# questions:
-#   - id: "QST-001"                   # 必須: 質問ID
-#     created_at: "2026-01-10"        # 必須: 作成日 (自動設定)
-#     title: "データ移行の範囲"        # 必須: タイトル
-#     content: "過去3年分のデータを移行対象とするか、直近1年のみか"  # 必須: 詳細
-#     context: "データ量によりスケジュールに影響、移行時間の見積もりに必要"  # 任意: 背景
-#     category: "scope"               # 必須: scope/technical/process/resource/security/schedule/other
-#     priority: "High"                # 必須: High/Medium/Low
-#     owner: "顧客"                   # 必須: 顧客/自社/未定
-#     due: "2026-01-20"               # 任意: 回答期限
-#     status: "open"                  # 必須: open/resolved/deferred
-#     resolution: null                # 任意: 回答内容 (resolved時)
-#     resolved_at: null               # 任意: 回答日 (resolved時)
-#     resolved_by: null               # 任意: 回答の参照元
-#     related:                        # 任意: 関連ID
-#       requirements:
-#         - "REQ-015"
-#       decisions: []
-#       wbs:
-#         - "P3-02"
-#       issues: []
-#     source:                         # 必須: 発生元
-#       type: "hearing"               # hearing/review/analysis/manual
-#       ref: "2026-01-10_kickoff.md"
+  - id: "QST-002"
+    created_at: "2026-01-14"
+    title: "市況レポートの提供可否"
+    content: "AI要約の対象となる市況レポートをPoC用に提供可能か確認が必要"
+    context: "市況整理機能のPoC実施に必要なデータ"
+    category: "scope"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "市況レポートはPoC用に提供可能。直近3ヶ月分（約12レポート）をPDF形式で提供。週次発行、標準セクション構成あり。調査部 田中課長がレビュー担当。"
+    resolved_at: "2026-01-22"
+    resolved_by: "HEAR-003"
+    related:
+      requirements:
+        - "REQ-002"
+      decisions:
+        - "DEC-013"
+      wbs: []
+      issues: []
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
+
+  - id: "QST-003"
+    created_at: "2026-01-14"
+    title: "現場メンバーのPoC参加候補"
+    content: "PoCに参加する現場メンバーの選定が必要"
+    context: "PoC実施体制の確立、現場フィードバックの収集に必要"
+    category: "resource"
+    priority: "Medium"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "現場から5名を選定完了（若手2名、中堅2名、ベテラン1名）。週次ミーティング全員参加、Slack+週次アンケートでフィードバック収集。中村・高橋が品質チェック担当。"
+    resolved_at: "2026-01-22"
+    resolved_by: "HEAR-003"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-005"
+        - "DEC-014"
+      wbs: []
+      issues: []
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
+
+  - id: "QST-004"
+    created_at: "2026-01-14"
+    title: "データ連携・セキュリティ制約の確認"
+    content: "PoC実施に際してのデータ連携方式およびセキュリティ上の制約を確認する必要がある"
+    context: "技術要件・非機能要件の定義に必要"
+    category: "security"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "データアップロードはAI Workforceのセキュア領域に限定。ファイル形式混在はAI側で吸収可能。個人情報はPoCで扱わない方針で合意（監査リスク回避）。"
+    resolved_at: "2026-01-14"
+    resolved_by: "HEAR-002"
+    related:
+      requirements:
+        - "REQ-007"
+      decisions:
+        - "DEC-011"
+      wbs: []
+      issues: []
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
+
+  - id: "QST-005"
+    created_at: "2026-01-14"
+    title: "KPI（PoC評価指標）の具体化"
+    content: "PoC評価指標の具体的な設定が必要。検索時間、市況理解、提案書作成時間、人的負荷などが候補。"
+    context: "PoC成果の評価・Phase2移行判断に必要"
+    category: "scope"
+    priority: "High"
+    owner: "LayerX"
+    due: "次回打ち合わせまで"
+    status: "resolved"
+    resolution: "5つのKPIを確定（検索時間40分→20分、市況理解度平均4.0以上、作成時間1時間→30分、利用率80%以上、品質スコア20%削減）。測定方法と2週間のベースライン測定計画も合意。"
+    resolved_at: "2026-01-22"
+    resolved_by: "HEAR-003"
+    related:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+      decisions:
+        - "DEC-010"
+        - "DEC-012"
+      wbs: []
+      issues: []
+    source:
+      type: "hearing"
+      ref: "PoC候補整理結果へのコメント.md"
+
+  - id: "QST-006"
+    created_at: "2026-01-14"
+    title: "PoC期間中の稼働時間帯・サポート体制"
+    content: "PoC期間中のAI Workforceの稼働時間帯（営業時間のみか24時間か）、メンテナンス時間帯、障害時のLayerXサポート体制（連絡先、対応時間、エスカレーションフロー）を明確化する必要がある"
+    context: "要件定義書の非機能要件（可用性・運用保守）セクションに記載が必要。PoC参加者の利用計画とサポート期待値の明確化に必要"
+    category: "technical"
+    priority: "Medium"
+    owner: "LayerX"
+    due: "2026-02-03"
+    status: "resolved"
+    resolution: "24時間365日稼働（PoC参加メンバーの主利用時間は平日9-18時）。定期メンテナンスは毎週日曜3-5時。LayerXサポートは平日9-18時対応（Slack+電話、SLA設定済み：重大障害1時間以内、中程度4時間以内、軽微1営業日以内）。"
+    resolved_at: "2026-01-15"
+    resolved_by: "HEAR-005"
+    related:
+      requirements:
+        - "REQ-007"
+      decisions:
+        - "DEC-019"
+        - "DEC-020"
+      wbs:
+        - "P3-01"
+      issues: []
+    source:
+      type: "requirement_analysis"
+      ref: "要件定義書テンプレート第8章（非機能要件）"
+
+  - id: "QST-007"
+    created_at: "2026-01-14"
+    title: "対応ブラウザ・デバイス要件"
+    content: "AI Workforceを利用する際の対応ブラウザ（Chrome、Edge、Safari等）とそのバージョン、対応デバイス（PC、タブレット、スマートフォン）の制約を明確化する必要がある"
+    context: "要件定義書のインターフェース要件セクションに記載が必要。PoC参加者の利用環境を事前に確認し、動作保証範囲を明示する必要がある"
+    category: "technical"
+    priority: "Medium"
+    owner: "LayerX"
+    due: "2026-02-03"
+    status: "resolved"
+    resolution: "対応ブラウザはChrome/Edge 110以降、Safari 16以降。PCは完全対応（推奨解像度1920x1080以上）、タブレットは基本機能のみ（PoCでは検証対象外）、スマホは対応なし。PoCはChrome/Edge最新版 + Windows PCで実施。プロキシ設定済み、ウイルスバスター導入済みで動作確認済み。"
+    resolved_at: "2026-01-15"
+    resolved_by: "HEAR-005"
+    related:
+      requirements:
+        - "REQ-007"
+      decisions:
+        - "DEC-021"
+      wbs:
+        - "P3-01"
+      issues: []
+    source:
+      type: "requirement_analysis"
+      ref: "要件定義書テンプレート第9章（インターフェース要件）"
+
+  - id: "QST-008"
+    created_at: "2026-01-14"
+    title: "PoC受入条件（KPI以外の観点）"
+    content: "PoC終了時の受入条件として、KPI達成以外の観点（操作性、エラー発生率、ユーザビリティ評価、データ品質等）を明確化する必要がある"
+    context: "要件定義書のテスト観点・受入条件セクションに記載が必要。PoC評価の網羅性を確保し、Phase2移行判断の基準を明確化する"
+    category: "scope"
+    priority: "Medium"
+    owner: "LayerX"
+    due: "2026-02-03"
+    status: "resolved"
+    resolution: "5つの必須項目を設定：(1)KPI達成、(2)システム安定性（重大障害0回、中程度月2回以下、データ損失0件）、(3)データ品質（検索精度80%以上、要約精度平均4.0以上、誤情報5%以下）、(4)ユーザビリティ（アンケート平均3.5以上、業務に役立つ80%以上、重大操作性問題0件）、(5)セキュリティ・コンプライアンス（漏洩・不正アクセス・ポリシー違反すべて0件）。Phase2移行判断は経営会議で決定。特に誤情報生成は経営層の懸念事項であり厳格評価。"
+    resolved_at: "2026-01-15"
+    resolved_by: "HEAR-005"
+    related:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+      decisions:
+        - "DEC-010"
+        - "DEC-012"
+        - "DEC-022"
+      wbs:
+        - "P3-01"
+      issues: []
+    source:
+      type: "requirement_analysis"
+      ref: "要件定義書テンプレート第13章（テスト観点・受入条件）"
+
+  - id: "QST-009"
+    created_at: "2026-01-14"
+    title: "外部システム連携の要否"
+    content: "Phase1のPoC期間中に、既存システム（CRM、基幹システム、ファイルサーバ等）との連携が必要か、必要な場合は連携方式（API、ファイル連携等）を確認する必要がある"
+    context: "要件定義書のインターフェース要件セクションに記載が必要。現状はセキュア領域へのファイルアップロードのみだが、業務シナリオによっては既存システム参照が必要になる可能性がある"
+    category: "technical"
+    priority: "Low"
+    owner: "顧客"
+    due: "2026-02-03"
+    status: "resolved"
+    resolution: "Phase1は外部システム連携を実施しない方針で合意。理由は(1)PoCの目的は機能評価であり連携は本質的評価対象でない、(2)セキュリティ審査（1-2ヶ月）がPoC期間に間に合わない、(3)まずファイルベースでの価値検証を優先。データ提供はファイルアップロード方式（初回一括 + 週次新規追加、IT部門 佐藤課長が管理責任者）。Phase2以降でファイルサーバ連携、CRM連携、基幹システム連携を検討。将来的にはファイルサーバ連携（自動同期）は必須と想定。"
+    resolved_at: "2026-01-15"
+    resolved_by: "HEAR-005"
+    related:
+      requirements:
+        - "REQ-001"
+        - "REQ-007"
+      decisions:
+        - "DEC-018"
+        - "DEC-023"
+      wbs:
+        - "P3-01"
+      issues: []
+    source:
+      type: "requirement_analysis"
+      ref: "要件定義書テンプレート第9章（インターフェース要件）"

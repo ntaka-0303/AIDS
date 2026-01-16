@@ -2,29 +2,549 @@
 # スキーマ: schemas/decisions.schema.yaml
 # エージェントによる自動更新用
 
-decisions: []
+decisions:
+  - id: "DEC-001"
+    date: "2026-01-14"
+    title: "ヒアリング対象領域の決定"
+    content: "ヒアリング対象はリテール営業部門の提案業務全体とする"
+    rationale: "リテール部門が最優先課題。生産性・品質両面で課題が大きい。"
+    category: "scope"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
+      attendees:
+        - "佐伯（営業企画部長）"
+        - "杉本（DX推進部長）"
+        - "山根（情報システム部 副部長）"
+        - "山口（リテール営業部 現場マネージャー）"
+        - "高松（LayerX）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
 
-# サンプル構造:
-# decisions:
-#   - id: "DEC-001"                   # 必須: 決定事項ID
-#     date: "2026-01-10"              # 必須: 決定日
-#     title: "認証方式の決定"          # 必須: タイトル
-#     content: "OAuth2.0 + OIDC を採用する"  # 必須: 決定内容
-#     rationale: "既存システムとの連携容易性、セキュリティ要件への適合"  # 任意: 理由
-#     category: "technical"           # 必須: scope/technical/process/resource/schedule/other
-#     impact:                         # 任意: 影響範囲
-#       requirements:
-#         - "REQ-005"
-#       wbs: []
-#       risks: []
-#       documents:
-#         - "outputs/requirements_draft.md"
-#     source:                         # 必須: 決定元
-#       type: "hearing"               # hearing/review/escalation/meeting/email
-#       ref: "2026-01-10_kickoff.md"
-#       attendees:                    # 任意: 参加者
-#         - "顧客担当者A"
-#         - "PMO"
-#     status: "active"                # 必須: active/superseded/revoked
-#     superseded_by: null             # 任意: 上書き元ID (superseded時)
-#     revoked_reason: null            # 任意: 撤回理由 (revoked時)
+  - id: "DEC-002"
+    date: "2026-01-14"
+    title: "主要プロセスの定義"
+    content: "以下6つを本プロジェクトの主要プロセスとして扱う：顧客ヒアリング、情報検索、市況整理、商品選定、資料作成、上長レビュー"
+    rationale: "クライアントの現状業務フローと一致"
+    category: "scope"
+    impact:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+      wbs: []
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
+      attendees:
+        - "佐伯"
+        - "山口"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-003"
+    date: "2026-01-14"
+    title: "PoCの主目的決定"
+    content: "PoCは提案業務の品質＋生産性の向上を主目的として検討する"
+    rationale: "市況解釈・検索・資料作成・判断の属人性が大きな課題"
+    category: "scope"
+    impact:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+      wbs: []
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
+      attendees:
+        - "佐伯"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-004"
+    date: "2026-01-14"
+    title: "段階的導入方針の決定"
+    content: "PoCは優先度の高い部分に絞って段階的に導入する"
+    rationale: "一気に全業務をAI化すると現場の抵抗が大きい。現場が改善を実感しやすい領域に絞るべき。"
+    category: "process"
+    impact:
+      requirements: []
+      wbs: []
+      risks:
+        - "RSK-001"
+      documents: []
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
+      attendees:
+        - "全員"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-005"
+    date: "2026-01-14"
+    title: "PoC領域評価軸の決定"
+    content: "以下3基準をPoC領域の評価軸として採用：(1)現場が改善を実感しやすい、(2)AIが得意で効果を得やすい、(3)現場の抵抗が少ない"
+    rationale: "特に(3)の抵抗が少ないが重要。現場が使ってみたいと思うテーマがPoC成功の鍵。"
+    category: "process"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
+      attendees:
+        - "全員"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-006"
+    date: "2026-01-14"
+    title: "PoC対象領域の決定"
+    content: "PoCの中心は①情報検索＋②市況整理。必要に応じて③資料作成も範囲に含める。商品選定・レビューは2nd Phaseが妥当。"
+    rationale: "情報検索が最重要課題。若手支援として市況整理も価値大。現場の実感値を重視すると資料作成も有力。"
+    category: "scope"
+    impact:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+      wbs: []
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "初回ヒアリング内容.md"
+      attendees:
+        - "全員"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-007"
+    date: "2026-01-14"
+    title: "情報検索の対象データ優先順位方針"
+    content: "情報検索のデータ範囲は現場ヒアリングで優先順位付けする。最初の対象は調査部レポート、商品資料、FAQが現実的。過去の提案書は支店に分散しているためPhase1には含めない。"
+    rationale: "現場の利用頻度をベースに優先順位付けすることで、効果が出やすい領域から着手できる。"
+    category: "technical"
+    impact:
+      requirements:
+        - "REQ-001"
+      wbs: []
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "PoC候補整理結果へのコメント.md"
+      attendees:
+        - "佐伯"
+        - "杉本"
+        - "高松"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-008"
+    date: "2026-01-14"
+    title: "市況サマリのレビュー体制"
+    content: "PoC期間中は市況サマリのAI生成について調査部のレビューを必須とする。レビュー体制はDX推進部と調査部で調整。"
+    rationale: "PoC期間中はAIの品質が安定しない可能性が高いため、人的レビューで品質を担保する。"
+    category: "process"
+    impact:
+      requirements:
+        - "REQ-002"
+      wbs: []
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "PoC候補整理結果へのコメント.md"
+      attendees:
+        - "杉本"
+        - "高松"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-009"
+    date: "2026-01-14"
+    title: "資料作成PoCのスコープ限定"
+    content: "Phase1では既存テンプレートのみ対応。テンプレートがない領域はテキスト生成のみとする。レイアウト変更や新テンプレート作成はPhase2以降。"
+    rationale: "現場に浸透しているフォーマットがあり、急な変更は抵抗を生むため。"
+    category: "scope"
+    impact:
+      requirements:
+        - "REQ-003"
+      wbs: []
+      risks:
+        - "RSK-001"
+      documents: []
+    source:
+      type: "hearing"
+      ref: "PoC候補整理結果へのコメント.md"
+      attendees:
+        - "佐伯"
+        - "高松"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-010"
+    date: "2026-01-14"
+    title: "Phase移行の判断方針"
+    content: "Phase1の成果（効果・利用率・現場評価）を見て、Phase2で着手する領域を再評価する。商品選定、上長レビュー、顧客ヒアリング支援はPoC初期に含めない。"
+    rationale: "段階的なアプローチで成功体験を積み重ね、現場の納得感を得ながら進める。"
+    category: "process"
+    impact:
+      requirements:
+        - "REQ-004"
+        - "REQ-005"
+        - "REQ-006"
+      wbs: []
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "PoC候補整理結果へのコメント.md"
+      attendees:
+        - "佐伯"
+        - "高松"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-011"
+    date: "2026-01-14"
+    title: "個人情報のPoC除外方針"
+    content: "個人情報はPoCで扱わない方針とする。データアップロードはAI Workforceのセキュア領域に限定。"
+    rationale: "監査リスク回避の観点から非常に重要と情シス側より指摘。"
+    category: "security"
+    impact:
+      requirements:
+        - "REQ-007"
+      wbs: []
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "PoC候補整理結果へのコメント.md"
+      attendees:
+        - "山根"
+        - "高松"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-012"
+    date: "2026-01-22"
+    title: "KPI・評価指標の確定"
+    content: "PoCの評価指標として5つのKPIを設定：(1)情報検索時間（40分→20分）、(2)市況理解度（アンケート平均4.0以上）、(3)提案書作成時間（1時間→30分）、(4)利用率（週次80%以上）、(5)品質スコア（レビュー指摘20%削減）"
+    rationale: "定量的な成果報告が経営陣に必要。ただし測定負荷を抑えるためシンプルな指標に絞る。"
+    category: "scope"
+    impact:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+      wbs:
+        - "P2-01"
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "2026-01-22_計画フェーズ詳細確認.md"
+      attendees:
+        - "佐伯"
+        - "杉本"
+        - "山口"
+        - "高松"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-013"
+    date: "2026-01-22"
+    title: "市況レポートの提供範囲と仕様"
+    content: "市況レポートは直近3ヶ月分（約12レポート）をPoC用に提供。PDF形式、週次発行、標準セクション構成あり。レビュー担当は調査部 田中課長（週次5-10件対応可能）。"
+    rationale: "PoC用のデータ範囲を限定することで、管理負荷を抑えつつ十分な検証が可能。"
+    category: "scope"
+    impact:
+      requirements:
+        - "REQ-002"
+      wbs:
+        - "P2-03"
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "2026-01-22_計画フェーズ詳細確認.md"
+      attendees:
+        - "杉本"
+        - "山根"
+        - "田中"
+        - "高松"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-014"
+    date: "2026-01-22"
+    title: "PoC参加メンバーの選定"
+    content: "現場から5名を選定（若手2名、中堅2名、ベテラン1名）。週次ミーティング全員参加、Slack+週次アンケートでフィードバック収集。中村・高橋が品質チェック担当。"
+    rationale: "経験年数のバランスを考慮し、多様なフィードバックが得られる体制を構築。"
+    category: "resource"
+    impact:
+      requirements: []
+      wbs:
+        - "P2-05"
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "2026-01-22_計画フェーズ詳細確認.md"
+      attendees:
+        - "山口"
+        - "高松"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-015"
+    date: "2026-01-22"
+    title: "データソース詳細仕様の確定"
+    content: "3つのデータソースの詳細仕様を確定：(1)調査部レポート（PDF、月次、直近1年分約50レポート）、(2)商品資料（PowerPoint/PDF、主力30商品）、(3)FAQ（Excel→CSV、約200件）"
+    rationale: "データソースごとの特性を把握し、適切な取り込み方式を設計するため。"
+    category: "technical"
+    impact:
+      requirements:
+        - "REQ-001"
+      wbs:
+        - "P2-02"
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "2026-01-22_計画フェーズ詳細確認.md"
+      attendees:
+        - "山根"
+        - "山口"
+        - "高松"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-016"
+    date: "2026-01-22"
+    title: "既存テンプレート詳細仕様の確定"
+    content: "Phase1対象テンプレートは2種類：(1)商品提案テンプレート（最優先、10-15スライド、背景・商品概要・メリット・リスクをAI生成）、(2)ソリューション提案テンプレート（15-20スライド、課題整理・ソリューション概要をAI生成）。コンサルティング提案はPhase2以降。"
+    rationale: "既存レイアウトを活用することで、現場の抵抗を抑え、Phase1の成功確率を高める。"
+    category: "scope"
+    impact:
+      requirements:
+        - "REQ-003"
+      wbs:
+        - "P2-04"
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "2026-01-22_計画フェーズ詳細確認.md"
+      attendees:
+        - "山口"
+        - "高松"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-017"
+    date: "2026-01-22"
+    title: "レビューフローの詳細化"
+    content: "市況サマリのレビューフローを4段階で実施：(1)AI生成→(2)1次レビュー（営業担当）→(3)2次レビュー（調査部 田中課長、専門的観点）→(4)承認・公開。レビュー期限は生成から48時間以内。"
+    rationale: "AI品質を人的レビューで担保しつつ、営業の利用タイミングに間に合わせる。"
+    category: "process"
+    impact:
+      requirements:
+        - "REQ-002"
+      wbs:
+        - "P2-06"
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "2026-01-22_計画フェーズ詳細確認.md"
+      attendees:
+        - "田中"
+        - "高松"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-018"
+    date: "2026-01-22"
+    title: "データ連携・セキュリティ技術仕様"
+    content: "データアップロードはWebインターフェース経由（ドラッグ&ドロップ）。対応形式：PDF/PowerPoint/Excel/Word/CSV、1ファイル50MBまで。TLS暗号化、アクセスログ記録、ウイルススキャン自動実行。初期アップロード2/1-2/7、定期更新はDX推進部担当。"
+    rationale: "セキュリティを確保しつつ、現場が簡単に利用できる方式を採用。"
+    category: "technical"
+    impact:
+      requirements:
+        - "REQ-007"
+      wbs:
+        - "P2-07"
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "2026-01-22_計画フェーズ詳細確認.md"
+      attendees:
+        - "山根"
+        - "高松"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-019"
+    date: "2026-01-15"
+    title: "PoC稼働時間帯とメンテナンス"
+    content: "AI Workforceは24時間365日稼働（PoCでも本番環境同様）。PoC参加メンバーの主な利用時間帯は平日9:00-18:00を想定。定期メンテナンスは毎週日曜3:00-5:00を予定。緊急メンテナンスは可能な限り24時間前にメール通知。PoC期間中（平日昼間）の緊急メンテナンスは原則実施しない。"
+    rationale: "営業担当の利用時間帯（特に朝夕8:30-9:30と17:00-18:30）の安定稼働を優先。週次MTG前日（木曜夕方）は動作確認のため特に重要。"
+    category: "technical"
+    impact:
+      requirements:
+        - "REQ-007"
+      wbs:
+        - "P3-01"
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "2026-01-15_技術要件とPoC受入条件の詳細確認.md"
+      attendees:
+        - "山本部長"
+        - "佐藤課長（IT部門）"
+        - "中村（現場リーダー）"
+        - "LayerX PM"
+        - "LayerX技術リード"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-020"
+    date: "2026-01-15"
+    title: "LayerXサポート体制とSLA"
+    content: "LayerXのサポート対応時間は平日9:00-18:00。連絡先は第1窓口がSlackチャンネル（#abc-corp-poc-support）、緊急時は技術リード直通の携帯電話。対応SLAは重大障害（システムダウン等）1時間以内、中程度障害4時間以内、軽微（操作質問等）1営業日以内。エスカレーションフローはSlack→電話→技術リード→PM→CTO（重大時のみ）。"
+    rationale: "PoC期間中の安定稼働を支援し、現場の不安を軽減する。"
+    category: "process"
+    impact:
+      requirements:
+        - "REQ-007"
+      wbs:
+        - "P3-01"
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "2026-01-15_技術要件とPoC受入条件の詳細確認.md"
+      attendees:
+        - "山本部長"
+        - "佐藤課長"
+        - "LayerX PM"
+        - "LayerX技術リード"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-021"
+    date: "2026-01-15"
+    title: "対応ブラウザ・デバイス要件"
+    content: "対応ブラウザはGoogle Chrome 110以降、Microsoft Edge 110以降、Safari 16以降（macOS Ventura以降）。Firefox対応予定なし。対応デバイスはPC（デスクトップ・ノートPC）完全対応（推奨解像度1920x1080以上、最小1366x768）。タブレットは基本機能のみ対応（閲覧・検索可、提案書作成等複雑操作は制限あり、PoCでは検証対象外）。スマートフォンは対応なし。PoCはChromeまたはEdge最新版 + Windows PCの組み合わせで実施。"
+    rationale: "PoC参加メンバー全員がWindows PC（Chrome/Edge標準利用）を使用。プロキシ設定済み、ウイルスバスター導入済みで動作確認済み。"
+    category: "technical"
+    impact:
+      requirements:
+        - "REQ-007"
+      wbs:
+        - "P3-01"
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "2026-01-15_技術要件とPoC受入条件の詳細確認.md"
+      attendees:
+        - "佐藤課長"
+        - "中村"
+        - "LayerX技術リード"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-022"
+    date: "2026-01-15"
+    title: "PoC受入条件の確定"
+    content: "PoC受入条件として5つの必須項目を設定：(1)KPI達成（既合意の5つのKPI）、(2)システム安定性（重大障害0回、中程度障害月2回以下、データ損失0件）、(3)データ品質（検索精度80%以上、要約精度平均4.0以上、誤情報5%以下）、(4)ユーザビリティ（アンケート平均3.5以上、業務に役立つ80%以上、重大操作性問題0件）、(5)セキュリティ・コンプライアンス（個人情報漏洩0件、不正アクセス0件、ポリシー違反0件）。Phase2移行判断は経営会議で決定。"
+    rationale: "特に誤情報生成は経営層の懸念事項であり厳格評価が必要。Phase2移行時には費用対効果も含めた総合的判断を行う。"
+    category: "scope"
+    impact:
+      requirements:
+        - "REQ-001"
+        - "REQ-002"
+        - "REQ-003"
+        - "REQ-007"
+      wbs:
+        - "P3-01"
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "2026-01-15_技術要件とPoC受入条件の詳細確認.md"
+      attendees:
+        - "山本部長"
+        - "佐藤課長"
+        - "中村"
+        - "LayerX PM"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+
+  - id: "DEC-023"
+    date: "2026-01-15"
+    title: "外部システム連携方針（Phase1は連携なし）"
+    content: "Phase1（PoC）では外部システム連携は実施しない。理由は(1)PoCの目的は機能評価でありシステム連携は本質的評価対象ではない、(2)既存システム連携には社内セキュリティ審査（1-2ヶ月）が必要でPoC期間に間に合わない、(3)まずファイルベースでの価値検証を優先し、連携は効果確認後に検討。データ提供はすべてファイルアップロード方式（初回一括 + 週次新規データ追加、IT部門 佐藤課長が管理責任者）。Phase2以降でファイルサーバ連携、CRM連携、基幹システム連携を検討。"
+    rationale: "将来的にはファイルサーバ連携（自動同期）は必須と想定するが、まずPoCで基本機能の価値を確認してから投資判断したい。"
+    category: "technical"
+    impact:
+      requirements:
+        - "REQ-001"
+        - "REQ-007"
+      wbs:
+        - "P3-01"
+      risks: []
+      documents: []
+    source:
+      type: "hearing"
+      ref: "2026-01-15_技術要件とPoC受入条件の詳細確認.md"
+      attendees:
+        - "山本部長"
+        - "佐藤課長"
+        - "中村"
+        - "LayerX PM"
+        - "LayerX技術リード"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
