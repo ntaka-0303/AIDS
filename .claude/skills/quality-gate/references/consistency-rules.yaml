@@ -32,51 +32,13 @@ rules:
         severity: "Critical"
 
   # ========================================
-  # 2. ファイルリンク一致チェック
-  # ========================================
-  file_link_consistency:
-    description: "YAMLファイル内の参照先が実在するか検証"
-    severity_default: "Warning"
-
-    rules:
-      - id: "CON-LINK-001"
-        check: "wbs.yaml.deliverableの参照先ファイルが存在するか"
-        method: |
-          wbs.yamlの各タスクのdeliverableフィールドが
-          outputs/ディレクトリに実在するファイルを指しているか確認
-        severity: "Warning"
-        message: "タスク{task_id}のdeliverable「{path}」が存在しません"
-
-      - id: "CON-LINK-002"
-        check: "issues.yaml.relatedの参照先が存在するか"
-        method: |
-          issues.yamlのrelated.requirements, related.wbs, related.risksが
-          それぞれ実在するIDを指しているか確認
-        severity: "Warning"
-
-      - id: "CON-LINK-003"
-        check: "risks.yaml.relatedの参照先が存在するか"
-        method: |
-          risks.yamlのrelated.wbs, related.issues, related.decisions, related.hearingsが
-          実在するIDまたはファイルを指しているか確認
-        severity: "Warning"
-
-  # ========================================
-  # 3. リスク↔課題 相互リンクチェック
+  # 2. リスク↔課題 相互リンクチェック
   # ========================================
   risk_issue_consistency:
     description: "リスクと課題の状態・リンクの整合性を検証"
     severity_default: "Warning"
 
     rules:
-      - id: "CON-RI-001"
-        check: "顕在化したリスクがIssue化されているか"
-        method: |
-          risks.yamlでstatus=Realizedのリスクに対して、
-          対応するissues.yamlエントリが存在し、リンクされているか確認
-        severity: "Critical"
-        message: "リスク{risk_id}(Realized)に対応する課題が登録されていません"
-
       - id: "CON-RI-002"
         check: "解決済み課題のリンクリスクが適切な状態か"
         method: |
@@ -93,20 +55,13 @@ rules:
         severity: "Info"
 
   # ========================================
-  # 4. WBS整合性チェック
+  # 3. WBS整合性チェック
   # ========================================
   wbs_consistency:
     description: "WBS内の整合性を検証"
     severity_default: "Warning"
 
     rules:
-      - id: "CON-WBS-001"
-        check: "depends_onの参照先タスクが存在するか"
-        method: |
-          wbs.yamlの各タスクのdepends_onが
-          実在するタスクIDを指しているか確認
-        severity: "Warning"
-
       - id: "CON-WBS-002"
         check: "完了タスクへの依存が残っていないか"
         method: |
@@ -115,13 +70,6 @@ rules:
         severity: "Info"
 
       - id: "CON-WBS-003"
-        check: "循環依存がないか"
-        method: |
-          depends_onを辿って循環参照が発生していないか確認
-          A → B → C → A のようなケース
-        severity: "Critical"
-
-      - id: "CON-WBS-004"
         check: "due日付の整合性"
         method: |
           depends_onで指定されたタスクのdueより前に
@@ -130,7 +78,7 @@ rules:
         message: "タスク{task_id}のdue({due})が依存先{dep_id}のdue({dep_due})より前です"
 
   # ========================================
-  # 5. 時系列整合性チェック
+  # 4. 時系列整合性チェック
   # ========================================
   timeline_consistency:
     description: "日付・時系列の整合性を検証"
@@ -138,25 +86,19 @@ rules:
 
     rules:
       - id: "CON-TIME-001"
-        check: "due < created_atのタスク/課題がないか"
-        method: |
-          期限が作成日より前に設定されているケースを検出
-        severity: "Warning"
-
-      - id: "CON-TIME-002"
         check: "未来日付のResolved/Doneがないか"
         method: |
           status=Resolved/Doneのupdated_atが未来日付でないか確認
         severity: "Warning"
 
-      - id: "CON-TIME-003"
+      - id: "CON-TIME-002"
         check: "change_logの時系列順序"
         method: |
           change_log.yamlのエントリが時系列順に記録されているか確認
         severity: "Info"
 
   # ========================================
-  # 6. ドキュメント間整合性チェック
+  # 5. ドキュメント間整合性チェック
   # ========================================
   cross_document_consistency:
     description: "異なるドキュメント間の整合性を検証"
@@ -185,11 +127,10 @@ rules:
 # チェック実行順序
 execution_order:
   1: decisions_consistency
-  2: file_link_consistency
-  3: risk_issue_consistency
-  4: wbs_consistency
-  5: timeline_consistency
-  6: cross_document_consistency
+  2: risk_issue_consistency
+  3: wbs_consistency
+  4: timeline_consistency
+  5: cross_document_consistency
 
 # 出力フォーマット
 output_format:

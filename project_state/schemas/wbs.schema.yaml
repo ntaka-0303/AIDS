@@ -260,6 +260,9 @@ validation:
       error_message: "Blocked状態にはblockerの設定が必要です"
     - rule: "status == 'Done' implies deliverable file exists or no deliverable"
       error_message: "完了状態のタスクで成果物が見つかりません"
+    - rule: "deliverable is not empty implies exists task with depends_on=[this.id] and title contains 'レビュー'"
+      error_message: "成果物作成タスクには対応する顧客レビュータスクが必要です"
+      severity: "warning"
 
 # サンプルデータ
 example:

@@ -89,6 +89,59 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 - depends_on指定時は依存先の存在確認
 - 状態変更時はupdated_at自動更新
 
+#### 成果物作成タスクの自動レビュー生成ルール
+成果物作成タスク（`deliverable`フィールドが設定されているタスク）を追加する際、**必ず**対応する顧客レビュータスクを自動生成する。
+
+**自動生成されるレビュータスクの仕様:**
+- **タイトル**: `"{元タスクのtitle}の顧客レビュー"` または `"{deliverable名}の顧客レビュー"`
+  - 例: 元タスク「提案書ドラフト作成」→ レビュータスク「提案書ドラフト作成の顧客レビュー」
+- **ID**: 同一フェーズ内で次の連番を自動採番
+  - 例: 元タスクがP1-01なら、レビュータスクはP1-02
+- **phase**: 元タスクと同じフェーズ
+- **deliverable**: null（レビュータスク自体は成果物を生成しない）
+- **owner**: デフォルト「PMO」（プロジェクト管理者が顧客レビューを調整）
+- **status**: デフォルト「Todo」
+- **depends_on**: `[元タスクのID]`（元タスク完了後にレビュー可能）
+- **due**: 元タスクのdue + 5営業日（デフォルト、後で調整可能）
+- **definition_of_done**:
+  - "顧客レビュー日程が確定"
+  - "レビュー実施完了"
+  - "指摘事項が記録された"
+- **related**: 元タスクのrelated情報を継承（requirements, decisions等）
+
+**例:**
+```yaml
+# 元タスク
+- id: "P1-01"
+  phase: "提案"
+  title: "提案書ドラフト作成"
+  deliverable: "outputs/proposal_draft.md"
+  owner: "PMO"
+  status: "InProgress"
+  due: "2026-01-20"
+  depends_on: []
+
+# 自動生成されるレビュータスク
+- id: "P1-02"
+  phase: "提案"
+  title: "提案書ドラフト作成の顧客レビュー"
+  deliverable: null
+  owner: "PMO"
+  status: "Todo"
+  due: "2026-01-27"  # 元タスク + 5営業日
+  depends_on:
+    - "P1-01"
+  definition_of_done:
+    - "顧客レビュー日程が確定"
+    - "レビュー実施完了"
+    - "指摘事項が記録された"
+```
+
+**注意事項:**
+- レビュータスクの自動生成は**成果物作成タスク追加時のみ**実行
+- 既存タスクのdeliverableを後から追加した場合は手動でレビュータスクを追加
+- レビュータスクの期限やownerは後から調整可能
+
 ### 3. 課題追加/更新
 ```
 「課題を登録: 認証方式が未確定 優先度High」
@@ -135,10 +188,66 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 2. 該当する操作を実行
 3. 自動採番・計算を適用
 
-### Step 3: 整合性チェック
-- related参照の存在確認
-- ID重複チェック
-- 必須フィールド確認
+### Step 2.5: スキーマバリデーション（NEW）
+
+追加/更新するデータをschema-validator agentで検証する。
+
+**バリデーション対象:**
+- wbs.yaml更新の場合: wbs.schema.yaml
+- issues.yaml更新の場合: issues.schema.yaml
+- risks.yaml更新の場合: risks.schema.yaml
+- open_questions.yaml更新の場合: open_questions.schema.yaml
+
+**バリデーション種別（A～E）:**
+1. **A. データフォーマット**: required, pattern, enum, 日付フォーマット、ID採番ルール、文字列長
+2. **B. 参照整合性**: reference_integrity（depends_on, related.*の参照先存在確認、循環参照検出）
+3. **C. 日付整合性**: date_consistency（due >= created_at、依存タスクのdue整合性）
+4. **D. ビジネスルール**: business_rules（Blocked時のblocker必須、Resolved時のresolution必須、Realized時のissues登録、スコア自動計算、Done時のdeliverable存在）
+5. **E. 状態遷移**: state_transitions（許可された状態遷移のみ、final状態からの遷移禁止、状態遷移時の必須フィールド）
+
+**実行例（WBS更新時）:**
+```
+[schema-validator agentを呼び出し]
+- 対象: wbs.yaml P2-05（新規追加 or 更新内容）
+- スキーマ: wbs.schema.yaml
+
+結果:
+- Critical: 1件
+  - [CRITICAL] P2-05のdeliverable "outputs/poc_report.md"が存在しません
+  - ビジネスルール: status == 'Done' implies deliverable file exists
+
+判定:
+- Critical → 更新中止、ユーザーに通知
+```
+
+**実行例（リスク更新時）:**
+```
+[schema-validator agentを呼び出し]
+- 対象: risks.yaml RSK-002（status: Monitoring → Realized）
+- スキーマ: risks.schema.yaml
+
+結果:
+- Critical: 1件
+  - [CRITICAL] status=Realizedですが、related.issuesが空です
+  - ビジネスルール: status == 'Realized' implies related.issues is not empty
+
+判定:
+- Critical → 更新中止、Issue作成を促す
+```
+
+**エラー時の対応:**
+| エラーレベル | 対応 |
+|------------|-----|
+| Critical | 更新を中止し、修正必須。ユーザーに具体的な修正方法を提示 |
+| Warning | 警告内容を表示し、続行確認をユーザーに求める |
+| Info | 情報提供のみ（ID欠番等）、更新継続 |
+
+### Step 3: 簡易整合性チェック（軽量版）
+
+**注意:** スキーマバリデーション（A～E）はStep 2.5で実施済みのため、ここでは軽量なチェックのみ実施。
+
+- 更新後の全体的な一貫性確認（簡易版）
+- 明らかな論理矛盾がないかの最終確認
 
 ### Step 4: 更新適用
 1. YAMLファイルを更新

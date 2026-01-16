@@ -77,6 +77,45 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 | 「担当者がアサインされていない」 | - | Issues（プロジェクト推進の問題） |
 | 「検証環境の構築が遅れている」 | - | Issues（プロジェクト推進の問題） |
 
+### Step 2.5: スキーマバリデーション（NEW）
+
+抽出した構造化データをschema-validator agentで検証する。
+
+**バリデーション対象:**
+- 新規追加するREQ, DEC, QST, RSK, ISSの全データ
+- project_state/schemas/*.schema.yamlで定義されたルールに準拠
+
+**バリデーション種別（A～E）:**
+1. **A. データフォーマット**: required, pattern, enum, 日付フォーマット、ID採番ルール
+2. **B. 参照整合性**: reference_integrity（参照先ID存在確認）
+3. **C. 日付整合性**: date_consistency（due >= created_at等）
+4. **D. ビジネスルール**: business_rules（条件付き必須フィールド等）
+5. **E. 状態遷移**: state_transitions（許可された状態遷移のみ）
+
+**実行方法:**
+```
+[schema-validator agentを呼び出し]
+- 対象: 新規追加データ
+- スキーマ: decisions.schema.yaml, open_questions.schema.yaml,
+           risks.schema.yaml, issues.schema.yaml
+
+結果:
+- Critical: 0件, Warning: 1件
+  - [WARNING] QST-004のownerが未設定
+
+判定:
+- Critical → 更新中止、修正必須
+- Warning → ユーザーに確認、続行可能
+- OK → Step 3へ進む
+```
+
+**エラー時の対応:**
+| エラーレベル | 対応 |
+|------------|-----|
+| Critical | 更新を中止し、修正提案を表示。ユーザーに修正を依頼 |
+| Warning | 警告内容を表示し、続行確認をユーザーに求める |
+| Info | 情報提供のみ、更新継続 |
+
 ### Step 3: project_state更新
 以下のファイルを更新する。
 詳細ルールは `references/state-update-rules.md` を参照。

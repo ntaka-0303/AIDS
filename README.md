@@ -70,6 +70,42 @@
 
 結果は `reviews/*.md` として出力し、ドキュメント更新の差分指示を生成します。
 
+**品質保証の3階層構造:**
+- **第1層: データ正当性保証**
+  - スキーマ定義（`project_state/schemas/*.schema.yaml`）
+  - schema-validator agent（スキーマバリデーション実行）
+- **第2層: 更新時品質保証（予防）**
+  - Intake/ProjectMgmt/DocGen Skillが更新前にschema-validatorを呼び出し
+  - 不正データの混入を予防
+- **第3層: 事後確認・横断チェック**
+  - Quality-Gate Skill: 成果物完全性・整合性チェック
+  - State-Reviewer Agent: project_state横断整合性チェック
+
+**🎯 自動バリデーションの設定（推奨）:**
+
+ファイル保存時に自動的にスキーマバリデーションを実行するHookを設定できます。
+
+```json
+# ~/.config/claude/config.json または .claude/config.json
+{
+  "hooks": {
+    "tool": {
+      "Write": {
+        "after": [
+          {
+            "name": "schema-validation",
+            "command": "python3 scripts/validate_schema.py \"${file_path}\"",
+            "enabled": true
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+詳細な設定方法は [`docs/validation-hooks-setup.md`](docs/validation-hooks-setup.md) を参照してください。
+
 ---
 
 ### 5. 週次進捗報告書を WBS/課題/リスクから自動ドラフトする
@@ -141,10 +177,82 @@
 ## ディレクトリ（案件ワークスペース）概略
 - `inputs/hearings/`：ヒアリングメモ（イベントログ、都度追加）
 - `project_state/`：最新状態（単一の真実）
+  - `schemas/`：YAMLスキーマ定義（プロジェクトごとにカスタマイズ可能）
 - `processing/`：各回の構造化抽出物（追跡と差分反映用）
 - `templates/`：ドキュメントテンプレ
 - `outputs/`：生成されたドラフト
 - `reviews/`：品質チェック結果
 - `logs/`：実行ログ
+- `scripts/`：バリデーションスクリプト等
+- `docs/`：ドキュメント
+
+---
+
+## セットアップ（推奨）
+
+### 1. 自動バリデーションの有効化
+
+ファイル保存時に自動的にスキーマバリデーションを実行するHookを設定します。
+
+**ステップ1: Claude Code設定ファイルを編集**
+
+`~/.config/claude/config.json` を作成・編集:
+
+```json
+{
+  "hooks": {
+    "tool": {
+      "Write": {
+        "after": [
+          {
+            "name": "schema-validation",
+            "command": "python3 scripts/validate_schema.py \"${file_path}\"",
+            "description": "Validate YAML schema after file write",
+            "cwd": "${workspace_root}",
+            "enabled": true,
+            "blocking": false
+          }
+        ]
+      },
+      "Edit": {
+        "after": [
+          {
+            "name": "schema-validation",
+            "command": "python3 scripts/validate_schema.py \"${file_path}\"",
+            "description": "Validate YAML schema after file edit",
+            "cwd": "${workspace_root}",
+            "enabled": true,
+            "blocking": false
+          }
+        ]
+      }
+    }
+  }
+}
+```
+
+**ステップ2: 動作確認**
+
+Claude Codeでproject_state/配下のYAMLファイルを編集し、自動バリデーションが実行されることを確認します。
+
+詳細な設定方法とトラブルシューティングは [`docs/validation-hooks-setup.md`](docs/validation-hooks-setup.md) を参照してください。
+
+### 2. 品質保証の仕組み
+
+本ツールは3階層の品質保証を提供します：
+
+1. **第1層: データ正当性保証**
+   - スキーマ定義: `project_state/schemas/*.schema.yaml`
+   - 実行エージェント: `schema-validator agent`
+
+2. **第2層: 更新時品質保証（予防）**
+   - Intake/ProjectMgmt/DocGen Skillが更新前にバリデーション実行
+   - Hook自動実行でファイル保存時にも即座にチェック
+
+3. **第3層: 事後確認・横断チェック**
+   - Quality-Gate Skill: 成果物完全性・整合性チェック
+   - State-Reviewer Agent: project_state横断整合性チェック
+
+詳細は [`.claude/quality-assurance-matrix.md`](.claude/quality-assurance-matrix.md) を参照してください。
 
 ---

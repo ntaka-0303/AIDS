@@ -3,7 +3,9 @@
     "allow": [
       "Bash(tree:*)",
       "WebSearch",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(chmod:*)",
+      "Bash(python3:*)"
     ]
   }
 }
