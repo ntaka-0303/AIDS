@@ -4,7 +4,7 @@ description: |
   成果物とproject_stateの品質チェックを実行するSkill。
   抜け漏れと整合性を検証し、修正指示を生成する。
   キーワード: quality gate, 品質チェック, レビュー, 抜け漏れ,
-  整合性確認, completeness, consistency, reviews/
+  整合性確認, completeness, consistency, outputs/reviews/
 allowed-tools: Read, Write, Glob, Grep
 ---
 
@@ -12,13 +12,31 @@ allowed-tools: Read, Write, Glob, Grep
 
 ## 概要
 `outputs/`の成果物と`project_state/`の整合性・完全性をチェックし、
-`reviews/*.md`にレビュー結果と修正指示を出力する。
+`outputs/reviews/*.md`にレビュー結果と修正指示を出力する。
 
 ## 役割と責務範囲
 
 **Quality-Gateの役割:**
 - **G. 成果物完全性チェック**: テンプレート必須セクション、空セクション、TODOマーク等
 - **H. 成果物整合性チェック**: decisions矛盾、open_questions反映、要件→WBS落とし込み、上位成果物との整合性
+
+### DocGenとの役割分担（G. 成果物完全性）
+
+**Quality-GateがG（成果物完全性）の全責任を担う。**
+DocGenは軽量チェックのみ実施し、詳細チェックとレポート生成はQuality-Gateで行う。
+
+| チェック項目 | DocGen | Quality-Gate | 備考 |
+|------------|--------|-------------|------|
+| G-1: 必須セクション存在 | - | **実施** | レポートで修正指示 |
+| G-2: 空セクション検出 | マーク挿入 | **実施** | 最終判定はQuality-Gate |
+| G-3: TODO/TBDマーク検出 | - | **実施** | レポートで修正指示 |
+| G-4: 必須フィールド記入 | - | **実施** | レポートで修正指示 |
+| G-5: フェーズ一貫性 | マーク挿入 | - | DocGenのみで完結 |
+| レポート生成 | なし | **生成** | outputs/reviews/ |
+
+**設計意図:**
+- DocGen: 生成直後の即時フィードバック（マーク挿入で問題箇所を明示）
+- Quality-Gate: 提出前の最終品質ゲート（全項目チェック + 修正指示レポート）
 
 **Quality-Gateが実行しないこと:**
 - **A～E. スキーマバリデーション**: データフォーマット、参照整合性、日付整合性、ビジネスルール、状態遷移
@@ -130,7 +148,7 @@ Quality-Gateは **G. 成果物完全性** と **H. 成果物整合性** に特�
 重大度レベル: Critical / Warning / Info
 
 ### Step 3: レビュー結果生成
-`reviews/<filename>_review.md`を生成:
+`outputs/reviews/<filename>_review.md`を生成:
 
 ```markdown
 # proposal_draft.md レビュー結果
@@ -201,8 +219,8 @@ YYYY-MM-DD HH:MM
   - Warning: 5件
   - Info: 3件
 - 出力:
-  - reviews/proposal_review.md
-  - reviews/project_plan_review.md
+  - outputs/reviews/proposal_review.md
+  - outputs/reviews/project_plan_review.md
 - 推奨アクション: Critical 2件を優先対応
 ```
 

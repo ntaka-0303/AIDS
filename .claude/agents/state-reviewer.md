@@ -225,16 +225,55 @@ YYYY-MM-DD HH:MM
 
 ## 実行タイミング
 
-**定期実行（推奨）:**
-- 週次での定期監査
-- プロジェクトのマイルストーン完了時
-- 大規模な更新（複数ヒアリング取り込み等）の後
+### 1. Project-Coordinator統合（自動実行）
 
-**ユーザー指示時:**
+Project-Coordinatorの実行フローに組み込まれ、自動的に実行される:
+
+**フロー1: ヒアリング取り込み → 全体更新**
+```
+Intake → WBS Management → State-Reviewer → QualityGate
+```
+
+**フロー2: 週次サイクル**
+```
+WBS Management → State-Reviewer → WeeklyReport → QualityGate
+```
+
+**Coordinator統合時の動作:**
+
+| 条件 | 動作 |
+|-----|------|
+| Critical検出 | フロー停止、修正指示を出力 |
+| Warning 5件以上 | ユーザーに続行確認 |
+| Warning 5件未満 | サマリ報告、フロー継続 |
+| Infoのみ | サマリ報告、フロー継続 |
+
+**サマリ出力フォーマット（Coordinator統合時）:**
+```
+[State-Reviewer サマリ]
+- Critical: 0件
+- Warning: 3件
+  - リスク↔課題不整合: 1件
+  - 長期未更新タスク: 2件
+- Info: 2件
+→ フロー継続
+```
+
+### 2. 手動トリガー（従来通り）
+
+ユーザー指示による単独実行:
 - 「状態を監査して」
 - 「state reviewを実行」
 - 「整合性を確認」
 - 「長期未更新をチェック」
+
+手動実行時は詳細レポートを `outputs/reviews/state_review_YYYY-MM-DD.md` に出力。
+
+### 3. 定期実行（推奨）
+
+- 週次での定期監査
+- プロジェクトのマイルストーン完了時
+- 大規模な更新（複数ヒアリング取り込み等）の後
 
 ## 使用例
 
@@ -254,7 +293,7 @@ YYYY-MM-DD HH:MM
    - ID欠番・重複チェック
 
 3. レポート生成
-   - reviews/state_review_YYYY-MM-DD.md に出力
+   - outputs/reviews/state_review_YYYY-MM-DD.md に出力
 
 結果:
 - Critical: 0件

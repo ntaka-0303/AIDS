@@ -1,12 +1,30 @@
 #!/usr/bin/env python3
 """
-Schema Validation Script for Project State Files
+Schema Validation Script for Project State Files (Hook Layer)
 
-This script performs basic schema validation on project_state YAML files.
-It is triggered by Claude Code hooks when YAML files are modified.
+=============================================================================
+責務範囲: A. データフォーマット基本検証のみ（軽量・高速）
+=============================================================================
+
+このスクリプトは Hook 層として、ファイル保存時の即時フィードバックを提供します。
+
+【実施するチェック（A. データフォーマット基本検証）】
+  - A-1: 必須フィールド（required）
+  - A-2: パターン検証（IDフォーマット）
+  - A-3: 列挙値（enum）
+  - A-4: 日付フォーマット（YYYY-MM-DD形式）
+  - A-5: ID重複チェック（同一ファイル内）
+
+【実施しないチェック（schema-validator agent が担当）】
+  - B: 参照整合性（他ファイル参照）
+  - C: 日付整合性（依存関係含む論理チェック）
+  - D: ビジネスルール（複合条件チェック）
+  - E: 状態遷移（履歴追跡含む）
+
+詳細なバリデーションが必要な場合は schema-validator agent を呼び出してください。
 
 Usage:
-    python scripts/validate_schema.py <target_file>
+    python validation/validate_schema.py <target_file>
 """
 
 import sys

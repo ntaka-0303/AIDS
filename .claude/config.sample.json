@@ -5,7 +5,7 @@
         "after": [
           {
             "name": "schema-validation",
-            "command": "python3 scripts/validate_schema.py \"${file_path}\"",
+            "command": "python3 validation/validate_schema.py \"${file_path}\"",
             "description": "Validate YAML schema after file write",
             "cwd": "${workspace_root}",
             "enabled": true,
@@ -17,7 +17,7 @@
         "after": [
           {
             "name": "schema-validation",
-            "command": "python3 scripts/validate_schema.py \"${file_path}\"",
+            "command": "python3 validation/validate_schema.py \"${file_path}\"",
             "description": "Validate YAML schema after file edit",
             "cwd": "${workspace_root}",
             "enabled": true,

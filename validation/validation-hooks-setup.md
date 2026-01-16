@@ -15,7 +15,7 @@ Claude Codeのhooks機能を使用して、`project_state/`配下のYAMLファ�
   ↓
 [Hook トリガー] ← 自動実行
   ↓
-[scripts/validate_schema.py wbs.yaml を実行]
+[validation/validate_schema.py wbs.yaml を実行]
   ↓
 [バリデーション結果を即座に表示]
   ├─ OK → 処理継続
@@ -74,7 +74,7 @@ cp .claude/config.sample.json ~/.config/claude/config.json
         "after": [
           {
             "name": "schema-validation",
-            "command": "python3 scripts/validate_schema.py \"${file_path}\"",
+            "command": "python3 validation/validate_schema.py \"${file_path}\"",
             "description": "Validate YAML schema after file write",
             "cwd": "${workspace_root}",
             "enabled": true,
@@ -86,7 +86,7 @@ cp .claude/config.sample.json ~/.config/claude/config.json
         "after": [
           {
             "name": "schema-validation",
-            "command": "python3 scripts/validate_schema.py \"${file_path}\"",
+            "command": "python3 validation/validate_schema.py \"${file_path}\"",
             "description": "Validate YAML schema after file edit",
             "cwd": "${workspace_root}",
             "enabled": true,
@@ -125,7 +125,7 @@ Claude Codeを再起動するか、設定をリロードします。
 | パラメータ | 説明 | 推奨値 |
 |-----------|------|--------|
 | `name` | Hook名（識別用） | `schema-validation` |
-| `command` | 実行するコマンド | `python3 scripts/validate_schema.py "${file_path}"` |
+| `command` | 実行するコマンド | `python3 validation/validate_schema.py "${file_path}"` |
 | `description` | Hookの説明 | 任意の説明文 |
 | `cwd` | 作業ディレクトリ | `${workspace_root}` |
 | `enabled` | 有効/無効 | `true` |
@@ -184,13 +184,13 @@ Claude Codeを再起動するか、設定をリロードします。
 which python3
 
 # Hookのcommandにフルパスを指定
-"command": "/usr/bin/python3 scripts/validate_schema.py \"${file_path}\""
+"command": "/usr/bin/python3 validation/validate_schema.py \"${file_path}\""
 ```
 
 **原因2: スクリプトが実行可能でない**
 ```bash
 # 実行権限を付与
-chmod +x scripts/validate_schema.py
+chmod +x validation/validate_schema.py
 ```
 
 **原因3: 作業ディレクトリが正しくない**

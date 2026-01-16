@@ -140,7 +140,7 @@ allowed-tools: Read, Write, Edit, Glob, Grep
 - 変更: `CHG-XXX`
 
 ### Step 4: hearing_digest生成
-`processing/hearing_digests/YYYY-MM-DD_topic.yaml`を生成する。
+`inputs/hearing_digests/YYYY-MM-DD_topic.yaml`を生成する。
 
 ```yaml
 source: "inputs/hearings/YYYY-MM-DD_topic.md"
@@ -234,7 +234,7 @@ changes_made:
   - 質問: QST-001〜QST-003
   - 変更ログ: CHG-001
 - 生成ファイル:
-  - processing/hearing_digests/2026-01-10_kickoff.yaml
+  - inputs/hearing_digests/2026-01-10_kickoff.yaml
 ```
 
 ## 注意事項

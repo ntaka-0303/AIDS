@@ -22,12 +22,12 @@
 - `inputs/hearings/_index.yaml`（追加されたヒアリングメモを一覧へ追加）
 - `project_state/project_charter.md`（埋められる範囲の基本情報を継続更新）
 - `project_state/requirements_master.md`（要件の統合版を継続更新）
-- `project_state/open_questions.md`（未決・確認事項の統合/解消を継続更新）
-- `project_state/decisions.md`（決定事項ログを継続更新）
+- `project_state/open_questions.yaml`（未決・確認事項の統合/解消を継続更新）
+- `project_state/decisions.yaml`（決定事項ログを継続更新）
 - `project_state/risks.yaml`（リスクの追加/更新）
 - `project_state/issues.yaml`（課題の追加/更新）
-- `processing/hearing_digests/YYYY-MM-DD_topic.yaml`（各回の構造化サマリ）
-- `project_state/change_log.md`（どのヒアリング起点で何が変わったかの記録）
+- `inputs/hearing_digests/YYYY-MM-DD_topic.yaml`（各回の構造化サマリ）
+- `project_state/change_log.yaml`（どのヒアリング起点で何が変わったかの記録）
 
 > 目的：ヒアリングが複数回に分かれて発生しても、  
 > **「inputs=時系列ログ」「project_state=単一の真実（最新）」** を維持し、後続工程の自動化を安定させます。
@@ -60,15 +60,15 @@
 
 **抜け漏れ（Completeness）**
 - 必須セクションの有無（例：要件定義の目的/範囲/機能一覧…）
-- `open_questions.md` の項目が未反映のまま放置されていないか
+- `open_questions.yaml` の項目が未反映のまま放置されていないか
 - 要件→WBS（実行計画）への落とし込みが不足していないか
 
 **整合性（Consistency）**
-- `decisions.md`（スコープ外/方針）と各成果物の矛盾検出
+- `decisions.yaml`（スコープ外/方針）と各成果物の矛盾検出
 - WBSの成果物リンクが `outputs/` の実ファイルと一致しているか
 - 課題/リスクが適切に相互リンクされているか（顕在化したリスクがIssue化されている等）
 
-結果は `reviews/*.md` として出力し、ドキュメント更新の差分指示を生成します。
+結果は `outputs/reviews/*.md` として出力し、ドキュメント更新の差分指示を生成します。
 
 **品質保証の3階層構造:**
 - **第1層: データ正当性保証**
@@ -94,7 +94,7 @@
         "after": [
           {
             "name": "schema-validation",
-            "command": "python3 scripts/validate_schema.py \"${file_path}\"",
+            "command": "python3 validation/validate_schema.py \"${file_path}\"",
             "enabled": true
           }
         ]
@@ -104,7 +104,7 @@
 }
 ```
 
-詳細な設定方法は [`docs/validation-hooks-setup.md`](docs/validation-hooks-setup.md) を参照してください。
+詳細な設定方法は [`validation/validation-hooks-setup.md`](validation/validation-hooks-setup.md) を参照してください。
 
 ---
 
@@ -123,7 +123,7 @@
 
 ### 6. 変更履歴と証跡を残し、更新の透明性を保つ
 - 各実行（生成/更新/レビュー）を `logs/runlog.md` に記録
-- 何が、どのヒアリングや決定を起点に変わったかを `project_state/change_log.md` に追記
+- 何が、どのヒアリングや決定を起点に変わったかを `project_state/change_log.yaml` に追記
 - 後から「この記載の根拠はどの回のヒアリングか？」を追跡可能にします
 
 ---
@@ -153,7 +153,7 @@
 ### 2) Intake Skill 実行（状態更新）
 - ✅ **本ツールが自動化**：新規ヒアリングメモを読み取り、`project_state` を更新
   - `project_charter / requirements_master / open_questions / decisions / risks.yaml / issues.yaml` を更新
-  - `processing/hearing_digests/*.yaml` の生成
+  - `inputs/hearing_digests/*.yaml` の生成
   - `change_log.md` の追記
 
 ### 3) WBS/課題/リスク更新
@@ -165,7 +165,7 @@
 - ⚠️ **人が実施（推奨）**：顧客提出前の最終レビュー・表現調整（最終責任は人）
 
 ### 5) 品質ゲート（抜け漏れ/整合性チェック）
-- ✅ **本ツールが自動化**：チェック実行と指摘の生成（`reviews/*.md`）
+- ✅ **本ツールが自動化**：チェック実行と指摘の生成（`outputs/reviews/*.md`）
 - ⚠️ **人が実施（推奨）**：指摘の採否判断（プロジェクト方針に関わるもの）
 
 ### 6) 週次報告の共有
@@ -175,16 +175,32 @@
 ---
 
 ## ディレクトリ（案件ワークスペース）概略
-- `inputs/hearings/`：ヒアリングメモ（イベントログ、都度追加）
-- `project_state/`：最新状態（単一の真実）
-  - `schemas/`：YAMLスキーマ定義（プロジェクトごとにカスタマイズ可能）
-- `processing/`：各回の構造化抽出物（追跡と差分反映用）
-- `templates/`：ドキュメントテンプレ
-- `outputs/`：生成されたドラフト
-- `reviews/`：品質チェック結果
-- `logs/`：実行ログ
-- `scripts/`：バリデーションスクリプト等
-- `docs/`：ドキュメント
+
+```
+.
+├── inputs/                     # 入力データ
+│   ├── hearings/              # ヒアリングメモ（イベントログ、都度追加）
+│   ├── hearing_digests/       # 各回の構造化サマリ（追跡と差分反映用）
+│   └── references/            # 補足資料
+├── project_state/              # 最新状態（単一の真実）
+│   ├── schemas/               # YAMLスキーマ定義（プロジェクトごとにカスタマイズ可能）
+│   ├── project_charter.md     # プロジェクト基本情報
+│   ├── requirements_master.md # 要件の統合版
+│   ├── open_questions.yaml    # 未決事項・確認事項
+│   ├── decisions.yaml         # 決定事項ログ
+│   ├── wbs.yaml              # WBS（タスク管理）
+│   ├── issues.yaml           # 課題管理
+│   ├── risks.yaml            # リスク管理
+│   └── change_log.yaml       # 変更履歴
+├── templates/                  # ドキュメントテンプレート
+├── outputs/                    # 生成されたドラフト
+│   └── reviews/               # 品質チェック結果
+├── logs/                       # 実行ログ
+├── validation/                 # バリデーションツール
+│   ├── validate_schema.py     # スキーマバリデーションスクリプト
+│   └── validation-hooks-setup.md # Hook設定ガイド
+└── .claude/                    # Claude Code設定・スキル・エージェント定義
+```
 
 ---
 
@@ -206,7 +222,7 @@
         "after": [
           {
             "name": "schema-validation",
-            "command": "python3 scripts/validate_schema.py \"${file_path}\"",
+            "command": "python3 validation/validate_schema.py \"${file_path}\"",
             "description": "Validate YAML schema after file write",
             "cwd": "${workspace_root}",
             "enabled": true,
@@ -218,7 +234,7 @@
         "after": [
           {
             "name": "schema-validation",
-            "command": "python3 scripts/validate_schema.py \"${file_path}\"",
+            "command": "python3 validation/validate_schema.py \"${file_path}\"",
             "description": "Validate YAML schema after file edit",
             "cwd": "${workspace_root}",
             "enabled": true,
@@ -235,7 +251,7 @@
 
 Claude Codeでproject_state/配下のYAMLファイルを編集し、自動バリデーションが実行されることを確認します。
 
-詳細な設定方法とトラブルシューティングは [`docs/validation-hooks-setup.md`](docs/validation-hooks-setup.md) を参照してください。
+詳細な設定方法とトラブルシューティングは [`validation/validation-hooks-setup.md`](validation/validation-hooks-setup.md) を参照してください。
 
 ### 2. 品質保証の仕組み
 

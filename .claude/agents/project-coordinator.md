@@ -33,9 +33,14 @@ tools: Read, Write, Edit, Glob, Grep
 2. WBS Management Skill 実行
    └─ 新規要件からタスク生成提案
 
-3. QualityGate Skill 実行
+3. State-Reviewer Agent 実行 ← NEW
+   └─ 横断整合性チェック（I-1～I-4）
+   └─ サマリをユーザーに報告
+   └─ Critical時はフロー停止
+
+4. QualityGate Skill 実行
    └─ 全成果物の整合性チェック
-   └─ reviews/に結果出力
+   └─ outputs/reviews/に結果出力
 ```
 
 ### フロー2: 週次サイクル
@@ -46,11 +51,38 @@ tools: Read, Write, Edit, Glob, Grep
    └─ 状態更新の確認
    └─ 整合性チェック
 
-2. WeeklyReport Skill 実行
+2. State-Reviewer Agent 実行 ← NEW
+   └─ 横断整合性チェック（I-1～I-4）
+   └─ 長期未更新の検出
+   └─ サマリをユーザーに報告
+
+3. WeeklyReport Skill 実行
    └─ 週次進捗報告書を生成
 
-3. QualityGate Skill 実行
+4. QualityGate Skill 実行
    └─ 週報の整合性確認
+```
+
+### State-Reviewer実行条件
+
+State-Reviewerはフロー内で以下の条件で動作:
+
+| 条件 | 動作 |
+|-----|------|
+| Critical検出 | フロー停止、修正指示を出力 |
+| Warning 5件以上 | ユーザーに続行確認 |
+| Warning 5件未満 | サマリ報告、フロー継続 |
+| Infoのみ | サマリ報告、フロー継続 |
+
+**サマリ出力フォーマット:**
+```
+[State-Reviewer サマリ]
+- Critical: 0件
+- Warning: 3件
+  - リスク↔課題不整合: 1件
+  - 長期未更新タスク: 2件
+- Info: 2件
+→ フロー継続
 ```
 
 ## 実行ルール
@@ -87,16 +119,20 @@ tools: Read, Write, Edit, Glob, Grep
 - タスク追加提案: 3件
 - リスク追加: RSK-004
 
-■ DocGen Skill
-- 更新: proposal_draft.md, requirements_draft.md
-- スキップ: project_plan_draft.md（変更なし）
+■ State-Reviewer Agent
+- 結果: Critical 0件, Warning 2件, Info 3件
+- 主な検出:
+  - リスク↔課題不整合: 1件
+  - 長期未更新タスク: 1件
+→ フロー継続
 
 ■ QualityGate Skill
 - 結果: Critical 0件, Warning 2件
-- 詳細: reviews/proposal_review.md
+- 詳細: outputs/reviews/proposal_review.md
 
 ■ 次のアクション推奨
-- Warning 2件を確認して対応を検討
+- State-ReviewerのWarning 2件を確認
+- QualityGateのWarning 2件を確認して対応を検討
 - WBS Managementでタスク追加提案を確定
 ```
 
