@@ -8,7 +8,48 @@
 #   - project_charter.md（背景・業務課題セクション）
 #   - requirements_master.md（要件の背景として）
 
-issues: []
+issues:
+  - id: "ISS-001"
+    title: "過去提案資料が支店ごとに分散保存されており統合が必要"
+    description: "過去提案資料が支店ローカルに分散保存されており、統合に時間がかかる可能性がある。PoC期間中は代表的な提案書30-50件のサンプル提供で対応"
+    priority: "Medium"
+    owner: "顧客"
+    status: "Open"
+    due: null
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    action: "PoC期間中は30-50件のサンプル提供、本格導入時に全社統合を検討"
+    resolution: null
+    related:
+      requirements:
+        - "REQ-004"
+      wbs: []
+      risks: []
+      hearings:
+        - "20260118_提案書作成準備ヒアリング.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+  - id: "ISS-002"
+    title: "LayerX側のアーキテクト・開発リーダー・CS担当者がTBD"
+    description: "LayerX側の主要メンバー(アーキテクト、開発リーダー、CS担当)が未アサイン。次回MTGで紹介予定"
+    priority: "High"
+    owner: "LayerX"
+    status: "Resolved"
+    due: "2026-01-24"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    action: "次回MTG(1/24)までにアサイン完了"
+    resolution: "アーキテクト兼開発リーダー: 恩田、カスタマーサクセス: 徳永をアサイン完了。提案書を更新済み。"
+    related:
+      requirements: []
+      wbs: []
+      risks: []
+      hearings:
+        - "20260118_提案書作成準備ヒアリング.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
 
 # サンプル構造:
 # issues:
