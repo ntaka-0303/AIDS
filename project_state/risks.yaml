@@ -2,7 +2,341 @@
 # スキーマ: schemas/risks.schema.yaml
 # エージェントによる自動更新用
 
-risks: []
+risks:
+  - id: "RSK-001"
+    title: "現場の抵抗によるPoC失敗リスク"
+    description: "現場メンバーがAI導入に抵抗感を示し、PoCへの協力が得られずに失敗する可能性がある"
+    status: "Open"
+    owner: "PMO"
+    impact: "高"
+    probability: "中"
+    score: 6
+    early_signals:
+      - "PoC参加メンバーの選定が進まない"
+      - "現場からの懸念や不満の声が上がる"
+      - "PoC利用率が低い"
+    mitigation_plan:
+      - "現場が「使ってみたい」と思える領域に絞る"
+      - "PoC評価軸として「現場の抵抗が少ない」を重視"
+      - "段階的導入により、急激な変化を避ける"
+    contingency_plan:
+      - "PoC対象領域を再検討"
+      - "現場との対話を強化し、懸念を解消"
+    due: null
+    created_at: "2026-01-16"
+    updated_at: "2026-01-16"
+    last_reviewed: null
+    related:
+      requirements: []
+      wbs: []
+      issues: []
+      decisions:
+        - "DEC-004"
+        - "DEC-005"
+      questions:
+        - "QST-003"
+      hearings:
+        - "20260112_初回ヒアリング内容.md"
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+    notes: "ヒアリングで全員が「抵抗が少ない」ことの重要性を強調。現場参加候補の選定が鍵"
+  - id: "RSK-002"
+    title: "データソースの統合困難リスク"
+    description: "複数のデータソース（10以上のシステム）を統合する際に、技術的困難や制約により統合が進まない可能性がある"
+    status: "Open"
+    owner: "PMO"
+    impact: "中"
+    probability: "中"
+    score: 4
+    early_signals:
+      - "データソース一覧の確定が遅延"
+      - "技術調査で統合困難なシステムが判明"
+      - "データ連携のAPI提供が難しいと判明"
+    mitigation_plan:
+      - "データソース一覧の早期確定"
+      - "技術調査の実施"
+      - "段階的に統合対象を拡大"
+    contingency_plan:
+      - "統合困難なデータソースは対象外とし、優先度の高いものに絞る"
+      - "代替手段（手動入力、ファイル取り込みなど）を検討"
+    due: null
+    created_at: "2026-01-16"
+    updated_at: "2026-01-16"
+    last_reviewed: null
+    related:
+      requirements:
+        - "REQ-002"
+        - "REQ-004"
+      wbs: []
+      issues: []
+      decisions: []
+      questions:
+        - "QST-001"
+      hearings:
+        - "20260112_初回ヒアリング内容.md"
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+    notes: "情報検索が最重要課題であるため、統合が進まないとPoC価値が大幅に低下"
+  - id: "RSK-003"
+    title: "セキュリティ制約によるデータ連携制限リスク"
+    description: "データ連携やセキュリティ制約により、必要なデータへのアクセスが制限され、PoC機能が制限される可能性がある"
+    status: "Open"
+    owner: "PMO"
+    impact: "高"
+    probability: "中"
+    score: 6
+    early_signals:
+      - "セキュリティ制約の確認が遅延"
+      - "情シスからデータ連携に関する制約が多数提示される"
+      - "データアクセス権限の取得が困難"
+    mitigation_plan:
+      - "早期にセキュリティ要件を確認"
+      - "情シスとの密な連携"
+      - "セキュリティ対策を考慮したアーキテクチャ設計"
+    contingency_plan:
+      - "制約の範囲内でPoC機能を再設計"
+      - "代替データソースの検討"
+      - "段階的なアクセス権限の拡大を交渉"
+    due: null
+    created_at: "2026-01-16"
+    updated_at: "2026-01-16"
+    last_reviewed: null
+    related:
+      requirements:
+        - "REQ-002"
+      wbs: []
+      issues: []
+      decisions: []
+      questions:
+        - "QST-004"
+      hearings:
+        - "20260112_初回ヒアリング内容.md"
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+    notes: "情シス側で確認中。金融機関のため、セキュリティ制約が厳しい可能性が高い"
+  - id: "RSK-004"
+    title: "PoC参加メンバーの業務負荷リスク"
+    description: "PoC参加メンバーが本業との両立で負荷過多となり、PoC参加率が低下する可能性"
+    status: "Open"
+    owner: "PMO"
+    impact: "中"
+    probability: "中"
+    score: 4
+    early_signals:
+      - "PoC参加率が低い"
+      - "本業多忙を理由とした辞退"
+    mitigation_plan:
+      - "本業との兼ね合いを事前調整"
+      - "業務時間内でのPoC実施を推奨"
+    contingency_plan:
+      - "参加メンバーの追加募集"
+      - "PoC期間の延長検討"
+    due: null
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    last_reviewed: null
+    related:
+      requirements: []
+      wbs: []
+      issues: []
+      decisions:
+        - "DEC-013"
+      questions:
+        - "QST-003"
+      hearings:
+        - "20260118_提案書作成準備ヒアリング.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+    notes: "PoC参加メンバーの本業負荷を考慮し、参加率低下に注意が必要"
+  - id: "RSK-005"
+    title: "本格導入時のシステム連携複雑性リスク"
+    description: "本格導入時のCRM、商品DB等とのAPI連携が複雑で、予定通り進まない可能性"
+    status: "Open"
+    owner: "PMO"
+    impact: "中"
+    probability: "中"
+    score: 4
+    early_signals:
+      - "API仕様の確認に時間がかかる"
+      - "データ連携テストで不具合発生"
+    mitigation_plan:
+      - "PoC段階でAPI連携の技術検証を実施"
+      - "情シスとの早期連携"
+    contingency_plan:
+      - "ファイル取り込み方式での代替運用"
+      - "連携対象システムの優先順位付け"
+    due: null
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    last_reviewed: null
+    related:
+      requirements:
+        - "REQ-002"
+      wbs: []
+      issues: []
+      decisions:
+        - "DEC-009"
+        - "DEC-010"
+      questions: []
+      hearings:
+        - "20260118_提案書作成準備ヒアリング.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+    notes: "本格導入時のシステム連携は複雑性が高いため、PoC段階での技術検証が重要"
+  - id: "RSK-006"
+    title: "過去提案資料統合の遅延リスク"
+    description: "支店ごとに分散している過去提案資料の統合に想定以上の時間がかかり、本格導入が遅れる可能性"
+    status: "Open"
+    owner: "PMO"
+    impact: "低"
+    probability: "中"
+    score: 2
+    early_signals:
+      - "サンプル提供が遅延"
+      - "資料フォーマットが不統一で整理に時間がかかる"
+    mitigation_plan:
+      - "PoC段階で統合作業の工数を見積もる"
+      - "段階的に統合対象を拡大"
+    contingency_plan:
+      - "Phase 2では限定的な資料のみ統合"
+      - "本格展開時に全社統合"
+    due: null
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    last_reviewed: null
+    related:
+      requirements:
+        - "REQ-004"
+      wbs: []
+      issues:
+        - "ISS-001"
+      decisions: []
+      questions: []
+      hearings:
+        - "20260118_提案書作成準備ヒアリング.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+    notes: "ISS-001として課題化済み。統合作業の工数見積もりが重要"
+  - id: "RSK-007"
+    title: "データ品質問題によるAI精度低下"
+    description: "提供されるデータの品質(欠損、不整合、粒度のばらつき)が悪く、AI精度が目標に達しない可能性"
+    status: "Open"
+    owner: "PMO"
+    impact: "高"
+    probability: "中"
+    score: 6
+    early_signals:
+      - "データクレンジング時に品質問題が多数検出"
+      - "テスト時にAI出力品質が低い"
+    mitigation_plan:
+      - "データクレンジング工程を設計フェーズに追加(DEC-026)"
+      - "データ品質チェックリストを作成し、提供前に確認"
+      - "問題データは除外してPoC実施"
+    contingency_plan:
+      - "データ品質が改善されるまでPoC対象範囲を縮小"
+      - "クレンジング工程を追加で実施"
+    due: null
+    created_at: "2026-01-20"
+    updated_at: "2026-01-20"
+    last_reviewed: null
+    related:
+      requirements:
+        - "REQ-002"
+      wbs: []
+      issues: []
+      decisions:
+        - "DEC-023"
+        - "DEC-026"
+      questions: []
+      hearings:
+        - "20260120_計画書作成詳細ヒアリング.md"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    notes: "DEC-026でデータクレンジング工程追加を決定。データ品質はAI精度に直結"
+  - id: "RSK-008"
+    title: "AI精度不足によるPoC価値低下"
+    description: "プロンプトエンジニアリングが不十分で、AI出力の精度が目標に達せず、PoC価値が低下する可能性"
+    status: "Open"
+    owner: "PMO"
+    impact: "高"
+    probability: "中"
+    score: 6
+    early_signals:
+      - "テスト期間中のAI出力品質が低い"
+      - "ユーザーからの精度不満の声が多い"
+    mitigation_plan:
+      - "プロンプトエンジニアリングに十分な時間を確保(DEC-026)"
+      - "テスト期間中に精度改善のイテレーションを実施"
+      - "Azure OpenAI Service(GPT-4o)の最新機能を活用"
+    contingency_plan:
+      - "最悪の場合、機能範囲を縮小してリリース"
+      - "ユーザーフィードバックをもとに段階的に改善"
+    due: null
+    created_at: "2026-01-20"
+    updated_at: "2026-01-20"
+    last_reviewed: null
+    related:
+      requirements:
+        - "REQ-005"
+        - "REQ-006"
+        - "REQ-007"
+      wbs: []
+      issues: []
+      decisions:
+        - "DEC-021"
+        - "DEC-026"
+      questions: []
+      hearings:
+        - "20260120_計画書作成詳細ヒアリング.md"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    notes: "DEC-026でプロンプトエンジニアリング時間確保を決定。GPT-4oの性能を最大限活用"
+  - id: "RSK-009"
+    title: "スケジュール遅延リスク"
+    description: "各フェーズで想定外の問題が発生し、スケジュールが遅延してPoC報告会(2026/03/31)に間に合わない可能性"
+    status: "Open"
+    owner: "PMO"
+    impact: "中"
+    probability: "中"
+    score: 4
+    early_signals:
+      - "週次進捗会議で遅延の兆候検出"
+      - "クリティカルパスのタスクが遅延"
+    mitigation_plan:
+      - "週次進捗会議で早期検知(DEC-026, DEC-027)"
+      - "バッファ期間を各フェーズに設定(3-5日)"
+      - "優先度の低い機能は次フェーズに先送り"
+    contingency_plan:
+      - "スコープ調整(優先度低機能の削除)"
+      - "リソース追加の検討"
+      - "PoC期間の延長交渉"
+    due: null
+    created_at: "2026-01-20"
+    updated_at: "2026-01-20"
+    last_reviewed: null
+    related:
+      requirements: []
+      wbs: []
+      issues: []
+      decisions:
+        - "DEC-020"
+        - "DEC-026"
+        - "DEC-027"
+      questions: []
+      hearings:
+        - "20260120_計画書作成詳細ヒアリング.md"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    notes: "DEC-026, DEC-027で週次進捗会議・バッファ期間設定・優先度低機能先送りを決定"
 
 # サンプル構造:
 # risks:

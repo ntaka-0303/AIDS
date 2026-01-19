@@ -2,7 +2,707 @@
 # スキーマ: schemas/wbs.schema.yaml
 # エージェントによる自動更新用
 
-tasks: []
+tasks:
+  # Phase 1: 提案フェーズ (1月中旬~1月末)
+  - id: "P1-01"
+    phase: "提案"
+    title: "提案書作成"
+    deliverable: "outputs/proposal_draft.md"
+    owner: "高松(LayerX PM)"
+    status: "Done"
+    due: "2026-01-28"
+    depends_on: []
+    definition_of_done:
+      - "顧客課題/ToBe/スコープが明記されている"
+      - "ROI試算が含まれている"
+      - "ユースケースが具体的に記述されている"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P1-02"
+    phase: "提案"
+    title: "提案書レビュー・修正"
+    deliverable: null
+    owner: "高松(LayerX PM), 恩田(アーキテクト)"
+    status: "Done"
+    due: "2026-01-30"
+    depends_on:
+      - "P1-01"
+    definition_of_done:
+      - "QualityGate通過"
+      - "技術的実現性の確認完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P1-03"
+    phase: "提案"
+    title: "提案書提出"
+    deliverable: null
+    owner: "高松(LayerX PM)"
+    status: "Done"
+    due: "2026-01-31"
+    depends_on:
+      - "P1-02"
+    definition_of_done:
+      - "顧客へ正式提出完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  # Phase 2: 計画フェーズ (2月上旬~2月中旬)
+  - id: "P2-01"
+    phase: "計画"
+    title: "キックオフミーティング準備"
+    deliverable: "キックオフ資料"
+    owner: "高松(LayerX PM)"
+    status: "Todo"
+    due: "2026-02-07"
+    depends_on: []
+    definition_of_done:
+      - "アジェンダ確定"
+      - "参加者への事前共有完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P2-02"
+    phase: "計画"
+    title: "キックオフミーティング実施"
+    deliverable: null
+    owner: "両社全員"
+    status: "Todo"
+    due: "2026-02-10"
+    depends_on:
+      - "P2-01"
+    definition_of_done:
+      - "プロジェクト目的・体制・スケジュールの共有完了"
+      - "コミュニケーション方法の合意"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P2-03"
+    phase: "計画"
+    title: "要件定義書作成"
+    deliverable: "outputs/requirements_draft.md"
+    owner: "高松(LayerX PM), 恩田(アーキテクト), 山口マネージャー"
+    status: "Todo"
+    due: "2026-02-14"
+    depends_on: []
+    definition_of_done:
+      - "機能要件・非機能要件が明記されている"
+      - "画面遷移図・データフロー図が含まれている"
+      - "顧客レビュー完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P2-04"
+    phase: "計画"
+    title: "要件確定会議"
+    deliverable: null
+    owner: "両社全員"
+    status: "Todo"
+    due: "2026-02-17"
+    depends_on:
+      - "P2-03"
+    definition_of_done:
+      - "要件定義書の正式承認"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  # Phase 3: 設計フェーズ (2月中旬~2月末)
+  - id: "P3-01"
+    phase: "設計"
+    title: "システム基本設計"
+    deliverable: "設計書(アーキテクチャ図、DB設計、API設計)"
+    owner: "恩田(アーキテクト), 開発メンバー2名"
+    status: "Todo"
+    due: "2026-02-21"
+    depends_on:
+      - "P2-04"
+    definition_of_done:
+      - "システム構成図作成完了"
+      - "データモデル設計完了"
+      - "API仕様書作成完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+        - "DEC-021"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P3-02"
+    phase: "設計"
+    title: "UI/UX設計"
+    deliverable: "画面設計書、ワイヤーフレーム"
+    owner: "開発メンバー1名"
+    status: "Todo"
+    due: "2026-02-21"
+    depends_on:
+      - "P2-04"
+    definition_of_done:
+      - "主要画面のワイヤーフレーム作成完了"
+      - "顧客レビュー完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P3-03"
+    phase: "設計"
+    title: "データ連携設計"
+    deliverable: "データ連携仕様書"
+    owner: "恩田(アーキテクト), 山根副部長"
+    status: "Todo"
+    due: "2026-02-24"
+    depends_on:
+      - "P3-01"
+    definition_of_done:
+      - "7つのデータソースとの連携方式確定"
+      - "データ取り込み手順書作成完了"
+    related:
+      requirements:
+        - "REQ-002"
+      decisions:
+        - "DEC-020"
+        - "DEC-023"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P3-04"
+    phase: "設計"
+    title: "セキュリティ設計"
+    deliverable: "セキュリティ設計書"
+    owner: "恩田(アーキテクト), 山根副部長"
+    status: "Todo"
+    due: "2026-02-24"
+    depends_on:
+      - "P3-01"
+    definition_of_done:
+      - "認証・認可の実装方針確定"
+      - "暗号化方式確定"
+      - "監査ログ設計完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+        - "DEC-026"
+      issues: []
+      risks:
+        - "RSK-004"
+      source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P3-05"
+    phase: "設計"
+    title: "設計レビュー会議"
+    deliverable: null
+    owner: "両社全員"
+    status: "Todo"
+    due: "2026-02-28"
+    depends_on:
+      - "P3-01"
+      - "P3-02"
+      - "P3-03"
+      - "P3-04"
+    definition_of_done:
+      - "設計書の正式承認"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  # Phase 4: 実装フェーズ (3月上旬~3月中旬)
+  - id: "P4-01"
+    phase: "実装"
+    title: "開発環境構築"
+    deliverable: null
+    owner: "開発メンバー2名"
+    status: "Todo"
+    due: "2026-03-03"
+    depends_on:
+      - "P3-05"
+    definition_of_done:
+      - "Azure環境セットアップ完了"
+      - "CI/CDパイプライン構築完了"
+      - "開発メンバーがアクセス可能"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+        - "DEC-021"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P4-02"
+    phase: "実装"
+    title: "検証環境構築"
+    deliverable: null
+    owner: "山根副部長, 開発メンバー1名"
+    status: "Todo"
+    due: "2026-03-03"
+    depends_on:
+      - "P3-05"
+    definition_of_done:
+      - "顧客側検証環境準備完了"
+      - "VPN接続確認完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+        - "DEC-022"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P4-03"
+    phase: "実装"
+    title: "データ準備・投入"
+    deliverable: "マスキング済みテストデータ"
+    owner: "山根副部長, 山口マネージャー"
+    status: "Todo"
+    due: "2026-03-05"
+    depends_on:
+      - "P4-02"
+    definition_of_done:
+      - "市況レポート200本の取り込み完了"
+      - "過去提案資料30-50件の取り込み完了"
+      - "CRMメモサンプルデータの取り込み完了"
+    related:
+      requirements:
+        - "REQ-002"
+      decisions:
+        - "DEC-020"
+        - "DEC-023"
+      issues:
+        - "ISS-001"
+      risks:
+        - "RSK-007"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P4-04"
+    phase: "実装"
+    title: "統合検索機能実装"
+    deliverable: null
+    owner: "開発メンバー2名"
+    status: "Todo"
+    due: "2026-03-10"
+    depends_on:
+      - "P4-01"
+      - "P4-03"
+    definition_of_done:
+      - "Azure AI Searchによる統合検索実装完了"
+      - "7つのデータソース横断検索が可能"
+      - "検索結果要点抽出機能実装完了"
+    related:
+      requirements:
+        - "REQ-002"
+        - "REQ-003"
+      decisions:
+        - "DEC-020"
+        - "DEC-021"
+      issues: []
+      risks:
+        - "RSK-008"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P4-05"
+    phase: "実装"
+    title: "市況整理機能実装"
+    deliverable: null
+    owner: "開発メンバー1名"
+    status: "Todo"
+    due: "2026-03-10"
+    depends_on:
+      - "P4-01"
+      - "P4-03"
+    definition_of_done:
+      - "市況レポート要約機能実装完了"
+      - "顧客向け説明への落とし込み支援機能実装完了"
+    related:
+      requirements:
+        - "REQ-005"
+        - "REQ-006"
+      decisions:
+        - "DEC-020"
+        - "DEC-021"
+      issues: []
+      risks:
+        - "RSK-008"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P4-06"
+    phase: "実装"
+    title: "提案書生成機能実装"
+    deliverable: null
+    owner: "開発メンバー2名"
+    status: "Todo"
+    due: "2026-03-12"
+    depends_on:
+      - "P4-04"
+      - "P4-05"
+    definition_of_done:
+      - "提案書たたき台生成機能実装完了"
+      - "テンプレートに沿った出力が可能"
+    related:
+      requirements:
+        - "REQ-007"
+      decisions:
+        - "DEC-020"
+        - "DEC-021"
+      issues: []
+      risks:
+        - "RSK-008"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P4-07"
+    phase: "実装"
+    title: "UI実装"
+    deliverable: null
+    owner: "開発メンバー1名"
+    status: "Todo"
+    due: "2026-03-12"
+    depends_on:
+      - "P3-02"
+      - "P4-01"
+    definition_of_done:
+      - "主要画面実装完了"
+      - "レスポンシブデザイン対応"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+        - "DEC-021"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P4-08"
+    phase: "実装"
+    title: "単体テスト"
+    deliverable: null
+    owner: "開発メンバー2名"
+    status: "Todo"
+    due: "2026-03-14"
+    depends_on:
+      - "P4-04"
+      - "P4-05"
+      - "P4-06"
+      - "P4-07"
+    definition_of_done:
+      - "各機能の単体テスト完了"
+      - "カバレッジ80%以上"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+        - "DEC-024"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  # Phase 5: テストフェーズ (3月中旬)
+  - id: "P5-01"
+    phase: "実装"
+    title: "統合テスト"
+    deliverable: null
+    owner: "開発メンバー2名"
+    status: "Todo"
+    due: "2026-03-17"
+    depends_on:
+      - "P4-08"
+    definition_of_done:
+      - "機能間連携テスト完了"
+      - "想定されるユースケースのテスト完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+        - "DEC-024"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P5-02"
+    phase: "実装"
+    title: "セキュリティテスト"
+    deliverable: null
+    owner: "恩田(アーキテクト), 山根副部長"
+    status: "Todo"
+    due: "2026-03-17"
+    depends_on:
+      - "P4-08"
+    definition_of_done:
+      - "認証・認可テスト完了"
+      - "脆弱性診断完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+        - "DEC-024"
+        - "DEC-026"
+      issues: []
+      risks:
+        - "RSK-004"
+      source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P5-03"
+    phase: "実装"
+    title: "ユーザー受入テスト(UAT)準備"
+    deliverable: "UATシナリオ、テストケース"
+    owner: "高松(LayerX PM), 山口マネージャー"
+    status: "Todo"
+    due: "2026-03-18"
+    depends_on:
+      - "P5-01"
+      - "P5-02"
+    definition_of_done:
+      - "3つのユースケースのテストシナリオ作成完了"
+      - "PoC参加メンバーへの説明資料作成完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+        - "DEC-024"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P5-04"
+    phase: "実装"
+    title: "ユーザー受入テスト(UAT)実施"
+    deliverable: null
+    owner: "PoC参加メンバー6名"
+    status: "Todo"
+    due: "2026-03-21"
+    depends_on:
+      - "P5-03"
+    definition_of_done:
+      - "全ユースケースのテスト完了"
+      - "致命的不具合がないことを確認"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+        - "DEC-024"
+      issues: []
+      risks:
+        - "RSK-002"
+      source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P5-05"
+    phase: "実装"
+    title: "不具合修正"
+    deliverable: null
+    owner: "開発メンバー2名"
+    status: "Todo"
+    due: "2026-03-24"
+    depends_on:
+      - "P5-04"
+    definition_of_done:
+      - "UAT指摘事項の修正完了"
+      - "再テスト完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+      issues: []
+      risks:
+        - "RSK-009"
+      source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  # Phase 6: 効果測定フェーズ (3月下旬)
+  - id: "P6-01"
+    phase: "運用"
+    title: "効果測定実施"
+    deliverable: "効果測定レポート"
+    owner: "PoC参加メンバー6名, 山口マネージャー"
+    status: "Todo"
+    due: "2026-03-28"
+    depends_on:
+      - "P5-05"
+    definition_of_done:
+      - "情報検索時間の測定完了(目標: 10分以内)"
+      - "資料作成時間の測定完了(目標: 30分以内)"
+      - "提案品質の評価完了(目標: 平均4.0以上)"
+      - "ユーザー満足度アンケート実施完了(目標: 80%以上)"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+        - "DEC-025"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P6-02"
+    phase: "運用"
+    title: "PoC報告書作成"
+    deliverable: "PoC報告書"
+    owner: "高松(LayerX PM), 徳永(CS)"
+    status: "Todo"
+    due: "2026-03-30"
+    depends_on:
+      - "P6-01"
+    definition_of_done:
+      - "効果測定結果の分析完了"
+      - "次フェーズへの推奨事項まとめ完了"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+        - "DEC-025"
+        - "DEC-029"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
+  - id: "P6-03"
+    phase: "運用"
+    title: "PoC報告会"
+    deliverable: null
+    owner: "両社全員"
+    status: "Todo"
+    due: "2026-03-31"
+    depends_on:
+      - "P6-02"
+    definition_of_done:
+      - "PoC結果の共有完了"
+      - "Phase 2移行判断の合意"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-020"
+        - "DEC-029"
+      issues: []
+      risks: []
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+    created_at: "2026-01-19"
+    updated_at: "2026-01-19"
 
 # サンプル構造:
 # tasks:
