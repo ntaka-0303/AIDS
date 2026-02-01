@@ -5,7 +5,13 @@
       "WebSearch",
       "Bash(wc:*)",
       "Bash(chmod:*)",
-      "Bash(python3:*)"
+      "Bash(python3:*)",
+      "Bash(ls:*)",
+      "Skill(intake)",
+      "Skill(project-management)",
+      "Skill(docgen)",
+      "Skill(quality-gate)",
+      "Skill(weekly-report)"
     ]
   }
 }

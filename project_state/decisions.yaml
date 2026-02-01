@@ -2,7 +2,1290 @@
 # スキーマ: schemas/decisions.schema.yaml
 # エージェントによる自動更新用
 
-decisions: []
+decisions:
+  - id: "DEC-001"
+    date: "2026-01-12"
+    title: "ヒアリング対象範囲の決定"
+    content: "リテール営業部門の提案業務全体をヒアリング対象とする"
+    rationale: "リテール部門が最優先課題であり、生産性・品質両面で課題が大きいため"
+    category: "scope"
+    created_at: "2026-01-16"
+    updated_at: "2026-01-16"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+      attendees:
+        - "佐伯（営業企画部長）"
+        - "杉本（DX推進部長）"
+        - "山根（情報システム部副部長）"
+        - "山口（リテール営業部現場マネージャー）"
+        - "高松（LayerX）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-002"
+    date: "2026-01-12"
+    title: "主要プロセス6つの設定"
+    content: "提案業務の主要プロセスとして、①顧客ヒアリング、②情報検索、③市況整理、④商品選定、⑤資料作成、⑥上長レビューの6つを設定する"
+    rationale: "現状の業務フローをベースに、手戻りが多い部分を含めて整理"
+    category: "process"
+    created_at: "2026-01-16"
+    updated_at: "2026-01-16"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+      attendees:
+        - "佐伯（営業企画部長）"
+        - "杉本（DX推進部長）"
+        - "山根（情報システム部副部長）"
+        - "山口（リテール営業部現場マネージャー）"
+        - "高松（LayerX）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-003"
+    date: "2026-01-12"
+    title: "PoCの主目的設定"
+    content: "提案業務の品質＋生産性の向上をPoCの主目的とする"
+    rationale: "市況解釈・検索・資料作成・判断の属人性が大きな課題であるため"
+    category: "scope"
+    created_at: "2026-01-16"
+    updated_at: "2026-01-16"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+      attendees:
+        - "佐伯（営業企画部長）"
+        - "杉本（DX推進部長）"
+        - "山根（情報システム部副部長）"
+        - "山口（リテール営業部現場マネージャー）"
+        - "高松（LayerX）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-004"
+    date: "2026-01-12"
+    title: "PoC導入方針の決定"
+    content: "PoCは優先度の高い部分に絞って段階的に導入する"
+    rationale: "一気に全業務をAI化すると現場の抵抗が大きいため、段階的なアプローチを採用"
+    category: "process"
+    created_at: "2026-01-16"
+    updated_at: "2026-01-16"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+      attendees:
+        - "佐伯（営業企画部長）"
+        - "杉本（DX推進部長）"
+        - "山根（情報システム部副部長）"
+        - "山口（リテール営業部現場マネージャー）"
+        - "高松（LayerX）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-005"
+    date: "2026-01-12"
+    title: "PoC評価軸の設定"
+    content: "PoCの評価軸として、①現場が改善を実感しやすい、②AIが得意で効果を得やすい、③現場の抵抗が少ない、の3基準を採用する"
+    rationale: "特に「抵抗が少ない」が重要。現場が「使ってみたい」と思うテーマがPoC成功の鍵"
+    category: "process"
+    created_at: "2026-01-16"
+    updated_at: "2026-01-16"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+      attendees:
+        - "佐伯（営業企画部長）"
+        - "杉本（DX推進部長）"
+        - "山根（情報システム部副部長）"
+        - "山口（リテール営業部現場マネージャー）"
+        - "高松（LayerX）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-006"
+    date: "2026-01-12"
+    title: "PoC対象領域の決定"
+    content: "PoCの中心領域を①情報検索（ナレッジ統合・要点抽出）＋②市況整理（要約・示唆出し）とし、必要に応じて③資料作成（たたき台生成）も範囲に含める"
+    rationale: "①情報検索は最重要課題。②市況整理は若手支援として価値大。③資料作成は現場の実感値として有力"
+    category: "scope"
+    created_at: "2026-01-16"
+    updated_at: "2026-01-16"
+    impact:
+      requirements:
+        - "REQ-002"
+        - "REQ-003"
+        - "REQ-004"
+        - "REQ-005"
+        - "REQ-006"
+        - "REQ-008"
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+      attendees:
+        - "佐伯（営業企画部長）"
+        - "杉本（DX推進部長）"
+        - "山根（情報システム部副部長）"
+        - "山口（リテール営業部現場マネージャー）"
+        - "高松（LayerX）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-007"
+    date: "2026-01-18"
+    title: "クライアント企業名の確定"
+    content: "クライアント企業の正式名称は「東亜セキュリティーズ株式会社」(英語: Toa Securities Co., Ltd.)とする"
+    rationale: "提案書の表紙および契約関連書類に必要な正式名称"
+    category: "scope"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-008"
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-008"
+    date: "2026-01-18"
+    title: "提案書提出日の決定"
+    content: "提案書の提出日を2026年1月31日(金)とする"
+    rationale: "2月上旬の社内稟議を通すため、1月末までの提出が必要"
+    category: "schedule"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-008"
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-009"
+    date: "2026-01-18"
+    title: "データソース一覧の確定"
+    content: "利用可能なデータソースとして、7つのシステム(CRM、商品DB、市況レポートDB、社内規程DB、過去提案資料、FAQ DB、市場ニュース)を確定"
+    rationale: "統合検索機能の実装に必要なデータソース範囲の明確化"
+    category: "technical"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    impact:
+      requirements:
+        - "REQ-002"
+        - "REQ-003"
+        - "REQ-004"
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-001"
+        - "QST-016"
+      documents:
+        - "project_state/requirements_master.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-010"
+    date: "2026-01-18"
+    title: "システム環境の決定"
+    content: "Azureクラウド環境を採用し、VPN経由でのアクセスとする。PoC段階ではファイル取り込み方式、本番ではAPI連携を検討"
+    rationale: "既存システムでAzure採用実績があり、スムーズな導入が見込めるため"
+    category: "technical"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    impact:
+      requirements:
+        - "REQ-002"
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-016"
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-011"
+    date: "2026-01-18"
+    title: "セキュリティ要件の確定"
+    content: "Azure AD SSO連携、部署別・ロール別アクセス制御、データ暗号化(通信時・保存時)、監査ログ6ヶ月保存、PoCではマスキングデータ使用を必須とする"
+    rationale: "金融機関としてのセキュリティ基準を満たすため"
+    category: "security"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-004"
+        - "QST-015"
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-012"
+    date: "2026-01-18"
+    title: "PoCスコープと評価指標の確定"
+    content: "主目的を情報検索と資料作成の時間短縮実証とし、評価指標として情報検索時間10分以内、資料作成時間30分以内、提案品質4.0以上、ユーザー満足度80%以上を設定"
+    rationale: "具体的な数値目標により、PoC成功基準を明確化"
+    category: "scope"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-005"
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-013"
+    date: "2026-01-18"
+    title: "PoC参加メンバーの確定"
+    content: "若手営業担当者3名、ベテラン営業1名、営業企画メンバー2名の合計6名でPoC実施"
+    rationale: "若手とベテランの比較検証により、AI支援効果を明確化"
+    category: "resource"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-003"
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-014"
+    date: "2026-01-18"
+    title: "ROI・工数削減効果の確定"
+    content: "1案件あたり情報検索35分削減(78%減)、資料作成1時間削減(67%減)、合計1.6時間削減。年間削減効果約5,000万円と試算"
+    rationale: "クライアント固有データに基づく具体的なROI提示"
+    category: "scope"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-011"
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-015"
+    date: "2026-01-18"
+    title: "ユースケースシナリオの確定"
+    content: "3つのユースケースを設定: ①富裕層向けポートフォリオ提案、②NISA活用支援(若年層)、③市況急変時の顧客フォロー"
+    rationale: "クライアント固有の具体的なシナリオにより、実効性を示す"
+    category: "scope"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    impact:
+      requirements:
+        - "REQ-002"
+        - "REQ-005"
+        - "REQ-008"
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-012"
+      documents:
+        - "project_state/requirements_master.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-016"
+    date: "2026-01-18"
+    title: "導入フェーズとマイルストーンの確定"
+    content: "Phase 1: PoC実施(2月上旬～3月末、2ヶ月)、Phase 2: パイロット展開(4月～6月、3ヶ月、1支店20名)、Phase 3: 本格展開(7月～12月、6ヶ月、200名)"
+    rationale: "段階的導入により、リスクを最小化しながら効果を最大化"
+    category: "schedule"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-013"
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-017"
+    date: "2026-01-18"
+    title: "導入アーキテクチャの確定"
+    content: "PoC段階はLayerXマルチテナントSaaS環境を利用、本格導入時は顧客テナント専用環境(Azure)を検討。AI機能としてAzure OpenAI Service(GPT-4o)、Azure AI Document Intelligence、Azure AI Searchを採用"
+    rationale: "PoC段階での迅速な立ち上げと、本番環境の拡張性を両立"
+    category: "technical"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    impact:
+      requirements:
+        - "REQ-002"
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-014"
+      documents:
+        - "project_state/requirements_master.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-018"
+    date: "2026-01-18"
+    title: "プロジェクト体制の確定"
+    content: "クライアント側: 佐伯部長(オーナー)、杉本部長(PM)、山根副部長(技術責任者)、山口マネージャー(現場責任者)。LayerX側: 高松(PM 50%)、アーキテクト(30%)、開発2名(80%)、CS(20%)"
+    rationale: "役割分担を明確化し、プロジェクト推進体制を整備"
+    category: "resource"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-017"
+      documents:
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-019"
+    date: "2026-01-18"
+    title: "市況レポート提供可能の確認"
+    content: "過去1年分の市況レポート約200本(PDF形式)を提供可能と確認"
+    rationale: "市況整理機能の実装に必要なデータの確保"
+    category: "resource"
+    created_at: "2026-01-18"
+    updated_at: "2026-01-18"
+    impact:
+      requirements:
+        - "REQ-005"
+        - "REQ-006"
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-002"
+      documents:
+        - "project_state/requirements_master.md"
+    source:
+      type: "hearing"
+      ref: "20260118_提案書作成準備ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-020"
+    date: "2026-01-20"
+    title: "Phase 1 WBS詳細タスクの確定"
+    content: "Phase 1(提案～効果測定)の詳細タスク27件を確定。Phase 1: 提案(P1-01～P1-03)、Phase 2: 計画(P2-01～P2-04)、Phase 3: 設計(P3-01～P3-05)、Phase 4: 実装(P4-01～P4-08)、Phase 5: テスト(P5-01～P5-05)、Phase 6: 効果測定(P6-01～P6-03)"
+    rationale: "プロジェクト計画書作成に向けたWBSの詳細化が必要"
+    category: "schedule"
+    created_at: "2026-01-20"
+    updated_at: "2026-01-20"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "outputs/project_plan_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX PM)"
+        - "恩田(LayerX アーキテクト)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-021"
+    date: "2026-01-20"
+    title: "開発環境の決定"
+    content: "Azure Japan Eastを開発環境として決定。リソースはAzure OpenAI Service(GPT-4o)、Azure AI Document Intelligence、Azure AI Search、Azure App Service、Azure Storage、Azure Key Vault。開発ツールはGitHub、GitHub Actions、VS Code"
+    rationale: "クライアントのクラウド環境と整合性を取るため"
+    category: "technical"
+    created_at: "2026-01-20"
+    updated_at: "2026-01-20"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "outputs/project_plan_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX PM)"
+        - "恩田(LayerX アーキテクト)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-022"
+    date: "2026-01-20"
+    title: "検証環境の提供時期確定"
+    content: "顧客側検証環境を2026年3月3日までに準備完了。VPN接続、マスキング済みテストデータ、PoC参加メンバー6名のみアクセス可能"
+    rationale: "実装完了後に速やかにテストを開始するため"
+    category: "resource"
+    created_at: "2026-01-20"
+    updated_at: "2026-01-20"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "outputs/project_plan_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX PM)"
+        - "恩田(LayerX アーキテクト)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-023"
+    date: "2026-01-20"
+    title: "データ準備計画の確定"
+    content: "7つのデータソース別にデータ準備計画を確定。CRM: CSV・マスキング済み約100件、商品DB: JSON約500商品、市況レポートDB: PDF約200本、社内規程DB: PDF/Word約50ドキュメント、過去提案資料: PowerPoint/Word 30-50件・マスキング済み、FAQ DB: CSV約100件、市場ニュース: LayerXが公開情報取得。すべて2026年3月5日までに提供"
+    rationale: "データ投入タスク(P4-03)を確実に実行するため"
+    category: "resource"
+    created_at: "2026-01-20"
+    updated_at: "2026-01-20"
+    impact:
+      requirements:
+        - "REQ-002"
+      wbs: []
+      risks: []
+      issues:
+        - "ISS-001"
+      questions: []
+      documents:
+        - "outputs/project_plan_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX PM)"
+        - "恩田(LayerX アーキテクト)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-024"
+    date: "2026-01-20"
+    title: "テスト計画の確定"
+    content: "4レベルのテストを実施。単体テスト: カバレッジ80%以上、統合テスト: 主要ユースケースE2E、セキュリティテスト: 脆弱性診断、UAT: 3シナリオ(富裕層ポートフォリオ、NISA若年層、市況急変フォロー)。各シナリオで情報検索10分以内、資料作成30分以内、品質4.0以上を目標"
+    rationale: "品質管理をゲート方式で実施し、各段階クリアを次進行の条件とする"
+    category: "process"
+    created_at: "2026-01-20"
+    updated_at: "2026-01-20"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "outputs/project_plan_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX PM)"
+        - "恩田(LayerX アーキテクト)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-025"
+    date: "2026-01-20"
+    title: "効果測定手順の確定"
+    content: "4つの測定方法を確定。①情報検索時間: タイムトラッキング、②資料作成時間: タイムトラッキング、③提案品質: 上長5段階評価、④ユーザー満足度: 7項目アンケート(使いやすさ、検索精度、市況要約有用性、提案書品質、業務効率化実感、今後利用意向、自由記述)。データ収集期間は2026年3月21日～28日、各メンバー最低3件利用"
+    rationale: "定量・定性両面で効果を評価し、Phase 2移行判断の根拠とする"
+    category: "process"
+    created_at: "2026-01-20"
+    updated_at: "2026-01-20"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "outputs/project_plan_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX PM)"
+        - "恩田(LayerX アーキテクト)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-026"
+    date: "2026-01-20"
+    title: "リスク対応策の詳細化"
+    content: "RSK-001～RSK-005の対応策を詳細化。RSK-001: データクレンジング工程追加、RSK-002: 事前スケジュール調整・バックアップ体制、RSK-003: プロンプトエンジニアリング時間確保・イテレーション、RSK-004: 設計フェーズでセキュリティレビュー・外部診断、RSK-005: 週次進捗会議・バッファ期間設定・優先度低機能の先送り"
+    rationale: "リスクの早期検知と対応を強化するため"
+    category: "process"
+    created_at: "2026-01-20"
+    updated_at: "2026-01-20"
+    impact:
+      requirements: []
+      wbs: []
+      risks:
+        - "RSK-001"
+        - "RSK-002"
+        - "RSK-003"
+        - "RSK-004"
+        - "RSK-005"
+      issues: []
+      questions: []
+      documents:
+        - "outputs/project_plan_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX PM)"
+        - "恩田(LayerX アーキテクト)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-027"
+    date: "2026-01-20"
+    title: "変更管理・課題管理プロセスの確定"
+    content: "変更管理: Backlogでチケット起票→影響分析(PM+アーキテクト)→承認(軽微はPM判断、大きな変更は両社PM協議)→change_log.yaml記録。課題管理: Backlogでチケット起票→優先度設定(High/Medium/Low)→対応期限設定(High: 3日以内、Medium: 1週間以内、Low: 適宜)→Highは週次会議で報告。コミュニケーション: 定例会議(毎週火曜15:00-16:00)、日次報告(Slack)、ドキュメント共有(SharePoint)、緊急連絡(Slack/電話)"
+    rationale: "プロジェクト推進の透明性と効率性を確保するため"
+    category: "process"
+    created_at: "2026-01-20"
+    updated_at: "2026-01-20"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "outputs/project_plan_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX PM)"
+        - "恩田(LayerX アーキテクト)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-028"
+    date: "2026-01-20"
+    title: "LayerX側リソース配分の確定"
+    content: "PM(高松): 50%稼働、アーキテクト(恩田): 30%稼働(設計フェーズに重点)、開発メンバー2名: 80%稼働、CS(徳永): 20%稼働(効果測定フェーズで参加)"
+    rationale: "各フェーズに応じた適切なリソース配分"
+    category: "resource"
+    created_at: "2026-01-20"
+    updated_at: "2026-01-20"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "outputs/project_plan_draft.md"
+        - "project_state/project_charter.md"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX PM)"
+        - "恩田(LayerX アーキテクト)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-029"
+    date: "2026-01-20"
+    title: "PoC失敗の判断基準確定"
+    content: "効果測定で目標値の50%も達成できない場合はPoC失敗と判断。ただし、ユーザー満足度が高ければ数値目標未達でも次フェーズ進行の判断もあり得る(現場の声を重視)"
+    rationale: "Phase 2移行の明確な判断基準を設定"
+    category: "process"
+    created_at: "2026-01-20"
+    updated_at: "2026-01-20"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions: []
+      documents:
+        - "outputs/project_plan_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260120_計画書作成詳細ヒアリング.md"
+      attendees:
+        - "佐伯(営業企画部長)"
+        - "杉本(DX推進部長)"
+        - "山根(情報システム部副部長)"
+        - "山口(リテール営業部現場マネージャー)"
+        - "高松(LayerX PM)"
+        - "恩田(LayerX アーキテクト)"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-030"
+    date: "2026-01-29"
+    title: "用語定義・略語一覧の確定"
+    content: "要件定義書で使用する用語定義を確定。プロジェクト固有用語（AIワークフロー、ナレッジポータル、統合検索、要約エージェント、提案資料生成エージェント、RAG、幻覚）、業務用語（リテール営業、富裕層(HNW)、ポートフォリオ提案、市況整理、NISA、CRM）、技術用語（Azure OpenAI Service、Azure AI Search、VPN、SSO、RBAC、Cosmos DB）を定義"
+    rationale: "関係者間の共通理解を確保し、要件定義書の明確性を向上"
+    category: "scope"
+    created_at: "2026-01-31"
+    updated_at: "2026-01-31"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-033"
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260129_要件定義詳細ヒアリング.md"
+      attendees:
+        - "佐伯部長（営業企画）"
+        - "杉本部長（DX推進）"
+        - "山根副部長（情シス）"
+        - "山口マネージャー（リテール現場）"
+        - "清水リーダー（営業企画）"
+        - "高松（LayerX PM）"
+        - "田中（LayerX アーキテクト）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-031"
+    date: "2026-01-29"
+    title: "業務シナリオBefore/After詳細の確定"
+    content: "3つのユースケースについてBefore/After業務フローを詳細化。①富裕層向けポートフォリオ提案: Before 4.5時間→After 2.3時間(49%削減)、②市況急変時の顧客フォロー: Before 2.5時間→After 0.5時間(80%削減)、③NISA活用支援: Before 3.3時間→After 1.7時間(48%削減)"
+    rationale: "要件定義書の業務要件セクションに具体的な改善内容を明示"
+    category: "scope"
+    created_at: "2026-01-31"
+    updated_at: "2026-01-31"
+    impact:
+      requirements:
+        - "REQ-002"
+        - "REQ-005"
+        - "REQ-008"
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-034"
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260129_要件定義詳細ヒアリング.md"
+      attendees:
+        - "佐伯部長（営業企画）"
+        - "杉本部長（DX推進）"
+        - "山根副部長（情シス）"
+        - "山口マネージャー（リテール現場）"
+        - "清水リーダー（営業企画）"
+        - "高松（LayerX PM）"
+        - "田中（LayerX アーキテクト）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-032"
+    date: "2026-01-29"
+    title: "商品選定時の業務ルール・判断ロジックの確定"
+    content: "AIエージェントが従うべき業務ルールを確定。顧客属性による商品フィルタリング(年齢、資産規模、リスク許容度、投資経験)、コンプライアンス上の制約(適合性の原則、説明義務、禁止商品、集中投資回避)、収益性考慮(手数料水準、過去実績、分散投資)、提案資料のレビュー基準(正確性、コンプライアンス適合性、提案品質)、市況解釈ガイドライン(情報ソース信頼性、表現の中立性、時点の明示)"
+    rationale: "AIエージェントの判断基準を明確化し、品質とコンプライアンスを担保"
+    category: "scope"
+    created_at: "2026-01-31"
+    updated_at: "2026-01-31"
+    impact:
+      requirements:
+        - "REQ-005"
+        - "REQ-006"
+        - "REQ-007"
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-035"
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260129_要件定義詳細ヒアリング.md"
+      attendees:
+        - "佐伯部長（営業企画）"
+        - "杉本部長（DX推進）"
+        - "山根副部長（情シス）"
+        - "山口マネージャー（リテール現場）"
+        - "清水リーダー（営業企画）"
+        - "高松（LayerX PM）"
+        - "田中（LayerX アーキテクト）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-033"
+    date: "2026-01-29"
+    title: "各機能の入力・出力・API仕様の確定"
+    content: "主要機能のAPI仕様を確定。統合検索: POST /api/v1/search(入力: query, data_sources, date_from/to, limit、出力: results, total_count, elapsed_time、目標3秒以内)、要約: POST /api/v1/summarize(入力: document_id, summary_length, focus_topics、出力: summary, key_points, references、目標10秒以内)、提案資料生成: POST /api/v1/proposals/generate(入力: customer_id, proposal_type, products, market_context、出力: proposal_id, document_url, preview、目標30秒以内)"
+    rationale: "実装仕様の基礎を定義し、開発チームの共通認識を確保"
+    category: "technical"
+    created_at: "2026-01-31"
+    updated_at: "2026-01-31"
+    impact:
+      requirements:
+        - "REQ-002"
+        - "REQ-003"
+        - "REQ-005"
+        - "REQ-008"
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-036"
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260129_要件定義詳細ヒアリング.md"
+      attendees:
+        - "佐伯部長（営業企画）"
+        - "杉本部長（DX推進）"
+        - "山根副部長（情シス）"
+        - "山口マネージャー（リテール現場）"
+        - "清水リーダー（営業企画）"
+        - "高松（LayerX PM）"
+        - "田中（LayerX アーキテクト）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-034"
+    date: "2026-01-29"
+    title: "AIエージェント/ワークフロー要件の確定"
+    content: "3種類のAIエージェント(統合検索、要約、提案資料生成)の役割・対話パターン・使用技術・制約を確定。ワークフローステップ構成(情報収集→分析→生成→検証→出力)を定義。再実行要件(最大5回、履歴保存10件)、再生成要件(スライド単位、書き直し、代替案生成)、フィードバック反映(良い/悪い評価、コメント入力、モデル改善用蓄積)"
+    rationale: "AIエージェントの振る舞いと品質管理の仕組みを明確化"
+    category: "technical"
+    created_at: "2026-01-31"
+    updated_at: "2026-01-31"
+    impact:
+      requirements:
+        - "REQ-002"
+        - "REQ-005"
+        - "REQ-008"
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-037"
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260129_要件定義詳細ヒアリング.md"
+      attendees:
+        - "佐伯部長（営業企画）"
+        - "杉本部長（DX推進）"
+        - "山根副部長（情シス）"
+        - "山口マネージャー（リテール現場）"
+        - "清水リーダー（営業企画）"
+        - "高松（LayerX PM）"
+        - "田中（LayerX アーキテクト）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-035"
+    date: "2026-01-29"
+    title: "外部システム連携のデータ項目・頻度・プロトコル詳細の確定"
+    content: "7つの外部システム連携仕様を確定。CRM(Salesforce): REST API/OAuth2.0/日次バッチ(PoC)→準リアルタイム(本番)、商品DB: SQL Server/ODBC/VPN/週次→日次、市況レポートDB: SMB/CIFS/AD認証/週次→日次、社内規程DB(SharePoint): Graph API/OAuth2.0/週次→日次、FAQ DB: REST API/APIキー/週次→日次、過去提案資料: SMB/CIFS/AD認証/初回一括→週次、外部ニュース: PoC対象外(本番でリアルタイム検討)"
+    rationale: "データ連携の技術仕様を明確化し、実装計画を具体化"
+    category: "technical"
+    created_at: "2026-01-31"
+    updated_at: "2026-01-31"
+    impact:
+      requirements:
+        - "REQ-002"
+        - "REQ-004"
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-038"
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260129_要件定義詳細ヒアリング.md"
+      attendees:
+        - "佐伯部長（営業企画）"
+        - "杉本部長（DX推進）"
+        - "山根副部長（情シス）"
+        - "山口マネージャー（リテール現場）"
+        - "清水リーダー（営業企画）"
+        - "高松（LayerX PM）"
+        - "田中（LayerX アーキテクト）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-036"
+    date: "2026-01-29"
+    title: "ユーザーインターフェース要件の確定"
+    content: "UI要件を確定。メニュー構成(ホーム、検索、要約、提案資料作成、履歴、設定、ヘルプ)、5つの主要画面(ダッシュボード、統合検索、要約、提案資料生成、履歴管理)、3ロール別権限(営業担当者、営業マネージャー、管理者)、対応ブラウザ(Chrome/Edge推奨、Firefox/Safariサポート、IE非サポート)、対応デバイス(PC必須、タブレット推奨、スマホは将来検討)、アクセシビリティ(WCAG 2.1 AA目標)"
+    rationale: "ユーザー体験の基準を明確化し、UIデザインの指針を提供"
+    category: "technical"
+    created_at: "2026-01-31"
+    updated_at: "2026-01-31"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-039"
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260129_要件定義詳細ヒアリング.md"
+      attendees:
+        - "佐伯部長（営業企画）"
+        - "杉本部長（DX推進）"
+        - "山根副部長（情シス）"
+        - "山口マネージャー（リテール現場）"
+        - "清水リーダー（営業企画）"
+        - "高松（LayerX PM）"
+        - "田中（LayerX アーキテクト）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-037"
+    date: "2026-01-29"
+    title: "データモデル概要の確定"
+    content: "主要エンティティ9種類を定義。Customer(顧客)、Product(商品)、Proposal(提案資料)、ProposalProduct(提案商品)、MarketReport(市況レポート)、Knowledge(ナレッジ)、SearchHistory(検索履歴)、User(ユーザー)、Feedback(フィードバック)。エンティティ関連(Customer-Proposal 1:N、Proposal-ProposalProduct 1:N、ProposalProduct-Product N:1、User-SearchHistory 1:N、Proposal-Feedback 1:N等)"
+    rationale: "データ構造の全体像を示し、設計・実装の指針を提供"
+    category: "technical"
+    created_at: "2026-01-31"
+    updated_at: "2026-01-31"
+    impact:
+      requirements:
+        - "REQ-002"
+        - "REQ-004"
+        - "REQ-005"
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-040"
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260129_要件定義詳細ヒアリング.md"
+      attendees:
+        - "佐伯部長（営業企画）"
+        - "杉本部長（DX推進）"
+        - "山根副部長（情シス）"
+        - "山口マネージャー（リテール現場）"
+        - "清水リーダー（営業企画）"
+        - "高松（LayerX PM）"
+        - "田中（LayerX アーキテクト）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-038"
+    date: "2026-01-29"
+    title: "運用・保守要件の確定"
+    content: "運用・保守要件を確定。監視対象5項目(サービス稼働状態、レスポンスタイム、エラー率、インフラリソース、データ連携)、通知方法(緊急:メール+Slack+電話、中:メール+Slack、低:メール)、インシデント分類4レベル(P1:1時間以内、P2:4時間以内、P3:1営業日、P4:3営業日)、問い合わせ対応(PoC:平日9-18時・緊急4時間・通常1営業日)、定期メンテナンス(月1回第3日曜2-6時)"
+    rationale: "運用・保守の体制と手順を明確化し、SLAを定義"
+    category: "process"
+    created_at: "2026-01-31"
+    updated_at: "2026-01-31"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-041"
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260129_要件定義詳細ヒアリング.md"
+      attendees:
+        - "佐伯部長（営業企画）"
+        - "杉本部長（DX推進）"
+        - "山根副部長（情シス）"
+        - "山口マネージャー（リテール現場）"
+        - "清水リーダー（営業企画）"
+        - "高松（LayerX PM）"
+        - "田中（LayerX アーキテクト）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-039"
+    date: "2026-01-29"
+    title: "拡張性・保守性要件の確定"
+    content: "拡張性・保守性要件を確定。設計方針(プラグインアーキテクチャ、ワークフローテンプレート、設定ファイル駆動)、ユースケース追加時の影響範囲(2-3週間)、新規データソース追加(2-4週間)、将来拡張(他部門展開、多言語対応、モバイルアプリ)、拡張性確保設計(マルチテナント対応、APIファースト、国際化対応)"
+    rationale: "将来の拡張性を確保し、保守コストを最適化"
+    category: "technical"
+    created_at: "2026-01-31"
+    updated_at: "2026-01-31"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-042"
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260129_要件定義詳細ヒアリング.md"
+      attendees:
+        - "佐伯部長（営業企画）"
+        - "杉本部長（DX推進）"
+        - "山根副部長（情シス）"
+        - "山口マネージャー（リテール現場）"
+        - "清水リーダー（営業企画）"
+        - "高松（LayerX PM）"
+        - "田中（LayerX アーキテクト）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-040"
+    date: "2026-01-29"
+    title: "移行要件の確定"
+    content: "移行要件を確定。移行対象(市況レポート過去1年分約200本、過去提案資料過去2年分約500件、FAQ約300件、社内規程約50件)、移行スケジュール(Phase 1開始2週間前～1週間前)、移行方法(Azure Blob Storage→Azure AI Searchインデックス)、既存ツール切り替え(PoC:並行稼働、Phase 2:並行継続、Phase 3:主要ツール化)、移行後検証(件数確認、サンプル検索、マスキング確認、全文検索)"
+    rationale: "移行計画を明確化し、スムーズな立ち上げを実現"
+    category: "process"
+    created_at: "2026-01-31"
+    updated_at: "2026-01-31"
+    impact:
+      requirements:
+        - "REQ-004"
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-043"
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260129_要件定義詳細ヒアリング.md"
+      attendees:
+        - "佐伯部長（営業企画）"
+        - "杉本部長（DX推進）"
+        - "山根副部長（情シス）"
+        - "山口マネージャー（リテール現場）"
+        - "清水リーダー（営業企画）"
+        - "高松（LayerX PM）"
+        - "田中（LayerX アーキテクト）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-041"
+    date: "2026-01-29"
+    title: "テスト観点（シナリオテスト/UAT）の確定"
+    content: "テスト観点を確定。シナリオテスト(3ユースケース各8ステップ)、UAT確認観点(機能性6項目、使いやすさ4項目、性能4項目、セキュリティ4項目)、性能基準(検索3秒以内、要約10秒以内、生成30秒以内、同時接続20名)、テストデータ要件(マスキングデータ、サンプル顧客30件、実商品データ、実レポート)"
+    rationale: "テスト基準を明確化し、品質保証を実現"
+    category: "process"
+    created_at: "2026-01-31"
+    updated_at: "2026-01-31"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-044"
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260129_要件定義詳細ヒアリング.md"
+      attendees:
+        - "佐伯部長（営業企画）"
+        - "杉本部長（DX推進）"
+        - "山根副部長（情シス）"
+        - "山口マネージャー（リテール現場）"
+        - "清水リーダー（営業企画）"
+        - "高松（LayerX PM）"
+        - "田中（LayerX アーキテクト）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
+  - id: "DEC-042"
+    date: "2026-01-29"
+    title: "受入条件の確定"
+    content: "受入条件を確定。機能面(必須機能7項目: 統合検索、要約、ポートフォリオ提案、NISA活用、市況アップデート、再生成、履歴管理、レビュー)、非機能面(性能、可用性99.0%以上、セキュリティ)、運用面(運用手順書、ユーザーマニュアル、教育完了)、UAT合格条件(6名によるUAT、満足度80%以上、品質評価4.0以上)。受入判定は佐伯部長、山根副部長、高松PMの三者協議"
+    rationale: "受入基準を明確化し、PoC完了の判断根拠を提供"
+    category: "process"
+    created_at: "2026-01-31"
+    updated_at: "2026-01-31"
+    impact:
+      requirements: []
+      wbs: []
+      risks: []
+      issues: []
+      questions:
+        - "QST-045"
+      documents:
+        - "outputs/requirements_draft.md"
+    source:
+      type: "hearing"
+      ref: "20260129_要件定義詳細ヒアリング.md"
+      attendees:
+        - "佐伯部長（営業企画）"
+        - "杉本部長（DX推進）"
+        - "山根副部長（情シス）"
+        - "山口マネージャー（リテール現場）"
+        - "清水リーダー（営業企画）"
+        - "高松（LayerX PM）"
+        - "田中（LayerX アーキテクト）"
+    status: "active"
+    superseded_by: null
+    revoked_reason: null
 
 # サンプル構造:
 # decisions:

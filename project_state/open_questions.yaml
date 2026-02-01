@@ -2,7 +2,1027 @@
 # スキーマ: schemas/open_questions.schema.yaml
 # エージェントによる自動更新用
 
-questions: []
+questions:
+  - id: "QST-001"
+    created_at: "2026-01-16"
+    title: "データソース一覧の確定"
+    content: "情報検索に関するデータソースの一覧を確定する必要がある"
+    context: "統合検索機能の実装に必要。データソースの種類・数・アクセス方法によりアーキテクチャが変わる"
+    category: "technical"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-009で7つのシステム(CRM、商品DB、市況レポートDB、社内規程DB、過去提案資料、FAQ DB、市場ニュース)を確定"
+    resolved_at: "2026-01-18"
+    resolved_by: "DEC-009"
+    related:
+      requirements:
+        - "REQ-002"
+        - "REQ-003"
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+  - id: "QST-002"
+    created_at: "2026-01-16"
+    title: "市況レポートの提供可否"
+    content: "市況レポートをPoCに提供可能か確認が必要"
+    context: "市況整理機能の実装に必要。提供不可の場合は代替手段を検討"
+    category: "resource"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-019で過去1年分の市況レポート約200本(PDF形式)を提供可能と確認"
+    resolved_at: "2026-01-18"
+    resolved_by: "DEC-019"
+    related:
+      requirements:
+        - "REQ-005"
+        - "REQ-006"
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+  - id: "QST-003"
+    created_at: "2026-01-16"
+    title: "PoC参加メンバーの選定"
+    content: "現場メンバーのPoC参加候補を選定する必要がある"
+    context: "PoCの効果検証には現場メンバーの協力が不可欠"
+    category: "resource"
+    priority: "Medium"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-013で若手営業担当者3名、ベテラン営業1名、営業企画メンバー2名の合計6名で実施と確定"
+    resolved_at: "2026-01-18"
+    resolved_by: "DEC-013"
+    related:
+      requirements: []
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+  - id: "QST-004"
+    created_at: "2026-01-16"
+    title: "データ連携・セキュリティ制約の詳細"
+    content: "データ連携とセキュリティ制約の詳細を確認する必要がある"
+    context: "データ連携方法やセキュリティ要件により、システムアーキテクチャが変わる"
+    category: "security"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-011でセキュリティ要件確定(Azure AD SSO、アクセス制御、暗号化、監査ログ等)"
+    resolved_at: "2026-01-18"
+    resolved_by: "DEC-011"
+    related:
+      requirements:
+        - "REQ-002"
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+  - id: "QST-005"
+    created_at: "2026-01-16"
+    title: "PoCスコープの詳細（目的・評価指標）"
+    content: "PoCの目的と評価指標を詳細に定義する必要がある"
+    context: "PoCの成功基準を明確にすることで、効果測定が可能になる"
+    category: "scope"
+    priority: "High"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-012で主目的(情報検索・資料作成の時間短縮)と評価指標(検索10分以内、作成30分以内、品質4.0以上、満足度80%以上)を確定"
+    resolved_at: "2026-01-18"
+    resolved_by: "DEC-012"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-006"
+      wbs: []
+      issues: []
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+  - id: "QST-006"
+    created_at: "2026-01-16"
+    title: "データ要件の詳細"
+    content: "データ要件を詳細に整理する必要がある"
+    context: "どのようなデータをどの形式で取得・処理するかを明確にする必要がある"
+    category: "technical"
+    priority: "Medium"
+    owner: "自社"
+    due: null
+    status: "open"
+    resolution: null
+    resolved_at: null
+    resolved_by: null
+    related:
+      requirements:
+        - "REQ-002"
+        - "REQ-004"
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+  - id: "QST-007"
+    created_at: "2026-01-16"
+    title: "As-Is / Pain / To-Beの詳細整理"
+    content: "現状分析（As-Is）、課題（Pain）、あるべき姿（To-Be）を詳細に整理する必要がある"
+    context: "提案書や計画書の作成に必要。現状と目標を明確にすることで、実装方針が定まる"
+    category: "scope"
+    priority: "Medium"
+    owner: "自社"
+    due: null
+    status: "open"
+    resolution: null
+    resolved_at: null
+    resolved_by: null
+    related:
+      requirements: []
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "hearing"
+      ref: "20260112_初回ヒアリング内容.md"
+  - id: "QST-008"
+    created_at: "2026-01-18"
+    title: "提案書の基本情報（クライアント企業名、提出日等）"
+    content: "提案書に記載する基本情報を確認する必要がある。具体的には、クライアント企業の正式名称、提出日の希望、LayerX社の正式名称と担当者名"
+    context: "提案書の表紙および署名欄に必要な基本情報"
+    category: "scope"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-007で企業名「東亜セキュリティーズ株式会社」、DEC-008で提出日「2026年1月31日」を確定"
+    resolved_at: "2026-01-18"
+    resolved_by: "DEC-007, DEC-008"
+    related:
+      requirements: []
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "提案書作成準備"
+  - id: "QST-009"
+    created_at: "2026-01-18"
+    title: "クライアントを取り巻く経営環境の変化"
+    content: "クライアントを取り巻く経営環境の変化を確認する必要がある。具体的には、市場環境、競合状況、規制変更等"
+    context: "提案書の「課題認識」セクションで経営環境の変化を記載するため"
+    category: "scope"
+    priority: "Medium"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "20260118ヒアリングで詳細確認済み。NISA改正による個人投資家増、競争激化、金融商品取引法改正による説明責任厳格化、ベテラン退職によるナレッジ喪失等"
+    resolved_at: "2026-01-18"
+    resolved_by: "20260118_提案書作成準備ヒアリング.md"
+    related:
+      requirements: []
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "提案書作成準備"
+  - id: "QST-010"
+    created_at: "2026-01-18"
+    title: "PoCにおける具体的な解決アプローチ"
+    content: "PoCにおける具体的な解決アプローチを詳細に整理する必要がある"
+    context: "提案書の「解決アプローチ」セクションで具体的な方法論を記載するため"
+    category: "technical"
+    priority: "High"
+    owner: "自社"
+    due: null
+    status: "open"
+    resolution: null
+    resolved_at: null
+    resolved_by: null
+    related:
+      requirements: []
+      decisions:
+        - "DEC-006"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "提案書作成準備"
+  - id: "QST-011"
+    created_at: "2026-01-18"
+    title: "ROI・工数削減効果の詳細（現状工数、削減見込み、効果測定方法）"
+    content: "ROI・工数削減効果の詳細を確認する必要がある。具体的には、クライアント固有の現状工数（各業務プロセス別）、削減見込み工数の試算方法、効果測定の具体的な方法"
+    context: "提案書の「提供価値（ROI・工数削減）」セクションでクライアント固有の効果を示すため"
+    category: "scope"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-014で1案件あたり情報検索35分削減、資料作成1時間削減、合計1.6時間削減。年間削減効果約5,000万円と試算"
+    resolved_at: "2026-01-18"
+    resolved_by: "DEC-014"
+    related:
+      requirements: []
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "提案書作成準備"
+  - id: "QST-012"
+    created_at: "2026-01-18"
+    title: "クライアント向けの具体的なユースケースシナリオ"
+    content: "クライアント向けの具体的なユースケースシナリオ（2-3件）を作成する必要がある"
+    context: "提案書の「主要ユースケース」セクションでクライアント固有の活用シーンを示すため"
+    category: "scope"
+    priority: "High"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-015で3つのユースケースシナリオ確定(富裕層向けポートフォリオ提案、NISA活用支援、市況急変時の顧客フォロー)"
+    resolved_at: "2026-01-18"
+    resolved_by: "DEC-015"
+    related:
+      requirements:
+        - "REQ-002"
+        - "REQ-005"
+        - "REQ-008"
+      decisions:
+        - "DEC-006"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "提案書作成準備"
+  - id: "QST-013"
+    created_at: "2026-01-18"
+    title: "導入フェーズ・マイルストーン・全体スケジュール"
+    content: "導入ステップとスケジュールを詳細に整理する必要がある。具体的には、フェーズ分けの詳細（フェーズ1、フェーズ2の具体的な内容）、各フェーズの期間、マイルストーン（キックオフ、要件確定、設計完了、実装完了、テスト完了、本番移行等）、全体スケジュール"
+    context: "提案書の「導入ステップとスケジュール」セクションで具体的な実施計画を示すため"
+    category: "schedule"
+    priority: "High"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-016でPhase 1(PoC 2ヶ月)、Phase 2(パイロット 3ヶ月、1支店20名)、Phase 3(本格展開 6ヶ月、200名)、各マイルストーン確定"
+    resolved_at: "2026-01-18"
+    resolved_by: "DEC-016"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-004"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "提案書作成準備"
+  - id: "QST-014"
+    created_at: "2026-01-18"
+    title: "導入アーキテクチャ（SaaS形態、システム構成、データ連携方式）"
+    content: "導入アーキテクチャを詳細に整理する必要がある。具体的には、Single-Tenant SaaS / 顧客テナント導入のどちらを採用するか、システム構成図の詳細、既存システムとの連携方式、データ連携方式（API、ファイル取り込み等）"
+    context: "提案書の「導入アーキテクチャ」セクションで技術的な実現方法を示すため"
+    category: "technical"
+    priority: "High"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-017でPoC段階はLayerXマルチテナントSaaS、本格導入時は顧客テナント専用環境(Azure)、AI機能としてAzure OpenAI Service等を採用"
+    resolved_at: "2026-01-18"
+    resolved_by: "DEC-017"
+    related:
+      requirements:
+        - "REQ-002"
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "提案書作成準備"
+  - id: "QST-015"
+    created_at: "2026-01-18"
+    title: "セキュリティ・ガバナンス要件の詳細"
+    content: "セキュリティ・ガバナンス要件の詳細を確認する必要がある。具体的には、具体的なセキュリティ要件（認証、認可、暗号化、監査ログ等）、ガバナンス要件、データ保護方針、アクセス制御方式（RBAC等）"
+    context: "提案書の「セキュリティ・ガバナンス」セクションで信頼性・安全性を示すため。QST-004と関連するが、より提案書向けに具体化"
+    category: "security"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-011でセキュリティ要件確定(Azure AD SSO、部署別・ロール別アクセス制御、暗号化、監査ログ6ヶ月保存、マスキングデータ使用)"
+    resolved_at: "2026-01-18"
+    resolved_by: "DEC-011"
+    related:
+      requirements: []
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "提案書作成準備"
+  - id: "QST-016"
+    created_at: "2026-01-18"
+    title: "システム環境（クラウド/オンプレ、ネットワーク、データ提供方法）"
+    content: "システム環境を確認する必要がある。具体的には、利用可能なシステム環境（クラウド、オンプレミス等）、ネットワーク環境（VPN、専用線等）、データ提供方法"
+    context: "提案書の「導入アーキテクチャ」セクションでシステム環境を明確にするため。QST-001、QST-004と関連"
+    category: "technical"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-010でAzureクラウド環境、VPN経由アクセス、PoC段階ではファイル取り込み方式、本格導入時はAPI連携を決定"
+    resolved_at: "2026-01-18"
+    resolved_by: "DEC-010"
+    related:
+      requirements:
+        - "REQ-002"
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "提案書作成準備"
+  - id: "QST-017"
+    created_at: "2026-01-18"
+    title: "プロジェクト体制（役割分担、稼働率、コミュニケーション方法）"
+    content: "プロジェクト体制の詳細を整理する必要がある。具体的には、各メンバーの役割分担の詳細、稼働率（工数配分）、コミュニケーション方法（定例会議の頻度等）"
+    context: "提案書の「プロジェクト体制」セクションで実施体制を明確にするため"
+    category: "resource"
+    priority: "Medium"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-018でクライアント側(佐伯部長、杉本部長、山根副部長、山口マネージャー)、LayerX側(高松PM 50%、アーキテクト30%、開発2名80%、CS 20%)を確定"
+    resolved_at: "2026-01-18"
+    resolved_by: "DEC-018"
+    related:
+      requirements: []
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "提案書作成準備"
+  - id: "QST-018"
+    created_at: "2026-01-19"
+    title: "計画書の適用範囲詳細（対象期間、対象部門）"
+    content: "計画書の適用範囲を明確にする必要がある。具体的には、計画書がカバーする対象期間の明記（Phase 1のみか、Phase 1～3全体か）、対象部門の詳細（リテール営業部門の具体的な部署名、人数等）"
+    context: "計画書の「本計画書の目的・位置づけ」セクションで適用範囲を明記するため"
+    category: "scope"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "project_plan_draft.mdセクション2.2で適用範囲を明記。対象期間: Phase 1（PoC）2ヶ月間、対象部門: リテール営業部門（PoC参加メンバー6名）"
+    resolved_at: "2026-01-29"
+    resolved_by: "project_plan_draft.md"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-016"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-019"
+    created_at: "2026-01-19"
+    title: "中長期的なKGI/KPI（Phase 2、3を含む全体指標）"
+    content: "Phase 2、Phase 3を含むプロジェクト全体のKGI/KPIを定義する必要がある。PoC評価指標は確定済みだが、パイロット展開、本格展開時の成果指標（KGI）とプロジェクト進捗指標（KPI）が必要"
+    context: "計画書の「プロジェクトのゴール・KGI/KPI」セクションで全体指標を示すため"
+    category: "scope"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "open"
+    resolution: null
+    resolved_at: null
+    resolved_by: null
+    related:
+      requirements: []
+      decisions:
+        - "DEC-012"
+        - "DEC-016"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-020"
+    created_at: "2026-01-19"
+    title: "詳細なRACIマトリクス（タスク別の役割と責任）"
+    content: "主要タスク（要件定義、ナレッジ整理、ワークフロー設計、環境構築、テスト、教育・展開等）に対する役割と責任をRACIマトリクスで整理する必要がある"
+    context: "計画書の「プロジェクト体制」セクションでRACIマトリクスを示すため"
+    category: "process"
+    priority: "Medium"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "project_plan_draft.mdセクション5.2でRACIマトリクス（役割と責任）を記載。主要タスク（要件定義、設計、開発、テスト、データ準備、効果測定等）の役割分担を明確化"
+    resolved_at: "2026-01-29"
+    resolved_by: "project_plan_draft.md"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-018"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-021"
+    created_at: "2026-01-19"
+    title: "マスタースケジュール詳細（Phase 2、3の週次・月次スケジュール）"
+    content: "Phase 2（パイロット展開）、Phase 3（本格展開）の詳細スケジュールを週次・月次レベルで策定する必要がある。Phase 1のマイルストーンは確定済みだが、Phase 2、3の主要マイルストーンと期間配分が必要"
+    context: "計画書の「フェーズ構成とマスタースケジュール」セクションで全体スケジュールを示すため"
+    category: "schedule"
+    priority: "High"
+    owner: "自社"
+    due: null
+    status: "open"
+    resolution: null
+    resolved_at: null
+    resolved_by: null
+    related:
+      requirements: []
+      decisions:
+        - "DEC-016"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-022"
+    created_at: "2026-01-19"
+    title: "Phase 1（PoC）の詳細タスク・成果物"
+    content: "Phase 1（PoC実施）の詳細タスクと成果物を定義する必要がある。具体的には、要件定義、設計、実装、テスト、効果測定などの各タスクと、それぞれの成果物"
+    context: "計画書の「フェーズ別タスク・成果物」セクションでPhase 1の詳細を示すため"
+    category: "scope"
+    priority: "High"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-020でPhase 1の詳細タスク29件を確定。wbs.yamlに登録完了。project_plan_draft.mdセクション7.1～7.6でPhase 1～6の詳細タスクと成果物を記載"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-020, project_plan_draft.md"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-016"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-023"
+    created_at: "2026-01-19"
+    title: "Phase 2（パイロット展開）の詳細タスク・成果物"
+    content: "Phase 2（パイロット展開）の詳細タスクと成果物を定義する必要がある。1支店20名への展開における具体的なタスク、成果物、マイルストーン"
+    context: "計画書の「フェーズ別タスク・成果物」セクションでPhase 2の詳細を示すため"
+    category: "scope"
+    priority: "Medium"
+    owner: "自社"
+    due: null
+    status: "open"
+    resolution: null
+    resolved_at: null
+    resolved_by: null
+    related:
+      requirements: []
+      decisions:
+        - "DEC-016"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-024"
+    created_at: "2026-01-19"
+    title: "Phase 3（本格展開）の詳細タスク・成果物"
+    content: "Phase 3（本格展開）の詳細タスクと成果物を定義する必要がある。200名への全社展開における具体的なタスク、成果物、マイルストーン"
+    context: "計画書の「フェーズ別タスク・成果物」セクションでPhase 3の詳細を示すため"
+    category: "scope"
+    priority: "Medium"
+    owner: "自社"
+    due: null
+    status: "open"
+    resolution: null
+    resolved_at: null
+    resolved_by: null
+    related:
+      requirements: []
+      decisions:
+        - "DEC-016"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-025"
+    created_at: "2026-01-19"
+    title: "インフラ構成詳細（コンピュート、ストレージ要件）"
+    content: "インフラ構成の詳細を確認する必要がある。具体的には、コンピュート要件（VM/コンテナのスペック、台数）、ストレージ要件（データ量、保存期間）、ネットワーク帯域等"
+    context: "計画書の「環境構成・技術要件」セクションでインフラ構成要件を示すため"
+    category: "technical"
+    priority: "Medium"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "project_plan_draft.mdセクション8.1でインフラ構成要件を記載。Azure Japan East、App Service、Azure AI Search、Cosmos DB、Azure OpenAI Service、Storage Account、VNet/Subnet等の構成要素を明記"
+    resolved_at: "2026-01-29"
+    resolved_by: "project_plan_draft.md"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-010"
+        - "DEC-017"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-026"
+    created_at: "2026-01-19"
+    title: "アプリケーション構成詳細（構成要素の詳細）"
+    content: "アプリケーション構成の詳細を整理する必要がある。具体的には、AIWorkforceの構成要素（Webアプリ、API、ワークフローエンジン、ナレッジDB等）の詳細仕様"
+    context: "計画書の「環境構成・技術要件」セクションでアプリケーション構成要件を示すため"
+    category: "technical"
+    priority: "Medium"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "project_plan_draft.mdセクション8.2でアプリケーション構成要件を記載。フロントエンド（React）、バックエンド（Python/FastAPI）、AI機能（Azure OpenAI Service、Azure AI Search）、データ基盤（Cosmos DB、Blob Storage）等の構成を明記"
+    resolved_at: "2026-01-29"
+    resolved_by: "project_plan_draft.md"
+    related:
+      requirements:
+        - "REQ-002"
+        - "REQ-005"
+        - "REQ-008"
+      decisions:
+        - "DEC-017"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-027"
+    created_at: "2026-01-19"
+    title: "非機能要件詳細（可用性、性能、バックアップ/DR、監視）"
+    content: "非機能要件の詳細を確認する必要がある。具体的には、可用性要件（稼働率、ダウンタイム許容）、性能要件（レスポンスタイム、同時接続数）、バックアップ/DR方針、監視・アラート要件"
+    context: "計画書の「環境構成・技術要件」セクションで非機能要件を示すため"
+    category: "technical"
+    priority: "Medium"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "project_plan_draft.mdセクション8.3で非機能要件を記載。可用性（稼働率99.9%目標）、性能（検索レスポンス3秒以内、同時接続20名）、セキュリティ（暗号化、認証、監査ログ）、バックアップ（日次、30日間保存）等を明記"
+    resolved_at: "2026-01-29"
+    resolved_by: "project_plan_draft.md"
+    related:
+      requirements: []
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-028"
+    created_at: "2026-01-19"
+    title: "データ整備・クレンジング計画"
+    content: "データ整備・クレンジングの具体的な計画を策定する必要がある。具体的には、市況レポート、過去提案資料、FAQ等のデータ整備方法、クレンジング基準、作業工数見積もり、責任者"
+    context: "計画書の「ナレッジ・データ準備計画」セクションでデータ整備計画を示すため"
+    category: "process"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-023でデータ準備計画を確定。project_plan_draft.mdセクション9.2でデータ整備・クレンジング計画を記載。7データソース別の整備方法、クレンジング基準（不完全データ除外、重複除去、フォーマット統一等）、マスキング処理を明記"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-023, project_plan_draft.md"
+    related:
+      requirements:
+        - "REQ-002"
+        - "REQ-004"
+        - "REQ-005"
+      decisions:
+        - "DEC-009"
+        - "DEC-019"
+      wbs: []
+      issues:
+        - "ISS-001"
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-029"
+    created_at: "2026-01-19"
+    title: "ナレッジポータルへの登録・更新フロー"
+    content: "ナレッジポータルへのナレッジ登録・更新フローを定義する必要がある。具体的には、誰がどのタイミングでナレッジを登録するか、承認フロー、更新頻度、品質管理方法"
+    context: "計画書の「ナレッジ・データ準備計画」セクションで登録・更新フローを示すため"
+    category: "process"
+    priority: "Medium"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "project_plan_draft.mdセクション9.3でナレッジポータル登録・更新フローを記載。初期登録（PoC開始前、LayerX担当）、運用時登録（営業企画部門・リテール営業部門）、更新頻度（月次）、承認フロー（部門マネージャー承認）を明記"
+    resolved_at: "2026-01-29"
+    resolved_by: "project_plan_draft.md"
+    related:
+      requirements:
+        - "REQ-002"
+        - "REQ-004"
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-030"
+    created_at: "2026-01-19"
+    title: "ログ・監査対応の運用手順"
+    content: "ログ・監査対応の具体的な運用手順を定義する必要がある。具体的には、操作ログ・エージェント実行ログの取得内容、保管方法、監査対応時のログ検索・エクスポート手順、担当者"
+    context: "計画書の「セキュリティ・ガバナンス計画」セクションでログ・監査対応を示すため"
+    category: "security"
+    priority: "Medium"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "project_plan_draft.mdセクション10.2でログ・監査対応を記載。取得内容（操作ログ、エージェント実行ログ、システムログ）、保管期間（6ヶ月）、監査対応手順（ログ検索・エクスポート機能）、担当者（情報システム部副部長）を明記"
+    resolved_at: "2026-01-29"
+    resolved_by: "project_plan_draft.md"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-011"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-031"
+    created_at: "2026-01-19"
+    title: "AIリスク管理の具体的な対策と運用フロー"
+    content: "AIリスク管理の具体的な対策と運用フローを定義する必要がある。具体的には、幻覚対策（根拠提示、RAG利用）の詳細、レビュー・承認フローの運用方法、エラー発生時の対応手順"
+    context: "計画書の「セキュリティ・ガバナンス計画」セクションでAIリスク管理を示すため"
+    category: "security"
+    priority: "High"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "project_plan_draft.mdセクション10.3でAIリスク管理を記載。幻覚対策（根拠提示、RAG利用、免責表示）、レビュー・承認フロー（ユーザーレビュー必須、重要提案は上司承認）、エラー発生時の対応手順（フィードバック機能、ログ記録）を明記"
+    resolved_at: "2026-01-29"
+    resolved_by: "project_plan_draft.md"
+    related:
+      requirements: []
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-032"
+    created_at: "2026-01-19"
+    title: "変更管理プロセス（スコープ変更、要件変更の申請～承認フロー）"
+    content: "変更管理プロセスを定義する必要がある。具体的には、スコープ変更・要件変更の申請手順、影響分析・リスク評価の方法、承認フロー、変更管理ボードの運用方法"
+    context: "計画書の「コミュニケーション・変更管理」セクションで変更管理プロセスを示すため"
+    category: "process"
+    priority: "Medium"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-027で変更管理・課題管理プロセスを確定。project_plan_draft.mdセクション11.2で変更管理プロセスを記載。申請手順（変更管理ボード）、影響分析・リスク評価、承認フロー（PMO→両社承認）、運用方法（週次会議で確認）を明記"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-027, project_plan_draft.md"
+    related:
+      requirements: []
+      decisions: []
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "計画書作成準備"
+  - id: "QST-033"
+    created_at: "2026-01-30"
+    title: "用語定義・略語一覧の確定"
+    content: "要件定義書に記載する用語定義と略語一覧を確定する必要がある。具体的には、プロジェクト固有の用語（例: AIワークフロー、ナレッジポータル等）、業務用語（例: CRM、リテール営業等）、技術用語（例: RAG、Azure AI Search等）の定義"
+    context: "要件定義書の「用語定義・略語一覧」セクションで関係者間の共通理解を確保するため"
+    category: "scope"
+    priority: "Medium"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-030で用語定義を確定。プロジェクト固有用語（AIワークフロー、ナレッジポータル、統合検索、要約エージェント、提案資料生成エージェント、RAG、幻覚）、業務用語（リテール営業、富裕層(HNW)、ポートフォリオ提案、市況整理、NISA、CRM）、技術用語（Azure OpenAI Service、Azure AI Search、VPN、SSO、RBAC、Cosmos DB）"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-030"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-030"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "要件定義書作成準備"
+  - id: "QST-034"
+    created_at: "2026-01-30"
+    title: "業務シナリオごとの業務フロー（Before/After）の詳細"
+    content: "各ユースケース（情報検索、市況整理、資料作成等）について、業務フロー（Before/After）を詳細に定義する必要がある。具体的には、現状の業務ステップ（As-Is）、AI導入後の業務ステップ（To-Be）、変更点・改善点"
+    context: "要件定義書の「業務要件詳細」セクションで業務改善の内容を明確にするため"
+    category: "scope"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-031で3つのユースケースのBefore/Afterを詳細化。①富裕層向けポートフォリオ提案: Before 4.5時間→After 2.3時間(49%削減)、②市況急変時の顧客フォロー: Before 2.5時間→After 0.5時間(80%削減)、③NISA活用支援: Before 3.3時間→After 1.7時間(48%削減)"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-031"
+    related:
+      requirements:
+        - "REQ-002"
+        - "REQ-005"
+        - "REQ-008"
+      decisions:
+        - "DEC-031"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "要件定義書作成準備"
+  - id: "QST-035"
+    created_at: "2026-01-30"
+    title: "業務ルール・判断ロジックの詳細"
+    content: "各業務シナリオにおける業務ルール・判断ロジックを詳細に定義する必要がある。具体的には、商品選定時の判断基準、提案資料のレビュー基準、市況解釈のガイドライン等"
+    context: "要件定義書の「業務要件詳細」セクションでAIが従うべきルールを明確にするため"
+    category: "scope"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-032で商品選定時の業務ルール・判断ロジックを確定。顧客属性フィルタリング(年齢、資産、リスク許容度、投資経験)、コンプライアンス制約(適合性の原則、説明義務、禁止商品、集中投資回避)、収益性考慮、提案資料レビュー基準、市況解釈ガイドライン"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-032"
+    related:
+      requirements:
+        - "REQ-005"
+        - "REQ-006"
+        - "REQ-007"
+      decisions:
+        - "DEC-032"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "要件定義書作成準備"
+  - id: "QST-036"
+    created_at: "2026-01-30"
+    title: "各機能の入力・出力項目、画面/API仕様の詳細"
+    content: "各機能（統合検索、要約、資料生成等）について、入力項目・出力項目の詳細、画面仕様またはAPI仕様を定義する必要がある。具体的には、データ項目名、型、必須/任意、バリデーションルール、API endpoint、レスポンス形式等"
+    context: "要件定義書の「機能要件詳細」セクションで実装仕様の基礎を定義するため"
+    category: "technical"
+    priority: "High"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-033で主要機能のAPI仕様を確定。統合検索(POST /api/v1/search)、要約(POST /api/v1/summarize)、提案資料生成(POST /api/v1/proposals/generate)のエンドポイント、入出力項目、レスポンスタイム目標を詳細化"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-033"
+    related:
+      requirements:
+        - "REQ-002"
+        - "REQ-003"
+        - "REQ-005"
+        - "REQ-008"
+      decisions:
+        - "DEC-033"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "要件定義書作成準備"
+  - id: "QST-037"
+    created_at: "2026-01-30"
+    title: "AIエージェント/ワークフロー要件の詳細"
+    content: "AIエージェント・ワークフローの要件を詳細に定義する必要がある。具体的には、エージェントの役割・典型的な対話パターン、ワークフローステップ構成（入力→分析→生成→検証→出力）、再実行・再生成・フィードバック反映の要件"
+    context: "要件定義書の「機能要件詳細」セクションでAIエージェント/ワークフローの振る舞いを定義するため"
+    category: "technical"
+    priority: "High"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-034で3種類のAIエージェント(統合検索、要約、提案資料生成)の役割・対話パターン・使用技術・制約を確定。ワークフローステップ構成、再実行要件(最大5回)、再生成要件(スライド単位)、フィードバック反映を定義"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-034"
+    related:
+      requirements:
+        - "REQ-002"
+        - "REQ-005"
+        - "REQ-008"
+      decisions:
+        - "DEC-034"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "要件定義書作成準備"
+  - id: "QST-038"
+    created_at: "2026-01-30"
+    title: "外部システム連携のデータ項目・頻度・プロトコル詳細"
+    content: "外部システム連携（CRM、商品DB、市況レポートDB等）のデータ項目、連携頻度、プロトコルを詳細に定義する必要がある。具体的には、システムごとの連携データ項目一覧、データ型、連携頻度（リアルタイム/バッチ）、連携方式（API/ファイル）、認証方法"
+    context: "要件定義書の「インターフェース要件」セクションで外部システム連携の技術仕様を定義するため"
+    category: "technical"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-035で7つの外部システム連携仕様を確定。CRM(Salesforce): REST API/OAuth2.0、商品DB: SQL Server/ODBC、市況レポートDB: SMB/CIFS、社内規程DB(SharePoint): Graph API、FAQ DB: REST API、過去提案資料: SMB/CIFS、各システムの連携頻度とプロトコルを詳細化"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-035"
+    related:
+      requirements:
+        - "REQ-002"
+        - "REQ-004"
+      decisions:
+        - "DEC-009"
+        - "DEC-010"
+        - "DEC-035"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "要件定義書作成準備"
+  - id: "QST-039"
+    created_at: "2026-01-30"
+    title: "ユーザーインターフェース要件（画面構成、対応ブラウザ等）"
+    content: "ユーザーインターフェース要件を詳細に定義する必要がある。具体的には、メニュー構成、主要画面一覧、権限別表示、対応ブラウザ（Chrome、Edge等）、対応デバイス（PC、タブレット等）、アクセシビリティ要件"
+    context: "要件定義書の「インターフェース要件」セクションでユーザー体験の基準を定義するため"
+    category: "technical"
+    priority: "Medium"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-036でUI要件を確定。メニュー構成(7カテゴリ)、5つの主要画面、3ロール別権限、対応ブラウザ(Chrome/Edge推奨)、対応デバイス(PC必須、タブレット推奨)、アクセシビリティ(WCAG 2.1 AA目標)"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-036"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-036"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "要件定義書作成準備"
+  - id: "QST-040"
+    created_at: "2026-01-30"
+    title: "データモデル概要（主要エンティティと関連）"
+    content: "データモデル概要を定義する必要がある。具体的には、主要データエンティティ（案件、提案書、顧客、市況レポート、ナレッジ等）、エンティティ間の関連（1対多、多対多等）、主要属性の概要"
+    context: "要件定義書の「データ要件」セクションでデータ構造の全体像を示すため"
+    category: "technical"
+    priority: "Medium"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-037で主要エンティティ9種類(Customer、Product、Proposal、ProposalProduct、MarketReport、Knowledge、SearchHistory、User、Feedback)とエンティティ関連を定義"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-037"
+    related:
+      requirements:
+        - "REQ-002"
+        - "REQ-004"
+        - "REQ-005"
+      decisions:
+        - "DEC-037"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "要件定義書作成準備"
+  - id: "QST-041"
+    created_at: "2026-01-30"
+    title: "運用・保守要件（障害検知、インシデント対応等）"
+    content: "運用・保守要件を詳細に定義する必要がある。具体的には、障害検知・通知の方法、運用監視の範囲、インシデント対応フロー、問い合わせ対応窓口、保守作業の実施方法"
+    context: "要件定義書の「非機能要件」セクションで運用・保守の体制と手順を定義するため"
+    category: "process"
+    priority: "Medium"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-038で運用・保守要件を確定。監視対象5項目、通知方法(緊急度別)、インシデント分類4レベル(P1:1時間以内、P2:4時間以内、P3:1営業日、P4:3営業日)、問い合わせ対応、定期メンテナンス(月1回)"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-038"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-038"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "要件定義書作成準備"
+  - id: "QST-042"
+    created_at: "2026-01-30"
+    title: "拡張性・保守性要件（ユースケース追加時の影響等）"
+    content: "拡張性・保守性要件を定義する必要がある。具体的には、ユースケース追加時の影響範囲、ワークフロー変更時の設計ポリシー、新規データソース追加時の対応方針、将来の機能拡張に向けた設計方針"
+    context: "要件定義書の「非機能要件」セクションで将来の拡張性を確保するため"
+    category: "technical"
+    priority: "Low"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-039で拡張性・保守性要件を確定。設計方針(プラグインアーキテクチャ、ワークフローテンプレート、設定ファイル駆動)、ユースケース追加(2-3週間)、データソース追加(2-4週間)、将来拡張(他部門、多言語、モバイル)"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-039"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-039"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "要件定義書作成準備"
+  - id: "QST-043"
+    created_at: "2026-01-30"
+    title: "移行要件（既存データ・ツールからの移行計画）"
+    content: "移行要件を詳細に定義する必要がある。具体的には、既存データ（過去提案資料、市況レポート等）の移行範囲、移行方法、移行スケジュール、既存ツールからの切り替え方針、移行後の検証方法"
+    context: "要件定義書の「移行・展開要件」セクションで移行計画を定義するため"
+    category: "process"
+    priority: "Medium"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-040で移行要件を確定。移行対象(市況レポート200本、提案資料500件、FAQ300件、規程50件)、スケジュール(Phase 1開始2週間前～1週間前)、切り替え方針(PoC並行稼働→Phase 3主要ツール化)、検証方法(件数確認、サンプル検索、マスキング確認)"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-040"
+    related:
+      requirements:
+        - "REQ-004"
+      decisions:
+        - "DEC-040"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "要件定義書作成準備"
+  - id: "QST-044"
+    created_at: "2026-01-30"
+    title: "テスト観点（シナリオテスト/UAT確認観点）"
+    content: "テスト観点を定義する必要がある。具体的には、シナリオテスト（業務フローごとの確認項目）、ユーザー受入テスト（UAT）で確認すべき観点（機能性、使いやすさ、性能、セキュリティ等）、テストデータ要件"
+    context: "要件定義書の「テスト観点・受入条件」セクションでテスト基準を定義するため"
+    category: "process"
+    priority: "Medium"
+    owner: "自社"
+    due: null
+    status: "resolved"
+    resolution: "DEC-041でテスト観点を確定。シナリオテスト(3ユースケース各8ステップ)、UAT確認観点(機能性6、使いやすさ4、性能4、セキュリティ4項目)、性能基準(検索3秒、要約10秒、生成30秒)、テストデータ要件(マスキングデータ、サンプル顧客30件)"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-041"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-012"
+        - "DEC-041"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "要件定義書作成準備"
+  - id: "QST-045"
+    created_at: "2026-01-30"
+    title: "受入条件（システム受入の条件）"
+    content: "システム受入条件を定義する必要がある。具体的には、機能面の受入条件（全機能が仕様通り動作）、非機能面の受入条件（性能、可用性、セキュリティ等の基準達成）、運用面の受入条件（運用手順書整備、教育完了等）"
+    context: "要件定義書の「テスト観点・受入条件」セクションで受入基準を明確にするため"
+    category: "process"
+    priority: "High"
+    owner: "顧客"
+    due: null
+    status: "resolved"
+    resolution: "DEC-042で受入条件を確定。機能面(必須機能7項目)、非機能面(性能、可用性99.0%、セキュリティ)、運用面(運用手順書、ユーザーマニュアル、教育完了)、UAT合格条件(6名UAT、満足度80%以上、品質4.0以上)、受入判定(三者協議)"
+    resolved_at: "2026-01-29"
+    resolved_by: "DEC-042"
+    related:
+      requirements: []
+      decisions:
+        - "DEC-012"
+        - "DEC-042"
+      wbs: []
+      issues: []
+    source:
+      type: "manual"
+      ref: "要件定義書作成準備"
 
 # サンプル構造:
 # questions:
