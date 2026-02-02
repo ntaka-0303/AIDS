@@ -10,7 +10,17 @@
       "Skill(intake)",
       "Skill(project-management)",
       "Skill(docgen)",
-      "Skill(quality-gate)"
+      "Skill(quality-gate)",
+      "Bash(claude:*)",
+      "Bash(pnpm create:*)",
+      "Bash(node:*)",
+      "Bash(npm --version)",
+      "Bash(npm create:*)",
+      "Bash(npm install)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss init:*)",
+      "Bash(npm run build:*)",
+      "Bash(curl:*)"
     ]
   }
 }
