@@ -7,6 +7,7 @@ import { setupWebSocket } from './websocket/index.js';
 import { yamlRouter } from './routes/yaml.js';
 import { markdownRouter } from './routes/markdown.js';
 import { createClaudeRouter } from './routes/claude.js';
+import { hearingsRouter } from './routes/hearings.js';
 
 const app = express();
 const httpServer = createServer(app);
@@ -29,6 +30,7 @@ app.use(express.json());
 app.use('/api/yaml', yamlRouter);
 app.use('/api/markdown', markdownRouter);
 app.use('/api/claude', createClaudeRouter(io));
+app.use('/api/hearings', hearingsRouter);
 
 // ヘルスチェック
 app.get('/api/health', (req, res) => {

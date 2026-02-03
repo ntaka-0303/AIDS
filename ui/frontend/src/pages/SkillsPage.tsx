@@ -20,7 +20,7 @@ const skillCategories = [
     name: '取り込み',
     icon: Upload,
     color: 'blue',
-    skills: ['intake'],
+    skills: ['hearing-add', 'intake'],
   },
   {
     id: 'docgen',

@@ -51,16 +51,25 @@ npm run dev --workspace=frontend
 - カテゴリ別ファイルリスト
 - Markdownレンダリング
 
-### 4. スキル実行
+### 4. ヒアリング追加
+新しいヒアリングメモを登録
+- **内容貼付モード**: Markdown内容を直接入力して保存
+- **ファイル指定モード**: 既存ファイルのパスを指定して登録
+- **ドラッグ&ドロップ**: Markdownファイルをドロップして追加
+- メタデータ（日付、タイトル、参加者）の入力
+- `_index.yaml`への自動登録
+- 登録後は「intakeを実行」で取り込み可能
+
+### 5. スキル実行
 カテゴリ別にスキルボタンを配置
-- **取り込み**: ヒアリング取り込み（Intake）
+- **取り込み**: ヒアリング追加（HearingAdd）、ヒアリング取り込み（Intake）
 - **ドキュメント生成**: 提案書/計画書/要件定義書生成
 - **品質管理**: Quality Gate
 - **レポート**: 週次報告書生成
 
 実行中の出力をリアルタイム表示、実行履歴の保存
 
-### 5. AIチャット
+### 6. AIチャット
 - Claude Codeへの自由な指示
 - プリセットコマンド（WBS確認、課題一覧など）
 - ストリーミングレスポンス表示
@@ -123,6 +132,13 @@ ui/
 - `GET /api/claude/skills` - スキル一覧
 - `POST /api/claude/execute` - スキル実行
 - `POST /api/claude/chat` - チャット
+
+### Hearings API
+- `GET /api/hearings` - ヒアリング一覧
+- `GET /api/hearings/files` - ヒアリングファイル一覧
+- `POST /api/hearings` - 新規ヒアリング追加（内容貼付）
+- `POST /api/hearings/from-file` - ファイルからヒアリング追加
+- `POST /api/hearings/analyze` - 内容からメタデータ推測
 
 ### WebSocket Events
 - `file:change` - ファイル変更通知

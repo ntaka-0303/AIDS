@@ -20,6 +20,14 @@ logs/                # 実行ログ
 
 ## クイックコマンド
 
+### ヒアリング追加（HearingAdd）
+```
+「ヒアリングを追加」        # 内容貼付モード（メタデータ質問 → 内容貼付）
+「hearing add」
+「[ファイルパス] をヒアリングとして追加」  # ファイル指定モード
+「ヒアリングファイルを登録」              # ドラッグ&ドロップ対応
+```
+
 ### ヒアリング取り込み（Intake）
 ```
 「intakeを実行」
@@ -130,6 +138,7 @@ logs/                # 実行ログ
 
 | スキル | 役割 |
 |--------|------|
+| **HearingAdd** | ヒアリングメモの新規登録（内容貼付/ファイル指定） |
 | **Intake** | ヒアリングメモからの情報抽出・初期登録 |
 | **ProjectMgmt** | 日常の進捗管理・状態更新・手動追加 |
 | **DocGen** | テンプレート＋project_stateからドキュメント生成 |
@@ -138,8 +147,8 @@ logs/                # 実行ログ
 
 ### プロジェクトフェーズ別フロー
 
-1. **プロジェクト開始**: Intake → ProjectMgmt（WBS作成）→ DocGen → QualityGate
-2. **実行フェーズ（日常）**: ProjectMgmt（状態更新）、継続ヒアリング時はIntake
+1. **プロジェクト開始**: HearingAdd → Intake → ProjectMgmt（WBS作成）→ DocGen → QualityGate
+2. **実行フェーズ（日常）**: ProjectMgmt（状態更新）、継続ヒアリング時はHearingAdd → Intake
 3. **週次サイクル**: ProjectMgmt → WeeklyReport → QualityGate
 
 ## ID採番規則

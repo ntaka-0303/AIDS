@@ -29,7 +29,9 @@
       "Bash(git rm:*)",
       "Bash(pnpm install:*)",
       "Bash(lsof:*)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(xargs:*)",
+      "Bash(fuser:*)"
     ]
   }
 }

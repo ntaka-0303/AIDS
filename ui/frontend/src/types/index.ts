@@ -34,6 +34,31 @@ export interface FieldDefinition {
   fields?: Record<string, FieldDefinition>;
 }
 
+// Hearing関連の型定義
+export interface HearingEntry {
+  id: string;
+  title: string;
+  date: string;
+  participants?: string[];
+  summary?: string;
+  add_date: string;
+  processed: 'Yes' | 'No';
+}
+
+export interface HearingAddResult {
+  success: boolean;
+  entry: HearingEntry;
+  fileName: string;
+  filePath: string;
+}
+
+export interface HearingAnalyzeResult {
+  suggestedDate: string;
+  suggestedTitle: string;
+  suggestedParticipants: string[];
+  suggestedSummary: string;
+}
+
 // Markdown関連の型定義
 export interface MarkdownFileInfo {
   name: string;
