@@ -14,6 +14,61 @@ import { socketService } from '../../services/socket';
 import { EditableCell } from './EditableCell';
 import type { YamlSchema, FieldDefinition } from '../../types';
 
+// フィールドの種類に基づいて適切な幅を返す
+function getColumnWidth(key: string, field: FieldDefinition): number {
+  // ID系フィールド
+  if (key === 'id') return 90;
+
+  // 日付フィールド
+  if (field.type === 'date' || key.includes('_at') || key === 'due' || key === 'last_reviewed') {
+    return 110;
+  }
+
+  // enum（選択肢）フィールド
+  if (field.enum) {
+    // enumの最大文字数に基づいて幅を調整
+    const maxLength = Math.max(...field.enum.map(e => e.length));
+    if (maxLength <= 5) return 80;   // 短い（高/中/低、Todo等）
+    if (maxLength <= 10) return 120; // 中程度（InProgress等）
+    return 150; // 長め
+  }
+
+  // タイトル・説明系（長文）
+  if (key === 'title' || key === 'description' || key === 'action' ||
+      key === 'resolution' || key === 'content' || key === 'context') {
+    return key === 'title' ? 280 : 320;
+  }
+
+  // 配列フィールド
+  if (field.type === 'array') {
+    return 200;
+  }
+
+  // オブジェクトフィールド
+  if (field.type === 'object') {
+    return 180;
+  }
+
+  // パス系
+  if (key === 'deliverable' || key.includes('path')) {
+    return 200;
+  }
+
+  // 担当者・オーナー
+  if (key === 'owner') return 100;
+
+  // スコア系（数値）
+  if (field.type === 'integer' || field.type === 'number' || key === 'score') {
+    return 70;
+  }
+
+  // notes・備考
+  if (key === 'notes') return 250;
+
+  // デフォルト
+  return 150;
+}
+
 interface YamlTableProps {
   fileName: string;
   title: string;
@@ -132,14 +187,16 @@ export function YamlTable({ fileName, title }: YamlTableProps) {
     const cols: any[] = [];
 
     // IDカラム（常に最初）
+    const idField = schema.fields.id as FieldDefinition;
     cols.push(
       columnHelper.accessor('id', {
         header: 'ID',
         cell: (info) => (
-          <span className="font-mono text-sm">{info.getValue()}</span>
+          <span className="font-mono text-sm whitespace-nowrap">{info.getValue()}</span>
         ),
         enableSorting: true,
-        size: 100,
+        size: getColumnWidth('id', idField || { type: 'string' }),
+        minSize: getColumnWidth('id', idField || { type: 'string' }),
       })
     );
 
@@ -152,21 +209,23 @@ export function YamlTable({ fileName, title }: YamlTableProps) {
     const displayFields = fieldEntries.slice(0, 10);
 
     for (const [key, field] of displayFields) {
+      const fieldDef = field as FieldDefinition;
+      const columnWidth = getColumnWidth(key, fieldDef);
       cols.push(
         columnHelper.accessor(key, {
           header: ({ column }) => (
             <button
-              className="flex items-center gap-1 hover:text-blue-600"
+              className="flex items-center gap-1 hover:text-blue-600 whitespace-nowrap"
               onClick={() => column.toggleSorting()}
             >
-              {(field as FieldDefinition).description || key}
+              {fieldDef.description || key}
               <ArrowUpDown size={14} />
             </button>
           ),
           cell: (info) => (
             <EditableCell
               value={info.getValue()}
-              field={field as FieldDefinition}
+              field={fieldDef}
               fieldKey={key}
               rowId={info.row.original.id}
               onUpdate={handleCellUpdate}
@@ -174,6 +233,8 @@ export function YamlTable({ fileName, title }: YamlTableProps) {
             />
           ),
           enableSorting: true,
+          size: columnWidth,
+          minSize: columnWidth,
         })
       );
     }
@@ -233,9 +294,9 @@ export function YamlTable({ fileName, title }: YamlTableProps) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="h-full w-full flex flex-col min-w-0">
       {/* ヘッダー */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-shrink-0 mb-4">
         <div>
           <h2 className="text-xl font-semibold">{title}</h2>
           <span className="text-gray-500 text-sm">{data.length} 件</span>
@@ -272,17 +333,16 @@ export function YamlTable({ fileName, title }: YamlTableProps) {
       </div>
 
       {/* テーブル */}
-      <div className="bg-white rounded-lg shadow overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+      <div className="bg-white rounded-lg shadow flex-1 min-h-0 min-w-0 overflow-auto">
+        <table className="divide-y divide-gray-200 table-fixed" style={{ minWidth: 'max-content' }}>
+            <thead className="sticky top-0 z-10">
               {table.getHeaderGroups().map((headerGroup) => (
-                <tr key={headerGroup.id}>
+                <tr key={headerGroup.id} className="bg-gray-50">
                   {headerGroup.headers.map((header) => (
                     <th
                       key={header.id}
-                      className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      style={{ width: header.getSize() }}
+                      className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50 border-b border-gray-200"
+                      style={{ width: header.getSize(), minWidth: header.getSize() }}
                     >
                       {header.isPlaceholder
                         ? null
@@ -306,7 +366,14 @@ export function YamlTable({ fileName, title }: YamlTableProps) {
                   }`}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-4 py-2">
+                    <td
+                      key={cell.id}
+                      className="px-4 py-2"
+                      style={{
+                        width: cell.column.getSize(),
+                        minWidth: cell.column.getSize(),
+                      }}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -317,14 +384,12 @@ export function YamlTable({ fileName, title }: YamlTableProps) {
               ))}
             </tbody>
           </table>
+          {data.length === 0 && (
+            <div className="text-center py-12 text-gray-400">
+              データがありません
+            </div>
+          )}
         </div>
-
-        {data.length === 0 && (
-          <div className="text-center py-12 text-gray-400">
-            データがありません
-          </div>
-        )}
-      </div>
     </div>
   );
 }

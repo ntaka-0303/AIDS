@@ -44,7 +44,7 @@ export function Layout({ children }: LayoutProps) {
   )?.label || 'ProjectOps';
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
+    <div className="h-screen bg-gray-100 flex overflow-hidden">
       {/* 左サイドバー */}
       <aside
         className={`${
@@ -118,7 +118,9 @@ export function Layout({ children }: LayoutProps) {
         </header>
 
         {/* コンテンツ */}
-        <div className="flex-1 p-6 overflow-auto">{children}</div>
+        <div className="flex-1 p-6 min-h-0 min-w-0">
+          <div className="h-full w-full">{children}</div>
+        </div>
       </main>
 
       {/* 右サイドバー（AIチャット/スキル実行） */}
