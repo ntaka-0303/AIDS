@@ -40,7 +40,7 @@ export function Layout({ children }: LayoutProps) {
   const { sidebarOpen, toggleSidebar } = useAppStore();
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
+    <div className="h-screen bg-gray-100 flex overflow-hidden">
       {/* サイドバー */}
       <aside
         className={`${
@@ -89,16 +89,18 @@ export function Layout({ children }: LayoutProps) {
       </aside>
 
       {/* メインコンテンツ */}
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col min-w-0">
         {/* ヘッダー */}
-        <header className="h-16 bg-white shadow-sm flex items-center px-6">
+        <header className="h-16 bg-white shadow-sm flex items-center px-6 flex-shrink-0">
           <h2 className="text-xl font-semibold text-gray-800">
             {navItems.find((item) => 'path' in item && item.path === location.pathname)?.label || 'ProjectOps'}
           </h2>
         </header>
 
         {/* コンテンツ */}
-        <div className="flex-1 p-6 overflow-auto">{children}</div>
+        <div className="flex-1 p-6 min-h-0 min-w-0">
+          <div className="h-full w-full">{children}</div>
+        </div>
       </main>
     </div>
   );
