@@ -6,6 +6,8 @@ import { YamlTablePage } from './pages/YamlTablePage';
 import { DocumentsPage } from './pages/DocumentsPage';
 import { ChatPage } from './pages/ChatPage';
 import { SkillsPage } from './pages/SkillsPage';
+import { HearingsPage } from './pages/HearingsPage';
+import { HearingAddPage } from './pages/HearingAddPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,7 +31,8 @@ function App() {
             <Route path="/questions" element={<YamlTablePage type="questions" />} />
             <Route path="/decisions" element={<YamlTablePage type="decisions" />} />
             <Route path="/documents" element={<DocumentsPage />} />
-            <Route path="/hearings" element={<DocumentsPage />} />
+            <Route path="/hearings" element={<HearingsPage />} />
+            <Route path="/hearings/add" element={<HearingAddPage />} />
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/skills" element={<SkillsPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />

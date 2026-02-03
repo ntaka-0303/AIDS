@@ -70,6 +70,60 @@ export const markdownApi = {
   },
 };
 
+// Hearings API
+export const hearingsApi = {
+  async list() {
+    const res = await fetch(`${API_BASE}/hearings`);
+    return res.json();
+  },
+
+  async listFiles() {
+    const res = await fetch(`${API_BASE}/hearings/files`);
+    return res.json();
+  },
+
+  async add(data: {
+    date: string;
+    title: string;
+    topic?: string;
+    participants?: string[];
+    summary?: string;
+    content: string;
+  }) {
+    const res = await fetch(`${API_BASE}/hearings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return res.json();
+  },
+
+  async addFromFile(data: {
+    sourcePath: string;
+    date: string;
+    title: string;
+    topic?: string;
+    participants?: string[];
+    summary?: string;
+  }) {
+    const res = await fetch(`${API_BASE}/hearings/from-file`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return res.json();
+  },
+
+  async analyze(data: { content: string; fileName?: string }) {
+    const res = await fetch(`${API_BASE}/hearings/analyze`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return res.json();
+  },
+};
+
 // Claude API
 export const claudeApi = {
   async getSkills() {

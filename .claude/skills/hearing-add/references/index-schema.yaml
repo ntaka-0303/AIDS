@@ -1,0 +1,130 @@
+# ヒアリング一覧（_index.yaml）スキーマ定義
+# hearing-addスキルで使用
+
+schema:
+  version: "1.0"
+  name: "hearings_index"
+  description: |
+    ヒアリングメモの一覧管理ファイル（_index.yaml）のスキーマ定義。
+
+    【目的】
+    - inputs/hearings/配下のヒアリングメモを一元管理
+    - 処理状態（processed）の追跡
+    - メタデータ（日付、参加者、概要）の管理
+
+    【使用スキル】
+    - hearing-add: 新規ヒアリングの登録
+    - intake: ヒアリング内容の処理（processed: Yes）
+
+  root_key: hearings
+
+# フィールド定義
+fields:
+  id:
+    type: string
+    required: true
+    pattern: "^HEAR-[0-9]{3}$"
+    description: "ヒアリングID"
+    example: "HEAR-001"
+    auto_generate: true
+
+  title:
+    type: string
+    required: true
+    description: "ヒアリングタイトル"
+    example: "初回ヒアリング（リテール営業部門AI Workforce PoC）"
+
+  date:
+    type: date
+    required: true
+    format: "YYYY-MM-DD"
+    description: "ヒアリング実施日"
+    example: "2026-01-12"
+
+  participants:
+    type: array
+    required: false
+    items:
+      type: string
+    description: "参加者リスト"
+    example:
+      - "山田太郎（営業部長）"
+      - "佐藤花子（DX推進部）"
+
+  summary:
+    type: string
+    required: false
+    description: "ヒアリング概要（1-2文）"
+    example: "リテール営業部門の提案業務における課題を把握し、AI WorkforceのPoC領域を共同で検討"
+
+  add_date:
+    type: date
+    required: true
+    format: "YYYY-MM-DD"
+    auto_set: true
+    description: "登録日"
+    example: "2026-01-16"
+
+  processed:
+    type: string
+    required: true
+    enum:
+      - "Yes"  # Intakeで処理済み
+      - "No"   # 未処理
+    default: "No"
+    description: "処理状態"
+
+# ID採番ルール
+id_generation:
+  format: "HEAR-{seq:03d}"
+  seq_scope: global
+  start_from: 1
+
+# ファイル名との対応
+file_naming:
+  pattern: "{YYYYMMDD}_{topic}.md"
+  date_format: "YYYYMMDD"
+  topic_rules:
+    - "日本語可"
+    - "空白はアンダースコアに変換"
+    - "特殊文字（/, \\, :, *, ?, \", <, >, |）は使用不可"
+
+# バリデーションルール
+validation:
+  business_rules:
+    - rule: "title is required"
+      error_message: "ヒアリングタイトルは必須です"
+    - rule: "date is valid date"
+      error_message: "日付は YYYY-MM-DD 形式で入力してください"
+    - rule: "add_date >= date"
+      warning_message: "登録日がヒアリング実施日より前になっています"
+
+  uniqueness:
+    - field: id
+      error_message: "ヒアリングID {value} は既に存在します"
+
+# 状態遷移ルール
+state_transitions:
+  processed:
+    "No":
+      allowed_next:
+        - "Yes"
+      description: "Intakeスキルで処理後にYesに変更"
+    "Yes":
+      allowed_next: []
+      description: "処理済みは変更不可（再処理は非推奨）"
+
+# サンプルデータ
+example:
+  - id: "HEAR-001"
+    title: "初回ヒアリング（リテール営業部門AI Workforce PoC）"
+    date: "2026-01-12"
+    participants:
+      - "佐伯（営業企画部長）"
+      - "杉本（DX推進部長）"
+      - "山根（情報システム部副部長）"
+      - "山口（リテール営業部現場マネージャー）"
+      - "高松（LayerX）"
+    summary: "リテール営業部門の提案業務における課題を把握し、AI WorkforceのPoC領域を共同で検討"
+    add_date: "2026-01-16"
+    processed: "Yes"
