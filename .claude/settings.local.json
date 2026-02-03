@@ -20,7 +20,12 @@
       "Bash(npm install:*)",
       "Bash(npx tailwindcss init:*)",
       "Bash(npm run build:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git config:*)",
+      "Bash(git merge:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }
