@@ -9,12 +9,12 @@ import {
   CheckCircle,
   FileText,
   Mic,
-  MessageSquare,
-  Play,
   Menu,
   X,
+  PanelRightOpen,
 } from 'lucide-react';
 import { useAppStore } from '../../stores/appStore';
+import { RightSidebar } from './RightSidebar';
 
 interface LayoutProps {
   children: ReactNode;
@@ -30,22 +30,26 @@ const navItems = [
   { divider: true },
   { path: '/documents', icon: FileText, label: 'ドキュメント' },
   { path: '/hearings', icon: Mic, label: 'ヒアリング' },
-  { divider: true },
-  { path: '/chat', icon: MessageSquare, label: 'AIチャット' },
-  { path: '/skills', icon: Play, label: 'スキル実行' },
-];
+] as const;
+
+type NavItem = { path: string; icon: typeof LayoutDashboard; label: string } | { divider: true };
 
 export function Layout({ children }: LayoutProps) {
   const location = useLocation();
-  const { sidebarOpen, toggleSidebar } = useAppStore();
+  const { sidebarOpen, toggleSidebar, rightSidebarOpen, openRightSidebar } = useAppStore();
+
+  const currentPageLabel = (navItems as readonly NavItem[]).find(
+    (item): item is { path: string; icon: typeof LayoutDashboard; label: string } =>
+      'path' in item && item.path === location.pathname
+  )?.label || 'ProjectOps';
 
   return (
     <div className="min-h-screen bg-gray-100 flex">
-      {/* サイドバー */}
+      {/* 左サイドバー */}
       <aside
         className={`${
           sidebarOpen ? 'w-64' : 'w-16'
-        } bg-white shadow-lg transition-all duration-300 flex flex-col`}
+        } bg-white shadow-lg transition-all duration-300 flex flex-col flex-shrink-0`}
       >
         {/* ヘッダー */}
         <div className="h-16 flex items-center justify-between px-4 border-b">
@@ -62,7 +66,7 @@ export function Layout({ children }: LayoutProps) {
 
         {/* ナビゲーション */}
         <nav className="flex-1 py-4">
-          {navItems.map((item, index) => {
+          {(navItems as readonly NavItem[]).map((item, index) => {
             if ('divider' in item) {
               return <hr key={index} className="my-2 border-gray-200" />;
             }
@@ -86,20 +90,39 @@ export function Layout({ children }: LayoutProps) {
             );
           })}
         </nav>
+
+        {/* 右サイドバー開閉ボタン */}
+        <div className="border-t p-3">
+          <button
+            onClick={() => openRightSidebar()}
+            className={`flex items-center w-full px-3 py-2 rounded-lg transition-colors ${
+              rightSidebarOpen
+                ? 'bg-blue-50 text-blue-600'
+                : 'text-gray-600 hover:bg-gray-50'
+            } ${sidebarOpen ? '' : 'justify-center'}`}
+            title="AIパネルを開く"
+          >
+            <PanelRightOpen size={20} />
+            {sidebarOpen && <span className="ml-3">AIパネル</span>}
+          </button>
+        </div>
       </aside>
 
       {/* メインコンテンツ */}
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col min-w-0">
         {/* ヘッダー */}
-        <header className="h-16 bg-white shadow-sm flex items-center px-6">
+        <header className="h-16 bg-white shadow-sm flex items-center px-6 flex-shrink-0">
           <h2 className="text-xl font-semibold text-gray-800">
-            {navItems.find((item) => 'path' in item && item.path === location.pathname)?.label || 'ProjectOps'}
+            {currentPageLabel}
           </h2>
         </header>
 
         {/* コンテンツ */}
         <div className="flex-1 p-6 overflow-auto">{children}</div>
       </main>
+
+      {/* 右サイドバー（AIチャット/スキル実行） */}
+      <RightSidebar />
     </div>
   );
 }

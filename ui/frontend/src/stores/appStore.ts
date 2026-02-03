@@ -2,9 +2,16 @@ import { create } from 'zustand';
 import type { ClaudeExecution } from '../types';
 
 interface AppState {
-  // サイドバー
+  // 左サイドバー
   sidebarOpen: boolean;
   toggleSidebar: () => void;
+
+  // 右サイドバー（AIチャット/スキル実行）
+  rightSidebarOpen: boolean;
+  rightSidebarTab: 'chat' | 'skills';
+  toggleRightSidebar: () => void;
+  setRightSidebarTab: (tab: 'chat' | 'skills') => void;
+  openRightSidebar: (tab?: 'chat' | 'skills') => void;
 
   // Claude実行状態
   executions: ClaudeExecution[];
@@ -26,9 +33,19 @@ interface Notification {
 }
 
 export const useAppStore = create<AppState>((set) => ({
-  // サイドバー
+  // 左サイドバー
   sidebarOpen: true,
   toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
+
+  // 右サイドバー
+  rightSidebarOpen: false,
+  rightSidebarTab: 'chat',
+  toggleRightSidebar: () => set((state) => ({ rightSidebarOpen: !state.rightSidebarOpen })),
+  setRightSidebarTab: (tab) => set({ rightSidebarTab: tab }),
+  openRightSidebar: (tab) => set((state) => ({
+    rightSidebarOpen: true,
+    rightSidebarTab: tab ?? state.rightSidebarTab
+  })),
 
   // Claude実行状態
   executions: [],
